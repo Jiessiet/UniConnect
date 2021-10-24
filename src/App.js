@@ -1,15 +1,20 @@
-import "./App.css";
-import React from "react";
-import { Route, Switch, BrowserRouter } from "react-router-dom";
-import LandingPage from "./views/LandingPage/LandingPage"
+import React from 'react';
+import { Container } from '@material-ui/core';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
+
+import Home from './views/Home/Home';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <BrowserRouter>
-        <Switch>
-          <Route exact path="/" render={() => <LandingPage />} />
-        </Switch>
+        <Container maxidth='lg'>
+          <Navbar />
+          <Switch>
+            <Route path="/" exact component={Home} />
+          </Switch>
+        </Container>
       </BrowserRouter>
     </div>
   );
