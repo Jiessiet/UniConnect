@@ -1,13 +1,13 @@
 import React from "react";
 
-class TextInput extends React.Component {
+class Button extends React.Component {
     render() {
       return (
         <div>
-            TextInput
+            Button
         </div>
       );
     }
   }
   
-  export default TextInput;
+  export default Button;
