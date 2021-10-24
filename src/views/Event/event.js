@@ -1,1 +1,11 @@
-// this is the event view
+import React from 'react'
+
+const event = () => {
+    return (
+        <div>
+            
+        </div>
+    )
+}
+
+export default event

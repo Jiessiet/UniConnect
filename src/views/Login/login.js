@@ -1,1 +1,11 @@
-// this is the login view
+import React from 'react'
+
+const login = () => {
+    return (
+        <div>
+            
+        </div>
+    )
+}
+
+export default login
