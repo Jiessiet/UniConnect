@@ -14,7 +14,6 @@ import InputBase from '@mui/material/InputBase';
 import Grid from '@mui/material/Grid';
 import Background from "./bg_img_simp.png"
 import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
 
 const Img = styled('images/Connected-pana.png')({
@@ -111,30 +110,6 @@ export class Home extends React.Component {
             <SearchIcon />
           </IconButton>
         </Paper>
-
-        <Grid 
-                container
-                direction="row"
-                justifyContent="space-evenly"
-                alignItems="center"
-                spacing={{ xs: 2, md: 2 }}
-                columns={{ xs: 2, sm: 8, md: 12 }}>
-                  
-                <Button variant="contained" backgroundColor='#081627' sx={{mt:2}}>
-                    <Typography variant="button" component="div" gutterBottom 
-                    sx={{ cursor: 'pointer' }}>
-                        Login
-                    </Typography>
-                </Button>
-
-                <Button variant="contained" backgroundColor='#081627' sx={{mt:2}}>
-                    <Typography variant="button" component="div" gutterBottom 
-                    sx={{ cursor: 'pointer' }}>
-                        Signup
-                    </Typography>
-                </Button>
-
-              </Grid>
 
         </Box>
         </Grid>   
