@@ -44,7 +44,7 @@ render() {
                         <TextField fullWidth label='Password' marginBottom = 'normal' placeholder='Enter Password'/>
                     </form>
                     <Box className="footer" alignItems='center'/>
-                        <Button type = 'submit' variant="contained" href= '/timeline' sx={{mt: 3, background:'green'}}>Login</Button>
+                        <Button type = 'submit' variant="contained" href= '/timeline' mt='2' background='green' sx={{mt: 2, background:'green'}}>Login</Button>
             </Grid>
             <Grid container direction='row' alignItems='flex-end' justifyContent='flex-end' padding='0' sx={{mt: 0, mb: 4, mr: 5, ml: 5}}>
                 <Grid xs={6}> </Grid>
