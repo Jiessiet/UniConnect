@@ -1,27 +1,13 @@
 import React from 'react';
-import { Container } from '@material-ui/core';
+import Container from '@mui/material/Container';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core';
 
 import Home from './views/Home/Home';
 import Navbar from './components/Navbar/Navbar';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    minHeight: '100vh',
-    backgroundImage:'url("/images/Online-pana.png")',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundColor: '#606c38'
-  }
-
-}));
-
-export default function App(){
-  const classes = useStyles();
+function App() {
   return (
-    // <div className='App'>
-    <div className ={classes.root}>;
+    <div className='App'>
       <BrowserRouter>
         <Container maxidth='lg'>
           <Navbar />
@@ -32,4 +18,6 @@ export default function App(){
       </BrowserRouter>
     </div>
   );
-};
+}
+
+export default App;

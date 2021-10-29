@@ -1,74 +1,112 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, IconButton, Toolbar, Collapse } from '@material-ui/core';
+import * as React from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
+import { lightGreen } from '@mui/material/colors';
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
+import IconButton from '@mui/material/IconButton';
+import InputBase from '@mui/material/InputBase';
+import Grid from '@mui/material/Grid';
+import Background from "./bg_img_simp.png"
+import { Link } from 'react-router-dom';
 
-import SearchBar from "material-ui-search-bar";
+const Img = styled('images/Connected-pana.png')({
+  margin: 'auto',
+  display: 'block',
+  maxWidth: '100%',
+  maxHeight: '100%',
+});
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'top',
-    height: '100vh',
-    fontFamily: 'Nunito',
+let theme = createTheme({
+  palette: {
+    primary: {
+      light: '#b7b7a4',
+      main: '#a5a58d',
+      dark: '#6b705c',
+    },
   },
-  appbar: {
-    background: 'none',
-  },
-  appbarWrapper: {
-    width: '80%',
-    margin: '0 auto',
-  },
-  appbarTitle: {
-    flexGrow: '1',
-  },
-  colorText: {
-    color: '#d4e09b',
-  },
-  container: {
-    textAlign: 'center',
-  },
-  title: {
-    color: '#fff',
-    fontSize: '4rem',
-  },
-}));
 
-export default function Home() {
-  const classes = useStyles();
-  const [checked, setChecked] = useState(false);
-  useEffect(() => {
-    setChecked(true);
-  }, []);
+});
+
+
+  theme = {
+    ...theme,
+  components: {
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: '#081627',
+        },
+      },
+    },
+  },
+};
+
+export class Home extends React.Component {
+
+  render() {
   return (
-   <div className={classes.root}>
-    <AppBar className ={classes.appbar} elevation={0}>
-      <Toolbar className={classes.appbarWrapper}> 
-      <h1 className={classes.appbarTitle}>UniConnect</h1>
-      <IconButton>
-      </IconButton>
-      </Toolbar>
-    </AppBar>
+    <ThemeProvider theme={theme}>
+      <Grid
+        container component="main" 
+        spacing={0}
+        padding = '0px'
+        padding-left='0px'
+        direction="row"
+        alignItems="center"
+        justifyContent="center"
+        style={{ minHeight: '100vh', minWidth: '100vw'}}
+        sx={{
+            backgroundImage: `url(${Background})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'}}>
 
-    <Collapse in={checked}
-        {...(checked ? { timeout: 1000 } : {})}
-        collapsedHeight={50}
-      >
-      <div className={classes.container}>
-        <h1 className={classes.title}> 
-        Welcome to <br /> <span className={classes.colorText}>UniConnect</span>
-        </h1>
-        <SearchBar
-      onChange={() => console.log('onChange')}
-      onRequestSearch={() => console.log('onRequestSearch')}
-      style={{
-        margin: '0 auto',
-        maxWidth: 800
-      }}
-    />
-      </div>
-    </Collapse>
+      <Grid item xs={3}>
+      <Box component="spand" sx={{
+        width: 100,
+        height: 100,
+        backgroundImage: 'url(${Background})',
+      }}>
 
-  </div>
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={10}
+
+        >
+          <Avatar alt="Logo" src="/images/Connected-pana.png" 
+          sx={{ width: 300, height: 300, bgcolor: lightGreen[100]} }
+          />
+        </Stack>
+        <Paper
+          component="form"
+          sx={{ p: '2px 3px', display: 'flex', justifyContent: "center", alignItems: 'center', width: 400, margin: 2}}
+        >
+          <InputBase
+            sx={{ ml: 1, flex: 1}}
+            placeholder="Search"
+            margin='none'
+            inputProps={{ 'aria-label': 'search' }}
+          />
+          <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+            <SearchIcon />
+          </IconButton>
+        </Paper>
+        </Box>
+        </Grid>   
+      </Grid> 
+       
+    </ThemeProvider>
   );
+
 }
+}
+export default Home;
