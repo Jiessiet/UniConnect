@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
@@ -15,7 +13,8 @@ import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
 import Grid from '@mui/material/Grid';
 import Background from "./bg_img_simp.png"
-import { Link } from 'react-router-dom';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 
 const Img = styled('images/Connected-pana.png')({
   margin: 'auto',
@@ -29,7 +28,6 @@ let theme = createTheme({
     primary: {
       light: '#b7b7a4',
       main: '#a5a58d',
-      dark: '#6b705c',
     },
   },
 
@@ -49,6 +47,7 @@ let theme = createTheme({
   },
 };
 
+
 export class Home extends React.Component {
 
   render() {
@@ -66,7 +65,17 @@ export class Home extends React.Component {
         sx={{
             backgroundImage: `url(${Background})`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center'}}>
+            backgroundPosition: 'center'}}
+        >
+        <AppBar position="static" color="transparent" elevation={0}>
+        <Toolbar sx={{
+        width: 10,
+        height: 10}}>
+        <Avatar alt="Logo" src="images/globe-removebg-preview.png"sx={{
+        width: 200,
+        height: 100}}/>
+      </Toolbar>
+        </AppBar>
 
       <Grid item xs={3}>
       <Box component="spand" sx={{
@@ -74,25 +83,25 @@ export class Home extends React.Component {
         height: 100,
         backgroundImage: 'url(${Background})',
       }}>
-
         <Stack
           direction="column"
           justifyContent="center"
           alignItems="center"
-          spacing={10}
+          spacing={20}
 
         >
           <Avatar alt="Logo" src="/images/Connected-pana.png" 
-          sx={{ width: 300, height: 300, bgcolor: lightGreen[100]} }
+          sx={{ width: 400, height: 400, bgcolor: lightGreen[100]} }
           />
         </Stack>
+
         <Paper
           component="form"
-          sx={{ p: '2px 3px', display: 'flex', justifyContent: "center", alignItems: 'center', width: 400, margin: 2}}
+          sx={{ p: '2px 3px', display: 'flex', justifyContent: "center", alignItems: 'center', width: 350, margin: 2}}
         >
           <InputBase
             sx={{ ml: 1, flex: 1}}
-            placeholder="Search"
+            placeholder="Find buddies :)"
             margin='none'
             inputProps={{ 'aria-label': 'search' }}
           />
@@ -100,6 +109,7 @@ export class Home extends React.Component {
             <SearchIcon />
           </IconButton>
         </Paper>
+
         </Box>
         </Grid>   
       </Grid> 
