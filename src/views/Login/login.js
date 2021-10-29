@@ -37,8 +37,8 @@ render() {
                     {/* <Avatar sx={{}}>
                         <LoginIcon />
                     </Avatar> */}
-                    <Typography component = "h1" align= 'right' variant = 'h3' fontFamily= 'revert' fontSize = '100px' marginRight = '10px' > Welcome Back to
-                    UniConnect! </Typography>
+                    <Typography component = "h1" align= 'right' variant = 'h3' fontFamily= 'revert' fontSize = '50px' marginRight = '10px' > Welcome Back to
+                    <em><b> UniConnect</b></em>! </Typography>
                     <form spacing={2}> 
                         <TextField fullWidth label='Username' margin = 'normal' placeholder='Enter Username'/>
                         <TextField fullWidth label='Password' marginBottom = 'normal' placeholder='Enter Password'/>
