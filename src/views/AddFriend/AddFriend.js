@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -127,7 +128,7 @@ export class AddFriend extends React.Component {
                 </IconButton>
               </Grid>
 
-              <Box sx={{ flexGrow: 1, display: 'flex', borderRadius: '50%'}}
+              <Box sx={{p:'10px', flexGrow: 1, display: 'flex', borderRadius: '50%'}}
               item xs="auto">
                 
                 <Grid 
@@ -173,7 +174,7 @@ export class AddFriend extends React.Component {
                 spacing={{ xs: 1, md: 2 }}
                 columns={{ xs: 4, sm: 8, md: 12 }}>
 
-                <Button color="secondary">
+                <Button component={Link} to='/profile' color="secondary">
                   <Item>
                     <Typography variant="button" component="div" gutterBottom 
                     sx={{ cursor: 'pointer' }}>

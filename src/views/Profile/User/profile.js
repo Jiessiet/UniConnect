@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PersonIcon from '@material-ui/icons/Person';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
   const classes = useStyles();
@@ -87,7 +88,7 @@ const Profile = () => {
                 </Button>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <Button variant='outlined' className={classes.button} fullWidth>
+                <Button component={Link} to='/AddFriend' variant='outlined' className={classes.button} fullWidth>
                   <Typography>Add Friend</Typography>
                 </Button>
               </Grid>

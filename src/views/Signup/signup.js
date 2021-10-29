@@ -50,7 +50,11 @@ export class signup extends React.Component {
                 </form>
             </Grid>
             <Grid item padding='0'>
-            <Button type = 'submit' variant="outline" sx={{mt: 1, color: 'white', background:'green'}}>Register</Button>
+            <Button href= '/AccountSetup' type = 'submit' 
+            variant="outline" 
+            sx={{mt: 1, color: 'white', background:'green'}}>
+                Register
+            </Button>
             </Grid> 
             <Grid item padding='0' sx={{mt: 5, mb: 0}}>
                 <Link href="./login" variant="body2" color="#1fc449">

@@ -10,6 +10,9 @@ import Signup from './views/Signup/signup'
 import Event from './views/Event/Event'
 import EventDetails from './views/Event/EventDetails'
 import { createEvent } from './views/Event/create-event';
+import AccountSetup from './views/AccountSetup/AccountSetup'
+import profile from './views/Profile/User/profile.js'
+import AddFriend from './views/AddFriend/AddFriend'
 
 function App() {
   return (
@@ -26,6 +29,9 @@ function App() {
             <Route path="/Event" exact component={Event} />
             <Route path="/EventDetails" exact component={EventDetails} />
             <Route path="/createEvent" exact component={createEvent}/>
+            <Route path="/AccountSetup" exact component={AccountSetup}/>
+            <Route path="/profile" exact component={profile}/>
+            <Route path="/AddFriend" exact component={AddFriend}/>
             </div>
           </Switch>
         </Container>

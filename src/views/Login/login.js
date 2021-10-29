@@ -49,7 +49,7 @@ render() {
             <Grid container direction='row' alignItems='flex-end' justifyContent='flex-end' padding='0' sx={{mt: 0, mb: 4, mr: 5, ml: 5}}>
                 <Grid xs={6}> </Grid>
                 <Grid item xs>
-                <Link href="/forgotpassword" variant="body2" color="#1fc449">
+                <Link href="/AccountSetup" variant="body2" color="#1fc449">
                     Forgot password?
                 </Link>
                 </Grid>
