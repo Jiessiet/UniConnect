@@ -6,6 +6,7 @@ import Home from './views/Home/Home';
 import Navbar from './components/Navbar/Navbar';
 import Timeline from './views/Timeline';
 import Login from './views/Login/login.js'
+import Signup from './views/Signup/signup'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" exact component={Home} />
             <Route path="/timeline" exact component={Timeline} />
             <Route path="/login" exact component={Login} />
+            <Route path="/signup" exact component={Signup} />
           </Switch>
         </Container>
       </BrowserRouter>
