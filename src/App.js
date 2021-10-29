@@ -5,6 +5,7 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import Home from './views/Home/Home';
 import Navbar from './components/Navbar/Navbar';
 import Timeline from './views/Timeline';
+import Login from './views/Login/login.js'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/timeline" exact component={Timeline} />
+            <Route path="/login" exact component={Login} />
           </Switch>
         </Container>
       </BrowserRouter>
