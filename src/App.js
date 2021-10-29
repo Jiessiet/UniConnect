@@ -13,6 +13,7 @@ import { createEvent } from './views/Event/create-event';
 import AccountSetup from './views/AccountSetup/AccountSetup'
 import profile from './views/Profile/User/profile.js'
 import AddFriend from './views/AddFriend/AddFriend'
+import { createCourse } from './views/Course/create-course';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/AccountSetup" exact component={AccountSetup}/>
             <Route path="/profile" exact component={profile}/>
             <Route path="/AddFriend" exact component={AddFriend}/>
+            <Route path="/createCourse" exact component={createCourse}/>
             </div>
           </Switch>
         </Container>
