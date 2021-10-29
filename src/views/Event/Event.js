@@ -9,6 +9,7 @@ import AvatarGroup from '@mui/material/AvatarGroup';
 import Button from '@mui/material/Button';
 import RoomIcon from '@mui/icons-material/Room';
 import IconButton from '@mui/material/IconButton';
+import { Link } from 'react-router-dom';
 import {Box, ThemeProvider, createTheme, positions} from '@mui/system';
 
 const Img = styled('img')({
@@ -194,7 +195,7 @@ export class Event extends React.Component {
                   </Item>
                 </Button>
 
-                <Button color="secondary">
+                <Button component={Link} to='/EventDetails' color="secondary">
                   <Item>
                     <Typography variant="button" component="div" gutterBottom 
                     sx={{ cursor: 'pointer' }}>

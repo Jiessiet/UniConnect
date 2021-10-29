@@ -11,6 +11,8 @@ import RoomIcon from '@mui/icons-material/Room';
 import IconButton from '@mui/material/IconButton';
 import {Box, ThemeProvider, createTheme, positions} from '@mui/system';
 import { GridClassKey } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+
 
 const Img = styled('img')({
   margin: 'auto',
@@ -169,7 +171,7 @@ export class EventDetails extends React.Component {
                 spacing={{ xs: 1, md: 2 }}
                 columns={{ xs: 4, sm: 8, md: 12 }}>
                   
-                <Button color="secondary">
+                <Button component={Link} to='/Event' color="secondary">
                   <Item>
                     <Typography variant="button" component="div" gutterBottom 
                     sx={{ cursor: 'pointer' }}>
