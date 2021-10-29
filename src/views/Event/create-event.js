@@ -7,19 +7,28 @@ export class createEvent extends React.Component {
 
     render() {
     return ( 
+    <Grid container xs={12} sx={{
+        // backgroundImage: `url(${background})`,
+        backgroundColor: '#d4ffdf',
+        minheight: '100vh', minWidth: '100vw',
+        backgroundSize: "auto"}}>
+
     <Grid 
         container
         alignItems="center"
-        justifyItems="center"
-        style={{ minHeight: '100vh'}}
-        sx={{
-            // backgroundImage: `url(${background})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'}}>
+        justifyContent='center'
+        // justifyItems="center"
+        style={{ minHeight: '100vh', minWidth: '50vw'}}
+        // sx={{
+        //     // backgroundImage: `url(${background})`,
+        //     backgroundColor: '#c8f7c8',
+        //     backgroundSize: 'cover',
+        //     backgroundPosition: 'center'}}
+        >
         <Grid container 
             direction="column" 
             alignItems="center"
-            // justifyItems='flex-end' 
+            justifyItems='center' 
             justifyContent='center'
             component={Paper} 
             elevation={6}
@@ -28,7 +37,7 @@ export class createEvent extends React.Component {
             padding= {0}
             xs={3}
             style = 
-                {{ minHeight: '50vh', minWidth: '30vw', border: `3px solid ${green[200]}`, padding: '5vh'}}>
+                {{ minHeight: '30vh', minWidth: '30vw', border: `3px solid ${green[200]}`, padding: '5vh', margin: '2vh'}}>
             <Grid container direction='column' alignItems='center'>  
                 <Grid item xs={3}>               
                     <Avatar>
@@ -40,10 +49,7 @@ export class createEvent extends React.Component {
                 </Grid> 
             </Grid>
             <Grid item align='center'>
-            <Box
-                component="form"
-                spacing={5}
-            >
+            <Box component="form">
                     <TextField 
                         fullWidth 
                         label='Event Title' 
@@ -67,6 +73,8 @@ export class createEvent extends React.Component {
                             {{shrink: true}} 
                         placeholder='What day will you event happen?'
                     />
+                    <Grid container direction='row'>
+                    <Grid item xs={6}>
                     <TextField 
                         label='Start Time' 
                         type='time' 
@@ -75,6 +83,8 @@ export class createEvent extends React.Component {
                             {{shrink: true}} 
                         placeholder='What time will you event start?'
                     />
+                    </Grid>
+                    <Grid item xs={6}>
                     <TextField 
                         label='End Time' 
                         type='time' 
@@ -83,6 +93,8 @@ export class createEvent extends React.Component {
                             {{shrink: true}} 
                         placeholder='What time will your event end?'
                     />
+                    </Grid>
+                    </Grid>
                     <TextField 
                         fullWidth 
                         label='Tags' 
@@ -102,12 +114,14 @@ export class createEvent extends React.Component {
                 <Button 
                     type = 'submit' 
                     variant="outline" 
+                    href="/timeline"
                     sx=
                         {{mt: 3, color: 'white', background:'green'}}>
                     Create
                 </Button>
             </Grid> 
         </Grid>
+    </Grid>
     </Grid>)
     }
 }
