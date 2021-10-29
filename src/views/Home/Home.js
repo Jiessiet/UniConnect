@@ -16,6 +16,7 @@ import Background from "./bg_img_simp.png"
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
+import { Link } from 'react-router-dom';
 
 const Img = styled('images/Connected-pana.png')({
   margin: 'auto',
@@ -41,7 +42,7 @@ let theme = createTheme({
     MuiDrawer: {
       styleOverrides: {
         paper: {
-          backgroundColor: '#081627',
+          backgroundColor: '#a5a58d',
         },
       },
     },
@@ -120,18 +121,19 @@ export class Home extends React.Component {
                 spacing={{ xs: 2, md: 2 }}
                 columns={{ xs: 2, sm: 8, md: 12 }}>
                   
-                <Button variant="contained" backgroundColor='#081627' sx={{mt:2}}>
+                <Button component={Link} to='/login' variant="contained" backgroundColor='#a5a58d' sx={{mt:2}}>
                     <Typography variant="button" component="div" gutterBottom 
                     sx={{ cursor: 'pointer' }}>
                         Login
                     </Typography>
                 </Button>
 
-                <Button variant="contained" backgroundColor='#081627' sx={{mt:2}}>
+                <Button component={Link} to='/signup' variant="contained" backgroundColor='#a5a58d' sx={{mt:2}}>
                     <Typography variant="button" component="div" gutterBottom 
                     sx={{ cursor: 'pointer' }}>
                         Signup
                     </Typography>
+
                 </Button>
 
               </Grid>
