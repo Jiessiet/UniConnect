@@ -37,24 +37,24 @@ render() {
                     {/* <Avatar sx={{}}>
                         <LoginIcon />
                     </Avatar> */}
-                    <Typography component = "h1" variant = 'h3' marginRight = '10px' > Welcome Back to
+                    <Typography component = "h1" align= 'right' variant = 'h3' fontFamily= 'revert' fontSize = '100px' marginRight = '10px' > Welcome Back to
                     UniConnect! </Typography>
                     <form spacing={2}> 
                         <TextField fullWidth label='Username' margin = 'normal' placeholder='Enter Username'/>
                         <TextField fullWidth label='Password' marginBottom = 'normal' placeholder='Enter Password'/>
                     </form>
-                    <Box className="footer"/>
-                        <Button type = 'submit' variant="contained" sx={{mt: 1, background:'green'}}>Login</Button>
+                    <Box className="footer" alignItems='center'/>
+                        <Button type = 'submit' variant="contained" href= '/timeline' sx={{mt: 3, background:'green'}}>Login</Button>
             </Grid>
             <Grid container direction='row' alignItems='flex-end' justifyContent='flex-end' padding='0' sx={{mt: 0, mb: 4, mr: 5, ml: 5}}>
                 <Grid xs={6}> </Grid>
                 <Grid item xs>
-                <Link href="#" variant="body2" color="#1fc449">
+                <Link href="/forgotpassword" variant="body2" color="#1fc449">
                     Forgot password?
                 </Link>
                 </Grid>
                 <Grid item>
-                <Link href="#" variant="body2" color="#1fc449">
+                <Link href="/signup" variant="body2" color="#1fc449">
                     {"Don't have an account? Sign Up"}
                 </Link>
                 </Grid>
