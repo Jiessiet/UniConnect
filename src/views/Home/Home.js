@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
@@ -14,7 +14,6 @@ import InputBase from '@mui/material/InputBase';
 import Grid from '@mui/material/Grid';
 import Background from "./bg_img_simp.png"
 import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
 import { Link } from 'react-router-dom';
 
@@ -34,20 +33,6 @@ let theme = createTheme({
   },
 
 });
-
-
-  theme = {
-    ...theme,
-  components: {
-    MuiDrawer: {
-      styleOverrides: {
-        paper: {
-          backgroundColor: '#a5a58d',
-        },
-      },
-    },
-  },
-};
 
 
 export class Home extends React.Component {
@@ -124,14 +109,14 @@ export class Home extends React.Component {
             spacing={{ xs: 2, md: 2 }}
             columns={{ xs: 2, sm: 8, md: 12 }}>
               
-            <Button variant="contained" backgroundColor='#a5a58d' mt={2} component={Link} to='/login'>
+            <Button variant="contained" backgroundColor='#a5a58d' sx={{mt:2}} href="/login">
                 <Typography variant="button" component="div" gutterBottom 
-                sx={{ cursor: 'pointer' }}>
+                sx={{ cursor: 'pointer'}}>
                     Login
                 </Typography>
             </Button>
 
-            <Button component={Link} to='/signup' variant="contained" backgroundColor='#a5a58d' mt={2}>
+            <Button href="/signup" variant="contained" backgroundColor='#a5a58d' sx={{mt:2}}>
                 <Typography variant="button" component="div" gutterBottom 
                 sx={{ cursor: 'pointer' }}>
                     Signup
