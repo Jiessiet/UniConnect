@@ -59,7 +59,7 @@ export class Home extends React.Component {
         padding = '0px'
         padding-left='0px'
         direction="row"
-        alignItems="center"
+        alignItems="flex-start"
         justifyContent="center"
         style={{ minHeight: '100vh', minWidth: '100vw'}}
         sx={{
@@ -70,7 +70,8 @@ export class Home extends React.Component {
         <AppBar position="static" color="transparent" elevation={0}>
         <Toolbar sx={{
         width: 10,
-        height: 10}}>
+        height: 10,
+        mt: 3}}>
         <Avatar alt="Logo" src="images/globe-removebg-preview.png"sx={{
         width: 200,
         height: 100}}/>
