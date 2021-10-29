@@ -9,6 +9,7 @@ import Login from './views/Login/login.js'
 import Signup from './views/Signup/signup'
 import Event from './views/Event/Event'
 import EventDetails from './views/Event/EventDetails'
+import { createEvent } from './views/Event/create-event';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/signup" exact component={Signup} />
             <Route path="/Event" exact component={Event} />
             <Route path="/EventDetails" exact component={EventDetails} />
+            <Route path="/createEvent" exact component={createEvent}/>
             </div>
           </Switch>
         </Container>
