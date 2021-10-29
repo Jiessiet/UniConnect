@@ -10,6 +10,7 @@ import Signup from './views/Signup/signup'
 import Event from './views/Event/Event'
 import EventDetails from './views/Event/EventDetails'
 import { createEvent } from './views/Event/create-event';
+import { createCourse } from './views/Course/create-course';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/Event" exact component={Event} />
             <Route path="/EventDetails" exact component={EventDetails} />
             <Route path="/createEvent" exact component={createEvent}/>
+            <Route path="/createCourse" exact component={createCourse}/>
             </div>
           </Switch>
         </Container>
