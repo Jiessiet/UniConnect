@@ -60,16 +60,17 @@ export class Home extends React.Component {
         spacing={0}
         padding = '0px'
         padding-left='0px'
-        direction="row"
-        alignItems="flex-start"
+        container
+        direction="column"
         justifyContent="center"
+        alignItems="center"
         style={{ minHeight: '100vh', minWidth: '100vw'}}
         sx={{
             backgroundImage: `url(${Background})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center'}}
         >
-        <AppBar position="static" color="transparent" elevation={0}>
+        <AppBar position="sticky" color="transparent" elevation={0}>
         <Toolbar sx={{
         width: 10,
         height: 10,
@@ -116,29 +117,29 @@ export class Home extends React.Component {
         </Paper>
 
         <Grid 
-                container
-                direction="row"
-                justifyContent="space-evenly"
-                alignItems="center"
-                spacing={{ xs: 2, md: 2 }}
-                columns={{ xs: 2, sm: 8, md: 12 }}>
-                  
-                <Button component={Link} to='/login' variant="contained" backgroundColor='#a5a58d' sx={{mt:2}}>
-                    <Typography variant="button" component="div" gutterBottom 
-                    sx={{ cursor: 'pointer' }}>
-                        Login
-                    </Typography>
-                </Button>
+            container
+            direction="row"
+            justifyContent="space-evenly"
+            alignItems="center"
+            spacing={{ xs: 2, md: 2 }}
+            columns={{ xs: 2, sm: 8, md: 12 }}>
+              
+            <Button variant="contained" backgroundColor='#a5a58d' mt={2} component={Link} to='/login'>
+                <Typography variant="button" component="div" gutterBottom 
+                sx={{ cursor: 'pointer' }}>
+                    Login
+                </Typography>
+            </Button>
 
-                <Button component={Link} to='/signup' variant="contained" backgroundColor='#a5a58d' sx={{mt:2}}>
-                    <Typography variant="button" component="div" gutterBottom 
-                    sx={{ cursor: 'pointer' }}>
-                        Signup
-                    </Typography>
+            <Button component={Link} to='/signup' variant="contained" backgroundColor='#a5a58d' mt={2}>
+                <Typography variant="button" component="div" gutterBottom 
+                sx={{ cursor: 'pointer' }}>
+                    Signup
+                </Typography>
 
-                </Button>
+            </Button>
 
-              </Grid>
+          </Grid>
 
         </Box>
         </Grid>   
