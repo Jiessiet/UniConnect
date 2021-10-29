@@ -6,7 +6,10 @@ import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
-import { Box, ThemeProvider, createTheme, positions} from '@mui/system';
+import Button from '@mui/material/Button';
+import RoomIcon from '@mui/icons-material/Room';
+import IconButton from '@mui/material/IconButton';
+import {Box, ThemeProvider, createTheme, positions} from '@mui/system';
 
 const Img = styled('img')({
   margin: 'auto',
@@ -39,6 +42,8 @@ const commonStyles = {
   borderColor: 'text.primary',
   width: '40rem',
   height: '10rem',
+  border: 1,
+
 };
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -86,20 +91,62 @@ export class Event extends React.Component {
                   Event Name
               </Typography>
 
-              <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={{ xs: 1, md: 2 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+              <Grid item xs
+              container
+              direction="row"
+              justifyContent="flex-end"
+              alignItems="flex-start">
+                <Typography variant="subtitle1" component="div" gutterBottom>
+                  Host name
+                </Typography>
+              </Grid>
+
+              <Box sx={{ flexGrow: 1, display: 'flex', borderRadius: '50%'}}
+              item xs="auto">
+                
+                <Grid 
+                container
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="flex-start"
+                spacing={{ xs: 1, md: 2 }}
+                columns={{ xs: 4, sm: 8, md: 12 }}>
+                  
                   {Array.from(Array(3)).map((_, index) => (
-                    <ButtonBase item xs={1} sm={1} md={2} key={index}>
+                    <Button color="secondary">
                       <Item>
-                      <Typography variant="button" component="div" gutterBottom 
-                      sx={{ cursor: 'pointer' }}>
-                          Tag
-                      </Typography>
+                        <Typography variant="button" component="div" gutterBottom 
+                        sx={{ cursor: 'pointer' }}>
+                            Tag
+                        </Typography>
                       </Item>
-                    </ButtonBase>
-                  ))}
+                    </Button>
+                    ))}
+
                 </Grid>
               </Box>
+
+              <Grid item xs
+               container
+               direction="row"
+               justifyContent="space-between"
+               alignItems="baseline"
+              >
+                <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+                  <RoomIcon />
+                  <Typography variant="subtitle1" component="div" gutterBottom>
+                    Time and Location
+                  </Typography>
+                </IconButton>
+
+                
+
+                <Typography variant="subtitle1" component="div" gutterBottom>
+                  Attendee Limit
+                </Typography>
+
+              </Grid>
+
               
               <Box sx={{ display: 'flex'}}>
                 <Box sx={{ ...commonStyles, border: 1, borderRadius: '16px'}}>
@@ -115,28 +162,51 @@ export class Event extends React.Component {
             </Grid>
 
             <Grid item 
-            direction="row"
+            direction="column" 
+            alignItems="flex-start" 
             item xs={12} sm container>
               <Typography sx={{ cursor: 'pointer' }} variant="body2">
-                Attendee
+                Attendees
               </Typography>
               
               <AvatarGroup max={3}>
-                <Avatar alt="Jiessie" src="" />
-                <Avatar alt="Mizna" src="" />
                 <Avatar alt="Sue" src="" />
-                <Avatar alt="Onur" src="" />
+                <Avatar alt="Onur" src="" />                
+                <Avatar alt="Jiessie" src="" />                
+                <Avatar alt="Mizna" src="" />
               </AvatarGroup>
-
             </Grid>
 
+            <Grid 
+                container
+                direction="row"
+                justifyContent="space-evenly"
+                alignItems="center"
+                spacing={{ xs: 1, md: 2 }}
+                columns={{ xs: 4, sm: 8, md: 12 }}>
+                  
+                <Button color="secondary">
+                  <Item>
+                    <Typography variant="button" component="div" gutterBottom 
+                    sx={{ cursor: 'pointer' }}>
+                        Attending
+                    </Typography>
+                  </Item>
+                </Button>
+
+                <Button color="secondary">
+                  <Item>
+                    <Typography variant="button" component="div" gutterBottom 
+                    sx={{ cursor: 'pointer' }}>
+                        Mark as Complete
+                    </Typography>
+                  </Item>
+                </Button>
+
+              </Grid>
+
           </Grid>
 
-          <Grid item>
-            <Typography variant="subtitle1" component="div">
-              Host name
-            </Typography>
-          </Grid>
         </Grid>
       </Grid>
     </Paper>
