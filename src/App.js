@@ -7,6 +7,8 @@ import Navbar from './components/Navbar/Navbar';
 import Timeline from './views/Timeline';
 import Login from './views/Login/login.js'
 import Signup from './views/Signup/signup'
+import Event from './views/Event/Event'
+import EventDetails from './views/Event/EventDetails'
 
 function App() {
   return (
@@ -19,6 +21,9 @@ function App() {
             <Route path="/timeline" exact component={Timeline} />
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={Signup} />
+            <Route path="/event" exact component={Event} />
+            <Route path="/eventdetails" exact component={EventDetails} />
+
           </Switch>
         </Container>
       </BrowserRouter>

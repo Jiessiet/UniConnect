@@ -46,14 +46,14 @@ export class signup extends React.Component {
                     <TextField fullWidth label='Email' margin = 'normal' placeholder='Type your email'/>
                     <TextField fullWidth label='University' margin = 'normal' placeholder='Enter your University'/>
                     <TextField fullWidth label='Password' margin = 'normal' placeholder='Create a secure password'/>
-                    <TextField fullWidth label='Password' margin = 'normal' placeholder='Retype your password'/>
+                    <TextField fullWidth label='Password' margin = 'snormal' placeholder='Retype your password'/>
                 </form>
             </Grid>
             <Grid item padding='0'>
             <Button type = 'submit' variant="outline" sx={{mt: 1, color: 'white', background:'green'}}>Register</Button>
             </Grid> 
             <Grid item padding='0' sx={{mt: 5, mb: 0}}>
-                <Link href="./login.js" variant="body2" color="#1fc449">
+                <Link href="./login" variant="body2" color="#1fc449">
                     {"Already have an account? Log In"}
                 </Link>
             </Grid>
