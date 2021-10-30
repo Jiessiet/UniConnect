@@ -19,11 +19,9 @@ function App() {
   return (
     <div className='App'>
       <BrowserRouter>
-        <Container maxidth='lg'>
+          <Navbar />
           <Switch>
             <Route path="/" exact component={Home} />
-            <div>
-            <Navbar />
             <Route path="/timeline" exact component={Timeline} />
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={Signup} />
@@ -34,9 +32,7 @@ function App() {
             <Route path="/profile" exact component={profile}/>
             <Route path="/AddFriend" exact component={AddFriend}/>
             <Route path="/createCourse" exact component={createCourse}/>
-            </div>
           </Switch>
-        </Container>
       </BrowserRouter>
     </div>
   );
