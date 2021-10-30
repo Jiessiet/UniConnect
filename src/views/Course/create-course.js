@@ -1,8 +1,7 @@
 import React from 'react'
-import { Button, Grid, Paper, Avatar, Typography, Box, TextField, Link} from '@mui/material';
+import { Button, Grid, Paper, Avatar, Typography, Box, TextField, Link, Icon} from '@mui/material';
 import { green } from '@mui/material/colors';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-import { Icon } from '@material-ui/core';
 
 
 export class createCourse extends React.Component {
