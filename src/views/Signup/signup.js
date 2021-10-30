@@ -1,8 +1,8 @@
 import React from 'react'
 import background from "./greenbg.jpg"
-import { Button, Grid, Paper, Avatar, Typography, Box, TextField, Link} from '@mui/material';
+import { Button, Grid, Paper, Avatar, Typography, Box, Icon, TextField, Link} from '@mui/material';
 import { green } from '@mui/material/colors';
-import AppRegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRounded';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export class signup extends React.Component {
 
@@ -18,6 +18,17 @@ export class signup extends React.Component {
             backgroundSize: 'cover',
             backgroundPosition: 'center'}}>
         <Grid container 
+            direction="row" 
+            alignItems="center" 
+            component={Paper} 
+            elevation={6}
+            borderRadius= {16}
+            padding= '0px'
+            xs={6}>
+        <Grid item xs={6} alignItems='flex-end' >
+            {/* <img src={loginImage}/> */}
+        </Grid>
+        <Grid container 
             direction="column" 
             alignItems="center"
             justifyItems='center' 
@@ -30,11 +41,11 @@ export class signup extends React.Component {
             style={{ minHeight: '50vh', minWidth: '30vw', border: `3px solid ${green[200]}`, padding: '5vh'}}
             xs={4}>
             <Grid container direction='column' alignItems='center'>  
-                <Grid item xs={3}>               
-                    <Avatar>
-                        <AppRegistrationRoundedIcon style={{blockSize:'30px'}}/>
-                    </Avatar>
-                </Grid> 
+                {/* <Grid item xs={1}>               
+                    <Icon>
+                        <AccountCircleIcon sx={{ }} />
+                    </Icon>
+                </Grid>  */}
                 <Grid item xs={9}> 
                     <Typography component = "h1" variant = 'h3' marginTop='2vh'> Sign
                     Up! </Typography>
@@ -58,6 +69,7 @@ export class signup extends React.Component {
                 </Link>
             </Grid>
         </Grid>
+    </Grid>
     </Grid>)
     }
 }
