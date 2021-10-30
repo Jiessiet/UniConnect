@@ -12,7 +12,6 @@ function App() {
   return (
     <div className='App'>
       <BrowserRouter>
-        <Container maxidth='lg'>
           <Navbar />
           <Switch>
             <Route path="/" exact component={Home} />
@@ -20,7 +19,6 @@ function App() {
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={Signup} />
           </Switch>
-        </Container>
       </BrowserRouter>
     </div>
   );

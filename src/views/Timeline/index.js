@@ -1,6 +1,7 @@
 import React from "react";
 import TimelineEventCard from "../../components/TimelineEventCard";
 import { Grid, createTheme } from "@mui/material";
+import { Container } from "@material-ui/core";
 
 const Timeline = () => {
   const events = [
@@ -14,6 +15,7 @@ const Timeline = () => {
   ]
 
   return (
+    <Container>
     <Grid container spacing={3} mt={4}>
       <Grid item xs={12} sm={6}>
         <TimelineEventCard {...(events[0])}/>
@@ -28,6 +30,7 @@ const Timeline = () => {
         <TimelineEventCard {...(events[0])}/>
       </Grid>
     </Grid>
+    </Container>
   );
 };
 
