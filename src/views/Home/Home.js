@@ -95,7 +95,7 @@ export class Home extends React.Component {
             inputProps={{ 'aria-label': 'search' }}
           />
           <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-          <Link to="/Event">
+          <Link to="/timeline">
             <SearchIcon />
           </Link>
           </IconButton>
