@@ -53,11 +53,11 @@ export class signup extends React.Component {
             </Grid>
             <Grid item>
                 <form> 
-                    <TextField fullWidth label='Username' right-padding='5px' margin = 'normal' placeholder='Create your own unique username'/>
-                    <TextField fullWidth label='Email' margin = 'normal' placeholder='Type your email'/>
-                    <TextField fullWidth label='University' margin = 'normal' placeholder='Enter your University'/>
-                    <TextField fullWidth label='Password' margin = 'normal' placeholder='Create a secure password'/>
-                    <TextField fullWidth label='Password' margin = 'normal' placeholder='Retype your password'/>
+                    <TextField fullWidth label='Username' right-padding='5px' margin = 'normal' required='true' placeholder='Create your own unique username'/>
+                    <TextField fullWidth label='Email' margin = 'normal' required='true' placeholder='Type your email'/>
+                    <TextField fullWidth label='University' required='true' margin = 'normal' placeholder='Enter your University'/>
+                    <TextField fullWidth label='Password' required='true' margin = 'normal' placeholder='Create a secure password'/>
+                    <TextField fullWidth label='Password' required='true' margin = 'normal' placeholder='Retype your password'/>
                 </form>
             </Grid>
             <Grid item padding='0'>
