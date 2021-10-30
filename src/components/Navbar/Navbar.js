@@ -59,11 +59,15 @@ const Navbar = () => {
       position="static"
     >
       <Stack direction="row" spacing={1}>
+      <div>
+      <Link to="/">
         <img
           className={classes.logoImage}
           src="https://cdn.discordapp.com/attachments/886450083346915328/903444358714490900/globe-removebg-preview.png"
           alt="logo"
         />
+        </Link>
+        </div>
         <Search>
           <SearchIconWrapper>
             <SearchIcon />
