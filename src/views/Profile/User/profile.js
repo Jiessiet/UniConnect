@@ -83,7 +83,7 @@ const Profile = () => {
                 </Button>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <Button variant='outlined' className={classes.button} fullWidth>
+                <Button component={Link} to='/createCourse' variant='outlined' className={classes.button} fullWidth>
                   <Typography>Add a Course</Typography>
                 </Button>
               </Grid>
