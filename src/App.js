@@ -14,6 +14,7 @@ import AccountSetup from './views/AccountSetup/AccountSetup'
 import profile from './views/Profile/User/profile.js'
 import AddFriend from './views/AddFriend/AddFriend'
 import { createCourse } from './views/Course/create-course';
+import InterestFinder from './views/InterestFinder';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Route path="/profile" exact component={profile}/>
             <Route path="/AddFriend" exact component={AddFriend}/>
             <Route path="/createCourse" exact component={createCourse}/>
+            <Route path="/interestFinder" exact component={InterestFinder}/>
             </div>
           </Switch>
       </BrowserRouter>
