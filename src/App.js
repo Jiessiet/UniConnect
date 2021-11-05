@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from "react";
 import Container from '@mui/material/Container';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
@@ -23,7 +23,18 @@ const theme = createTheme({
       'Varela',
       'round',
     ].join(','),
-  },});
+  },
+
+  palette: {
+    primary: {
+      main: "#A9BF5A",
+    },
+    secondary: {
+      main: "#4B592D",
+    },
+  },
+
+});
 
 
 function App() {
