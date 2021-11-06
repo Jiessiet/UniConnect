@@ -37,25 +37,63 @@ render() {
                     {/* <Avatar sx={{}}>
                         <LoginIcon />
                     </Avatar> */}
-                    <Typography component = "h1" align= 'right' variant = 'h3' fontFamily= 'revert' fontSize = '50px' marginRight = '10px' > Welcome Back to
-                    <em><b> UniConnect</b></em>! </Typography>
+                    <Typography 
+                        component = "h1" 
+                        align= 'right' 
+                        variant = 'h3' 
+                        fontFamily= 'revert' 
+                        fontSize = '50px' 
+                        marginRight = '10px' > 
+                        Welcome Back to<em><b> UniConnect</b></em>! 
+                    </Typography>
                     <form spacing={2}> 
-                        <TextField fullWidth label='Username' margin = 'normal' placeholder='Enter Username'/>
-                        <TextField fullWidth label='Password' marginBottom = 'normal' placeholder='Enter Password'/>
+                        <TextField 
+                            fullWidth 
+                            label='Username' 
+                            margin = 'normal' 
+                            placeholder='Enter Username'/>
+                        <TextField 
+                            fullWidth 
+                            label='Password' 
+                            marginBottom = 'normal' 
+                            placeholder='Enter Password'/>
                     </form>
-                    <Box className="footer" alignItems='center'/>
-                        <Button type = 'submit' variant="contained" href= '/timeline' mt='2' background='green' sx={{mt: 2, background:'green'}}>Login</Button>
+                    <Box 
+                    className="footer" 
+                    alignItems='center'/>
+                        <Button 
+                            type = 'submit' 
+                            variant="contained" 
+                            href= '/timeline' 
+                            mt='2' 
+                            background='green' 
+                            sx=
+                                {{mt: 2, background:'green'}}>
+                            Login
+                        </Button>
             </Grid>
-            <Grid container direction='row' alignItems='flex-end' justifyContent='flex-end' padding='0' sx={{mt: 0, mb: 4, mr: 5, ml: 5}}>
+            <Grid 
+                container 
+                direction='row' 
+                alignItems='flex-end' 
+                justifyContent='flex-end' 
+                padding='0' 
+                sx={{mt: 0, mb: 4, mr: 5, ml: 5}}>
                 <Grid xs={6}> </Grid>
                 <Grid item xs>
-                <Link href="/AccountSetup" variant="body2" color="#1fc449">
+                <Link 
+                    href="/AccountSetup" 
+                    variant="body2" 
+                    color="#1fc449">
                     Forgot password?
                 </Link>
                 </Grid>
                 <Grid item>
-                <Link href="/signup" variant="body2" color="#1fc449">
-                    {"Don't have an account? Sign Up"}
+                <Link 
+                    href="/signup" 
+                    variant="body2" 
+                    color="#1fc449">
+                    Don't have an account? Sign Up
                 </Link>
                 </Grid>
             </Grid>
