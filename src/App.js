@@ -16,6 +16,7 @@ import profile from './views/Profile/User/profile.js'
 import AddFriend from './views/AddFriend/AddFriend'
 import { createCourse } from './views/Course/create-course';
 import AnimatedBg from './views/Home/Components/AnimatedBg';
+import InterestFinder from './views/InterestFinder';
 
 const theme = createTheme({
   typography: {
@@ -35,6 +36,7 @@ const theme = createTheme({
   },
 
 });
+
 
 
 function App() {
@@ -58,6 +60,7 @@ function App() {
             <Route path="/AddFriend" exact component={AddFriend}/>
             <Route path="/createCourse" exact component={createCourse}/>
             <Route path="/AnimatedBg" exact component={AnimatedBg}/>
+            <Route path="/interestFinder" exact component={InterestFinder}/>
             </div>
           </Switch>
           </React.StrictMode>
