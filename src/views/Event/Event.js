@@ -169,13 +169,14 @@ export class Event extends React.Component {
               <Typography sx={{ cursor: 'pointer' }} variant="body2">
                 Attendees
               </Typography>
-              
+              <Link to='/profile'>
               <AvatarGroup max={3}>
                 <Avatar alt="Sue" src="" />
                 <Avatar alt="Onur" src="" />                
                 <Avatar alt="Jiessie" src="" />                
                 <Avatar alt="Mizna" src="" />
               </AvatarGroup>
+              </Link>
             </Grid>
 
             <Grid 
