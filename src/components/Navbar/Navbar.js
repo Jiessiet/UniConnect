@@ -80,7 +80,7 @@ const Navbar = () => {
 
   const classes = useStyles();
   return (
-    <AppBar elevation={0} className={classes.appbar} position="static">
+    <AppBar elevation={0} className={classes.appbar} position="fixed">
       <Stack direction="row" spacing={1}>
         <div>
           <Link to="/">
