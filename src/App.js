@@ -1,6 +1,7 @@
 import React from 'react';
 import Container from '@mui/material/Container';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 import Home from './views/Home/Home';
 import Navbar from './components/Navbar/Navbar';
@@ -14,6 +15,25 @@ import AccountSetup from './views/AccountSetup/AccountSetup'
 import profile from './views/Profile/User/profile.js'
 import AddFriend from './views/AddFriend/AddFriend'
 import { createCourse } from './views/Course/create-course';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      'Varela',
+      'round',
+    ].join(','),
+  },
+
+  palette: {
+    primary: {
+      main: "#A9BF5A",
+    },
+    secondary: {
+      main: "#4B592D",
+    },
+  },
+
+});
 
 function App() {
   return (
