@@ -7,9 +7,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { Collapse } from '@material-ui/core';
 
+
 const useStyles = makeStyles({
   root: {
     maxWidth: 645,
+    minWidth: 600,
     background: 'rgba(0,0,0,0.5)',
     margin: '20px',
   },
@@ -17,14 +19,11 @@ const useStyles = makeStyles({
     height: 440,
   },
   title: {
-    fontFamily: 'Nunito',
-    fontWeight: 'bold',
-    fontSize: '2rem',
+    fontSize: '1.7rem',
     color: '#fff',
   },
   desc: {
-    fontFamily: 'Nunito',
-    fontSize: '1.1rem',
+    fontSize: '1rem',
     color: '#ddd',
   },
 });
@@ -38,7 +37,7 @@ export default function ImageCard({ place, checked }) {
         <CardMedia
           className={classes.media}
           image={place.imageUrl}
-          title="Contemplative Reptile"
+          title="pictures"
         />
         <CardContent>
           <Typography
@@ -56,6 +55,9 @@ export default function ImageCard({ place, checked }) {
             className={classes.desc}
           >
             {place.description}
+          </Typography>
+          <Typography>
+            {place.link}
           </Typography>
         </CardContent>
       </Card>

@@ -2,14 +2,16 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import Header from './Components/Header';
-import PlaceToVisit from './Components/PlaceToVisit';
+import Descriptions from './Components/Descriptions';
+import AnimatedBg from "./Components/AnimatedBg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: '100vh',
-    backgroundImage: `url(${process.env.PUBLIC_URL + '/assets/bg.jpg'})`,
-    backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
+  },
+  waveBorder: {
+    paddingTop: theme.spacing(0),
   },
 }));
 export default function Home() {
@@ -18,7 +20,7 @@ export default function Home() {
     <div className={classes.root}>
       <CssBaseline />
       <Header />
-      <PlaceToVisit />
+      <Descriptions />
     </div>
   );
 }

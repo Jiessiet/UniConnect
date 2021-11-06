@@ -38,6 +38,8 @@ const useStyles = makeStyles((theme) => ({
   },
   appbar: {
     background: 'none',
+    padding: '10px 30px',
+    width: '100vw',
   },
   appbarWrapper: {
     width: '80%',
@@ -60,17 +62,14 @@ const useStyles = makeStyles((theme) => ({
     color: '#C9D991',
     fontSize: '4rem',
   },
-    animatedBg: {
-      color: '#FFFFFF'
-  },
   button:{
     backgroundColor:'#C9D991',
     mt: '2px',
     pt: '5px',
   },
-  waveBorder: {
-    pb: '0px'
-  },
+  // waveBorder: {
+  //   paddingTop: theme.spacing(4),
+  // },
 }));
 export default function Header() {
   const classes = useStyles();
@@ -87,7 +86,8 @@ export default function Header() {
   alignItems="center"
   sx={{
     // backgroundImage: `url(${Background})`,
-    backgroundColor: '#F2F2F2',
+    // backgroundColor: '#F2F2F2',
+    background: 'linear-gradient(180deg, #C9D991 0%, #d0f0c0 51%, #F2F2F2 75%);',
     backgroundSize: 'cover',
     backgroundPosition: 'center'}}
 >
@@ -103,10 +103,11 @@ export default function Header() {
         elevation={0}
         position="static"
         color='transparent'
+        sx={{width: '100vw',}}
       >
-        <Stack direction="row">
+        <Stack direction="row"
+        sx={{mt: '15vh', mb: '0px', pb: '0px'}}>
           <img
-            className={classes.logoImage}
             src="https://cdn.discordapp.com/attachments/886450083346915328/903444358714490900/globe-removebg-preview.png"
             alt="logo"
           />
@@ -124,13 +125,18 @@ export default function Header() {
           justifyContent="center"
           alignItems="center"
           spacing={20}
-
         >
           <Avatar alt="Logo" src="/images/Connected-pana.png"
-          sx={{ width: 400, height: 400, bgcolor: lightGreen[100]} }
+          sx={{ width: 400, height: 400, bgcolor: '#C9D991'}}
           />
         </Stack>
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={20}
 
+        >
         <Paper
           component="form"
           sx={{
@@ -138,7 +144,9 @@ export default function Header() {
             display: 'flex',
             justifyContent: "center",
             alignItems: 'center',
-            margin: 2}}
+            margin: 2,
+            width: 1/2
+          }}
         >
           <InputBase
             sx={{ ml: 1, flex: 1}}
@@ -152,14 +160,14 @@ export default function Header() {
           </Link>
           </IconButton>
         </Paper>
+        </Stack>
 
         <Grid
             container
             direction="row"
             justifyContent="space-evenly"
             alignItems="center"
-            spacing={{ xs: 2, md: 2 }}
-            columns={{ xs: 2, sm: 8, md: 12 }}>
+            >
               
             <Button variant="contained" 
             className={classes.button}
@@ -185,17 +193,19 @@ export default function Header() {
               <ExpandMoreIcon className={classes.goDown} />
             </IconButton>
           </Scroll>
-      </div>
-      </Collapse>
-      </Grid>
-    </div>
-    </Grid>
-    <AnimatedBg
+
+          <AnimatedBg
         upperColor="#F2F2F2"
         lowerColor="#C9D991"
         className={classes.waveBorder}
         animationNegativeDelay={2}
       /> 
+      </div>
+      </Collapse>
+      </Grid>
+    </div>
+    </Grid>
+
     </Fragment>
   );
 }
