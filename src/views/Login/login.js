@@ -1,7 +1,7 @@
 import React from "react";
 import loginImage from "./loginImage.svg";
 import background from "./greenbg.jpg"
-import { Button, Grid, Paper, Avatar, Typography, Box, TextField, Link} from '@mui/material';
+import { Button, Grid, Paper, Typography, Box, TextField} from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 
 export class login extends React.Component {
@@ -28,7 +28,10 @@ render() {
             elevation={6}
             borderRadius= {16}
             padding= '0px'
-            xs={6}>
+            xs={11}
+            sm={11}
+            md={8}
+            lg={7}>
             <Grid item xs={6} alignItems='flex-end' >
                 <img src={loginImage}/>
             </Grid>
@@ -43,8 +46,7 @@ render() {
                         variant = 'h3' 
                         fontFamily= 'revert' 
                         fontSize = '50px' 
-                        marginRight = '10px' > 
-                        Welcome Back to<em><b> UniConnect</b></em>! 
+                        marginRight = '10px'> Welcome back to<em><b> UniConnect</b></em>! 
                     </Typography>
                     <form spacing={2}> 
                         <TextField 
