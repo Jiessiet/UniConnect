@@ -34,7 +34,7 @@ import { useUser } from "./Contexts/UserContext";
 import DashboardRouter from "./views/Dashboard/DashboardRouter";
 import LoginRouter from "./views/Login/LoginRouter";
 import SignupRouter from "./views/Signup/SignupRouter";
-import ResetPassword from "./views/ResetPassword/RestPassword"
+import ResetPassword from "./views/ResetPassword/ResetPassword"
 import Profile from "./views/Profile/Admin/profile";
 
 const theme = createTheme({

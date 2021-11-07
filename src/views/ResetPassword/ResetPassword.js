@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 const bull = (
   <Box
     component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
+    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)', borderRadius: 16 }}
   >
     •
   </Box>
@@ -80,8 +80,8 @@ export default function AccountSetup() {
       backgroundPosition: 'center'}}
 >
   
-    <Box sx={{p:2, minWidth: 275, marginTop: 30}}>
-      <Card variant="outlined">{card}</Card>
+    <Box sx={{p:2, minWidth: 275, marginTop: 30, borderRadius: 16,}} >
+      <Card variant="outlined" sx={{borderRadius: 16, p: '5vh'}}>{card}</Card>
     </Box>
     
 </Grid>
