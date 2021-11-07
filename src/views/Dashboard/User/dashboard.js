@@ -121,7 +121,7 @@ const Dashboard = () => {
 
             <Grid item container className={classes.buttons} spacing={3} >
               <Grid item xs={12} sm={4}>
-                <Button variant='outlined' className={classes.button} fullWidth>
+                <Button variant='outlined' className={classes.button} component={Link} to="/interestFinder" fullWidth>
                   <Typography>Edit Interests</Typography>
                 </Button>
               </Grid>
