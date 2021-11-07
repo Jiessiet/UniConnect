@@ -21,10 +21,14 @@ const NavbarMenu = () => {
     if (currentUser.type == "unauthorized") {
       return (
         <Toolbar>
-          <Button component={Link} to="/login" color="inherit">
+          <Button component={Link} to="/login" 
+          // color="inherit"
+          >
             Login
           </Button>
-          <Button component={Link} to="/signup" color="inherit">
+          <Button component={Link} to="/signup" 
+          // color="inherit"
+          >
             Signup
           </Button>
         </Toolbar>
