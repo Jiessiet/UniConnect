@@ -79,7 +79,7 @@ const Login = () => {
                         align= 'right' 
                         variant = 'h3' 
                         fontFamily= 'revert' 
-                        fontSize = '50px' 
+                        fontSize = '40px' 
                         marginRight = '10px' > 
                         Welcome Back to<em><b> UniConnect</b></em>! 
                     </Typography>
@@ -127,7 +127,8 @@ const Login = () => {
                         <Link 
                             href="/ResetPassword" 
                             variant="body2" 
-                            color="#1fc449">
+                            color="#1fc449"
+                            fontSize='12px'>
                             Forgot password?
                         </Link>
                     </Grid>
@@ -135,7 +136,8 @@ const Login = () => {
                         <Link 
                             href="/signup" 
                             variant="body2" 
-                            color="#1fc449">
+                            color="#1fc449"
+                            fontSize='12px'>
                             {"Don't have an account? Sign Up"}
                         </Link>
                     </Grid>

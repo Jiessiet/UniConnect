@@ -26,20 +26,19 @@ function Signup() {
             justifyContent="center"
             style={{ minHeight: '100vh', minWidth: '100vw' }}
             sx={{
-                background: 'linear-gradient(180deg, #C9D991 10%, #d0f0c0 40%, #F2F2F2 75%)',
+                backgroundImage: `url(${background})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center'
             }}>
             <Grid container
                 direction="row"
                 alignItems="center"
-                // component={Paper}
+                component={Paper}
                 elevation={6}
                 borderRadius={16}
                 padding='0px'
                 xs={7}
                 mt='6vh'
-                md={7}
             >
                 {/* <Grid item xs={6} alignItems='flex-end' zIndex='800'> */}
                     <img src={SignUpImg}
@@ -61,15 +60,10 @@ function Signup() {
                     borderRadius={16}
                     padding='0px'
                     marginRight='1vw'
-                    zIndex='1000'
-                    style={{ 
-                        minHeight: '50vh', 
-                        minWidth: '30vw', 
-                        border: `3px solid ${green[200]}`, 
-                        padding: '5vh',
-                        backgroundColor: '#F2F2F2'
-                     }}
-                    xs={4}>
+                    // zIndex='1000'
+                    style={{ maxHeight: '90vh', minWidth: '20vw', border: `3px solid ${green[200]}`, 
+                    padding: '5vh' }}
+                    xs={7}>
                     <Grid container direction='column' alignItems='center'>
                         <Grid item xs={9}>
                             <Typography component="h1" variant='h3' marginTop='2vh' fontFamily='revert' fontStyle='revert'> 
@@ -80,10 +74,10 @@ function Signup() {
                     <Grid item>
                         <form>
                             <Grid container direction='row' alignItems='center'justifyItems='center'>
-                                <Grid item xs= {10}>
+                                <Grid item xs= {10.25}>
                                     <TextField fullWidth label='Username' right-padding='5px' margin='normal' required='true' placeholder='Create your own unique username' />
                                 </Grid>
-                            <Grid item><label htmlFor="icon-button-file" xs={1.5}>
+                            <Grid item><label htmlFor="icon-button-file" xs={1}>
                                     <Input accept="image/*" id="icon-button-file" type="file" />
                                     <Tooltip title='Upload your profile picture'>
                                     <IconButton color="green" component="span">
