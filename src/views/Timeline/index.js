@@ -8,7 +8,7 @@ const Timeline = ({eventId, setEventId}) => {
     {
     id: 1,
     title: 'Walk on the Queen Street',
-    description: 'Donec vitae eros pulvinar, congue ligula id, elementum leo. Donec scelerisque mauris et suscipit consequat. Phasellus rutrum nunc sodales enim commodo maximus.',
+    description: 'Breathe in the crisp fall air. Explore the beautiful autumn foliage, hear the crunch of the leaves in melodious synchrony with your steps. Global warming is killing this.',
     picture: 'https://picsum.photos/690/400',
     location: 'Queen Street | Toronto',
     totalParticipant: 6,

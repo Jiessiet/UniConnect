@@ -64,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
   },
   button:{
     backgroundColor:'#C9D991',
+    "&:hover": {
+      backgroundColor: "#74A651",
+    },
     mt: '2px',
     pt: '5px',
   },
@@ -179,7 +182,8 @@ export default function Header() {
             </Button>
 
             <Button href="/signup" variant="contained" 
-            className={classes.button}>
+            className={classes.button}
+            >
                 <Typography variant="button" component="div" gutterBottom
                 sx={{ cursor: 'pointer' }}>
                     Signup
@@ -188,7 +192,7 @@ export default function Header() {
             </Button>
 
           </Grid>
-          <Scroll to="place-to-visit" smooth={true}>
+          <Scroll to="description" smooth={true}>
             <IconButton>
               <ExpandMoreIcon className={classes.goDown} />
             </IconButton>

@@ -16,7 +16,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-
+import Fade from '@mui/material/Fade';
 
 const Img = styled('img')({
   margin: 'auto',
@@ -64,40 +64,49 @@ export class AddFriend extends React.Component {
   render() {
   return (
     <Grid
-    container
-    spacing={0}
-    direction="column"
-    justifyContent="center"
-    alignItems="center"
-    style={{ minHeight: '100vh' }}
-    padding = '0px'
-    padding-left='0px'
-    style={{ minHeight: '100vh', minWidth: '100vw'}}
-    sx={{
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundColor: '#ddbea9'}}
-  >
+      container
+      spacing={0}
+      direction="row"
+      alignItems="center"
+      justifyContent="center"
+      style={{ minHeight: '100vh' }}
+      padding = '0px'
+      padding-left='0px'
+      style={{ minHeight: '100vh', minWidth: '100vw'}}
+      sx={{
+        borderRadius: '16px',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        background: 'linear-gradient(141deg, #C9D991 0%, #d0f0c0 51%, #F2F2F2 75%);',}}
+    >
 
     <Paper
-        component="form"
-        sx={{ p: '2px 3px', display: 'flex', justifyContent: "center", 
-        alignItems: 'center', width: 900, margin: 2}}
+    component="form"
+    sx={{ p: '2px 3px', display: 'flex', justifyContent: "center", 
+    alignItems: 'center', width: 900, marginTop: 5, marginBottom: 0,}}
     >
-        <InputBase
-        sx={{ ml: 1, flex: 1}}
-        placeholder="Find buddies :)"
-        margin='none'
-        inputProps={{ 'aria-label': 'search' }}
-        />
-        <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-        <SearchIcon />
-        </IconButton>
+      <InputBase
+      sx={{ ml: 1, flex: 1}}
+      placeholder="Find buddies :)"
+      margin='none'
+      inputProps={{ 'aria-label': 'search' }}
+      />
+
+      <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+      <SearchIcon />
+      </IconButton>
     </Paper>
 
-    <Paper sx={{ p: 2, margin: 'auto', flexGrow: 1, maxHeight: 500, minWidth: 600}}
-    elevation={3}
-    >
+    <Grid 
+      container 
+      direction="row" 
+      alignItems="center" 
+      component={Paper} 
+      elevation={6}
+      borderRadius= {16}
+      padding= '0px'
+      xs={5}
+      >
       <Grid container spacing={2}>
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128 }}>
@@ -187,7 +196,7 @@ export class AddFriend extends React.Component {
 
         </Grid>
       </Grid>
-    </Paper>
+    </Grid>
   </Grid> 
 
   );

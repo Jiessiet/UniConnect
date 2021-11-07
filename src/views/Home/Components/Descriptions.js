@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const places = [
+const descriptions = [
   {
     title: 'Credits',
     description:
@@ -42,9 +42,9 @@ export default function () {
   const classes = useStyles();
   const checked = useWindowPosition('header');
   return (
-    <div className={classes.root} id="place-to-visit">
-      <ImageCard place={places[1]} checked={checked} />
-      <ImageCard place={places[0]} checked={checked} />  
+    <div className={classes.root} id="description">
+      <ImageCard description={descriptions[1]} checked={checked} />
+      <ImageCard description={descriptions[0]} checked={checked} />  
     </div>
   );
 }

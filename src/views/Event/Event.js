@@ -69,16 +69,28 @@ export class Event extends React.Component {
     padding-left='0px'
     style={{ minHeight: '100vh', minWidth: '100vw'}}
     sx={{
+      borderRadius: '16px',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      backgroundColor: '#ddbea9'}}
+      background: 'linear-gradient(180deg, #C9D991 0%, #d0f0c0 51%, #F2F2F2 75%);',}}
   >
-    <Paper sx={{ p: 2, margin: 'auto', flexGrow: 1}}
-    elevation={3}
+    <Grid 
+    container 
+    direction="row" 
+    alignItems="center" 
+    component={Paper} 
+    elevation={6}
+    borderRadius= {16}
+    padding= '0px'
+    xs={10}
+    sx={{mt: 10}}
     >
-      <Grid container spacing={2}>
+      <Grid 
+      alignItems="center"
+      justifyContent="center" 
+      container spacing={2}>
         <Grid item>
-          <ButtonBase sx={{ width: 500 }}>
+          <ButtonBase sx={{ maxWidth: 500 }}>
           <Img alt="Event Picture" src="/images/Connected-pana.png" />
           </ButtonBase>
         </Grid>
@@ -96,7 +108,9 @@ export class Event extends React.Component {
               container
               direction="row"
               justifyContent="flex-end"
-              alignItems="flex-start">
+              alignItems="flex-start" 
+              padding= '0px'
+              >
                 <Typography variant="subtitle1" component="div" gutterBottom>
                   Host name
                 </Typography>
@@ -111,16 +125,19 @@ export class Event extends React.Component {
                 justifyContent="flex-start"
                 alignItems="flex-start"
                 spacing={{ xs: 1, md: 2 }}
-                columns={{ xs: 4, sm: 8, md: 12 }}>
+                columns={{ xs: 4, sm: 8, md: 12 }}
+                sx={{maxWidth: '600px'}}
+                >
                   
-                  {Array.from(Array(3)).map((_, index) => (
-                    <Button color="secondary">
-                      <Item>
+                  {Array.from(Array(10)).map((_, index) => (
+                    <Button variant="outlined"
+                    sx={{m: 1}}>
+                      {/* <Item> */}
                         <Typography variant="button" component="div" gutterBottom 
                         sx={{ cursor: 'pointer' }}>
                             Tag
                         </Typography>
-                      </Item>
+                      {/* </Item> */}
                     </Button>
                     ))}
 
@@ -131,18 +148,25 @@ export class Event extends React.Component {
                container
                direction="row"
                justifyContent="space-between"
-               alignItems="baseline"
+              //  alignItems="baseline"
               >
-                <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-                  <RoomIcon />
-                  <Typography variant="subtitle1" component="div" gutterBottom>
+                <IconButton 
+                type="submit" 
+                sx={{ p: '10px' }} 
+                disableRipple
+                href='https://www.google.com/maps'
+                target="_blank"
+                > <RoomIcon 
+                fontSize='large'
+                />                  
+                  <Typography variant="subtitle1" component="div" 
+                  >
                     Time and Location
                   </Typography>
                 </IconButton>
 
-                
-
-                <Typography variant="subtitle1" component="div" gutterBottom>
+                <Typography variant="subtitle1" component="div" 
+                >
                   Attendee Limit
                 </Typography>
 
@@ -166,17 +190,22 @@ export class Event extends React.Component {
             direction="column" 
             alignItems="flex-start" 
             item xs={12} sm container>
-              <Typography sx={{ cursor: 'pointer' }} variant="body2">
+              
+              <Link
+              style={{ textDecoration: 'none' }}
+              sx={{ cursor: 'pointer' }} 
+              to='/profile' 
+              variant="body2"
+              >
                 Attendees
-              </Typography>
-              <Link to='/profile'>
-              <AvatarGroup max={3}>
-                <Avatar alt="Sue" src="" />
-                <Avatar alt="Onur" src="" />                
-                <Avatar alt="Jiessie" src="" />                
-                <Avatar alt="Mizna" src="" />
+                <AvatarGroup max={3}>
+                <Avatar alt="Sue" src="pfp" />
+                <Avatar alt="Onur" src="pfp" />        
+                <Avatar alt="Jiessie" src="pfp" />                
+                <Avatar alt="Mizna" src="pfp" />
               </AvatarGroup>
               </Link>
+
             </Grid>
 
             <Grid 
@@ -184,25 +213,28 @@ export class Event extends React.Component {
                 direction="row"
                 justifyContent="space-evenly"
                 alignItems="center"
-                spacing={{ xs: 1, md: 2 }}
-                columns={{ xs: 4, sm: 8, md: 12 }}>
-                  
-                <Button color="secondary">
-                  <Item>
+                spacing={{ xs: 1, md: 2, }}
+                columns={{ xs: 4, sm: 8, md: 12 }}
+                >
+                
+                <Button 
+                variant="contained"                
+                sx={{mt: 3, minWidth: 100, maxWidth: '100px', mb: 3}}>
                     <Typography variant="button" component="div" gutterBottom 
                     sx={{ cursor: 'pointer' }}>
                         Attending
                     </Typography>
-                  </Item>
                 </Button>
 
-                <Button component={Link} to='/EventDetails' color="secondary">
-                  <Item>
+                <Button 
+                sx={{mt: 3, minWidth: 100, maxWidth: '100px', mb: 3}}
+                component={Link} to='/EventDetails' 
+                variant="contained"
+                >
                     <Typography variant="button" component="div" gutterBottom 
                     sx={{ cursor: 'pointer' }}>
-                        Mark as Complete
+                        Completed
                     </Typography>
-                  </Item>
                 </Button>
 
               </Grid>
@@ -211,7 +243,7 @@ export class Event extends React.Component {
 
         </Grid>
       </Grid>
-    </Paper>
+    </Grid>
   </Grid> 
 
   );

@@ -24,7 +24,9 @@ const TimelineEventCard = ({
 
 
   return (
-    <Link to='/Event'>
+    <Link
+    style={{ textDecoration: 'none' }} 
+    to='/Event'>
     <Card sx={{ maxWidth: 600 }} onClick={()=>{setEventId(key)}}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={5}>
