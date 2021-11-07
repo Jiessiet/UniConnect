@@ -65,14 +65,11 @@ const useStyles = makeStyles((theme) => ({
   button:{
     backgroundColor:'#C9D991',
     "&:hover": {
-      backgroundColor: "#74A651",
+      backgroundColor: "#76853e",
     },
     mt: '2px',
     pt: '5px',
   },
-  // waveBorder: {
-  //   paddingTop: theme.spacing(4),
-  // },
 }));
 export default function Header() {
   const classes = useStyles();

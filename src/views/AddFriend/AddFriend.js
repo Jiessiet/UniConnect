@@ -104,7 +104,7 @@ export class AddFriend extends React.Component {
       component={Paper} 
       elevation={6}
       borderRadius= {16}
-      padding= '0px'
+      padding= '15px'
       xs={5}
       >
       <Grid container spacing={2}>

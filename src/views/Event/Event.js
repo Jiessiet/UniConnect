@@ -21,9 +21,6 @@ const Img = styled('img')({
 
 const theme = createTheme({
   palette: {
-    background: {
-      paper: '#ddbea9',
-    },
     text: {
       primary: '#173A5E',
       secondary: '#46505A',
@@ -38,18 +35,15 @@ const theme = createTheme({
 });
 
 const commonStyles = {
-  bgcolor: 'background.paper',
   m: 1,
   borderColor: 'text.primary',
   width: '40rem',
   height: '10rem',
   border: 1,
-
 };
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.button,
-  backgroundColor: theme.palette.background.paper,
   padding: theme.spacing(1),
 }));
 
@@ -132,12 +126,10 @@ export class Event extends React.Component {
                   {Array.from(Array(10)).map((_, index) => (
                     <Button variant="outlined"
                     sx={{m: 1}}>
-                      {/* <Item> */}
                         <Typography variant="button" component="div" gutterBottom 
                         sx={{ cursor: 'pointer' }}>
                             Tag
                         </Typography>
-                      {/* </Item> */}
                     </Button>
                     ))}
 
@@ -148,7 +140,6 @@ export class Event extends React.Component {
                container
                direction="row"
                justifyContent="space-between"
-              //  alignItems="baseline"
               >
                 <IconButton 
                 type="submit" 
@@ -169,9 +160,7 @@ export class Event extends React.Component {
                 >
                   Attendee Limit
                 </Typography>
-
               </Grid>
-
               
               <Box sx={{ display: 'flex'}}>
                 <Box sx={{ ...commonStyles, border: 1, borderRadius: '16px'}}>
