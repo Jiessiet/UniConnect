@@ -54,27 +54,6 @@ const theme = createTheme({
 
 });
 
-
-
-const theme = createTheme({
-  typography: {
-    fontFamily: [
-      'Varela',
-      'round',
-    ].join(','),
-  },
-
-  palette: {
-    primary: {
-      main: "#A9BF5A",
-    },
-    secondary: {
-      main: "#4B592D",
-    },
-  },
-
-});
-
 function App() {
   const [eventId, setEventId] = useState(0);
   // const [userType, setUsertype] = useState("unauthorized");
