@@ -95,7 +95,7 @@ export class ClimateChange extends React.Component {
             
             <Grid item xs
             sx={{mt: 2}}>
-              <Typography variant="h1" component="div" gutterBottom>
+              <Typography variant="h2" component="div" gutterBottom>
               Walk on the Queen Street
               </Typography>
 

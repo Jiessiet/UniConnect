@@ -1,5 +1,7 @@
 import React from 'react';
 import useStyles from './styles';
+import CreateEventModal from '../../../components/Modals/createEventModal'
+import {Modal} from '@mui/material'
 import {
   Grow,
   Grid,
@@ -14,12 +16,18 @@ import {
   Button
 } from '@material-ui/core';
 import Event from './Event';
+import { events } from '../../../constant/Events';
 
 import FavoriteOutlined from '@material-ui/icons/FavoriteOutlined';
 import PersonIcon from '@material-ui/icons/Person';
 import { Link } from 'react-router-dom';
+import TimelineEventCard from '../../../components/TimelineEventCard';
 
 const Dashboard = () => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const classes = useStyles();
   return (
     <Grow in>
@@ -70,9 +78,15 @@ const Dashboard = () => {
               </Grid>
               <Grid item xs={12} sm={4}>
               <Paper style={{ height: '100%' }}>
-              <Button fullWidth style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
+              <Button fullWidth onClick={handleOpen} style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
                   Create Events
               </Button>
+              <Modal
+                    open={open}
+                    onClose={handleClose}
+                >
+                    <CreateEventModal handleClose={handleClose} />
+                </Modal>
             </Paper>
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -107,17 +121,24 @@ const Dashboard = () => {
           </Box>
           <Grid item container xs={12} sm={12} className={classes.events}>
             <Grid item container className={classes.cards} spacing={3}>
-              <Grid item xs={12} sm={3}>
-              <Event />
+              <Grid item xs={12} sm={6} >
+                <Event key={events[0].id} {...events[0]} />
               </Grid>
-              <Grid item xs={12} sm={3}>
-              <Event />
+              <Grid item xs={12} sm={6}>
+                <Event key={events[1].id} {...events[1]} />
               </Grid>
-              <Grid item xs={12} sm={3}>
-              <Event />
+            </Grid>
+          </Grid>
+          <Box mt={3}>
+          <Typography variant='h6'>Past Events...</Typography>
+          </Box>
+          <Grid item container xs={12} sm={12} className={classes.events}>
+            <Grid item container className={classes.cards} spacing={3}>
+              <Grid item xs={12} sm={6} >
+                <Event key={events[2].id} {...events[2]} />
               </Grid>
-              <Grid item xs={12} sm={3}>
-              <Event />
+              <Grid item xs={12} sm={6}>
+                <Event key={events[3].id} {...events[3]} />
               </Grid>
             </Grid>
           </Grid>

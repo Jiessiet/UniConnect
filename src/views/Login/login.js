@@ -125,7 +125,7 @@ const Login = () => {
                         marginTop='4vh'>
                     <Grid item xs>
                         <Link 
-                            href="/AccountSetup" 
+                            href="/ResetPassword" 
                             variant="body2" 
                             color="#1fc449">
                             Forgot password?

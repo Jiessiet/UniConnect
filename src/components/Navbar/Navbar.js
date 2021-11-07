@@ -27,9 +27,10 @@ const Navbar = () => {
     height: "80%",
     transform: "translate(0, 20%)",
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    backgroundColor: alpha('#4b592d', 0.15),
+    color: "#4b592d",
     "&:hover": {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
+      backgroundColor: alpha('#4b592d', 0.25),
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
@@ -48,22 +49,23 @@ const Navbar = () => {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    color:"#4b592d"
   }));
 
-  const DropIconWrapper = styled("div")(({ theme }) => ({
-    color: "red",
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    left: "60vw",
-    bottom: "-50px",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    transform: drop ? "rotate(-90deg)" : "rotate(-90deg",
-    transition: theme.transitions.create("transform"),
-  }));
+  // const DropIconWrapper = styled("div")(({ theme }) => ({
+  //   color: "red",
+  //   padding: theme.spacing(0, 2),
+  //   height: "100%",
+  //   position: "absolute",
+  //   left: "60vw",
+  //   bottom: "-50px",
+  //   pointerEvents: "none",
+  //   display: "flex",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  //   transform: drop ? "rotate(-90deg)" : "rotate(-90deg",
+  //   transition: theme.transitions.create("transform"),
+  // }));
 
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: "inherit",
@@ -97,7 +99,7 @@ const Navbar = () => {
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
-          <DropIconWrapper>
+          {/* <DropIconWrapper>
             <IconButton
               color="primary"
               aria-label="upload picture"
@@ -106,7 +108,7 @@ const Navbar = () => {
             >
               <ArrowBackIosIcon />
             </IconButton>
-          </DropIconWrapper>
+          </DropIconWrapper> */}
           <StyledInputBase
             placeholder="Search…"
             inputProps={{ "aria-label": "search" }}
