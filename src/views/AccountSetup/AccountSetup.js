@@ -78,7 +78,7 @@ export default function AccountSetup() {
 >
   
     <Box sx={{p:2, minWidth: 275, marginTop: 30}}>
-      <Card variant="outlined">{card}</Card>
+      <Card variant="outlined" sx={{borderRadius: 16, p: '5vh'}}>{card}</Card>
     </Box>
     
 </Grid>
