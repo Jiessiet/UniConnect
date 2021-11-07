@@ -69,8 +69,9 @@ function Signup() {
                     xs={4}>
                     <Grid container direction='column' alignItems='center'>
                         <Grid item xs={9}>
-                            <Typography component="h1" variant='h3' marginTop='2vh'> Sign
-                                Up! </Typography>
+                            <Typography component="h1" variant='h3' marginTop='2vh' fontFamily='revert' fontStyle='revert'> 
+                                Sign Up!
+                            </Typography>
                         </Grid>
                     </Grid>
                     <Grid item>
