@@ -7,15 +7,21 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
+import Modal from '@mui/material/Modal'
 import CardContent from '@mui/material/CardContent';
 
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
+import AddTags from '../../../components/Modals/addTagsModal'
 
 const Dashboard = () => {
   //   classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <Container maxWidth='md' sx={{ mt: 12}}>
       <Grid container justify='space-between' spacing={3} mt={0}>
@@ -46,9 +52,15 @@ const Dashboard = () => {
           </Grid>
           <Grid item xs={12} sm={12} textAlign='center'>
             <Paper style={{ height: '100%' }}>
-              <Button fullWidth style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
+              <Button fullWidth onClick={handleOpen} style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
                   Add tags
               </Button>
+              <Modal
+                    open={open}
+                    onClose={handleClose}
+                >
+                    <AddTags handleClose={handleClose} />
+                </Modal>
             </Paper>
           </Grid>
         </Grid>
