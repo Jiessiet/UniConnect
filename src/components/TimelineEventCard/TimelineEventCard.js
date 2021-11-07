@@ -1,6 +1,5 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
@@ -15,26 +14,23 @@ const TimelineEventCard = ({
   picture,
   totalParticipant,
   currentParticipant,
-  eventId,
-  setEventId,
-  key,
   eventLink
 }) => {
 
 
   return (
-    <Card sx={{ maxWidth: 600 }} onClick={()=>{setEventId(key)}}>
-      <Grid container spacing={3}>
+    <Card style={{height: '100%'}}>
+      <Grid container spacing={2}>
         <Grid item xs={12} md={5}>
           <CardMedia
             component="img"
-            height="230"
+            height="250"
             image={picture}
-            alt="green iguana"
+            style={{padding:10}}
           />
         </Grid>
         <Grid item xs={12} md={7}>
-          <CardContent >
+          <CardContent style={{paddingBottom:16}}>
             <Typography gutterBottom variant="h5" component="div">
               {title}
             </Typography>
