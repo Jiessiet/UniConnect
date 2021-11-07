@@ -153,7 +153,7 @@ export class AddFriend extends React.Component {
                 </Grid>
               </Box>
               
-              <Box sx={{ display: 'flex', width: 300, height: 300}}>
+              <Box sx={{ display: 'flex', width: 300, height: 200}}>
                 <Box sx={{ ...commonStyles, border: 1, borderRadius: '16px'}}>
                   <Typography paragraph variant="body2" color="text.secondary"
                   sx={{ p: 2, marginleft: '1', maxWidth: 300, flexGrow: 1}}>
@@ -170,9 +170,7 @@ export class AddFriend extends React.Component {
                 container
                 direction="row"
                 justifyContent="flex-start"
-                alignItems="flex-start"
-                spacing={{ xs: 1, md: 2 }}
-                columns={{ xs: 4, sm: 8, md: 12 }}>
+                alignItems="flex-start">
 
                 <Button component={Link} to='/profile' color="secondary">
                   <Item>

@@ -4,11 +4,11 @@ import { withStyles } from "@material-ui/core";
 
 const styles = {
     waves: {
-      position: "relative",
+      // position: "sticky",
       width: "100%",
-      // marginBottom: -7,
-      // height: "7vw",
-      minHeight: "7vw"
+      marginBottom: "-7px",
+      height: "20vw",
+      minHeight: "10vw",
     },
     "@keyframes moveForever": {
       from: { transform: "translate3d(-90px, 0, 0)" },
@@ -48,10 +48,10 @@ const styles = {
             />
           </defs>
           <g className={classes.parallax}>
-            <use href="#waves" x="48" y="7" fill="rgba(255,255,255,0.7" />
-            <use href="#waves" x="48" y="3" fill="rgba(255,255,255,0.5)" />
-            <use href="#waves" x="48" y="5" fill="rgba(255,255,255,0.3)" />
-            <use href="#waves" x="48" y="0" fill="{lowerColor}" />
+            <use href="#waves" x="10" y="7" fill="rgba(201,217,145,0.7)" />
+            <use href="#waves" x="20" y="3" fill="rgba(201,217,145,0.5)" />
+            <use href="#waves" x="48" y="5" fill="rgba(201,217,145,0.3)" />
+            <use href="#waves" x="48" y="0" fill="rgba(201,217,145,0.3)" />
           </g>
         </svg>
       </div>
