@@ -21,7 +21,6 @@ import { events } from '../../../constant/Events';
 import FavoriteOutlined from '@material-ui/icons/FavoriteOutlined';
 import PersonIcon from '@material-ui/icons/Person';
 import { Link } from 'react-router-dom';
-import TimelineEventCard from '../../../components/TimelineEventCard';
 
 const Dashboard = () => {
   const [open, setOpen] = React.useState(false);
@@ -91,7 +90,7 @@ const Dashboard = () => {
               </Grid>
               <Grid item xs={12} sm={4}>
               <Paper style={{ height: '100%' }}>
-              <Button fullWidth style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
+              <Button component={Link} to="/past-events" fullWidth style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
                   Past Events
               </Button>
             </Paper>
@@ -126,19 +125,6 @@ const Dashboard = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Event key={events[1].id} {...events[1]} />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Box mt={3}>
-          <Typography variant='h6'>Past Events...</Typography>
-          </Box>
-          <Grid item container xs={12} sm={12} className={classes.events}>
-            <Grid item container className={classes.cards} spacing={3}>
-              <Grid item xs={12} sm={6} >
-                <Event key={events[2].id} {...events[2]} />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Event key={events[3].id} {...events[3]} />
               </Grid>
             </Grid>
           </Grid>

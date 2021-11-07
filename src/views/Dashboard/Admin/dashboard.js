@@ -10,7 +10,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
 
-import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
@@ -84,4 +83,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default ;

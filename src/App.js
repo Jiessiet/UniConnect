@@ -5,8 +5,8 @@ import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 import Home from './views/Home/Home';
 import Navbar from './components/Navbar/Navbar';
-import Timeline from './views/Timeline';
-import Event from './views/Event/Event'
+import Timeline from './views/Timeline/Timeline';
+import Event from './views/Event/Event';
 import ClimateChange from './views/Event/ClimateChange'
 import GameEvent from './views/Event/GameEvent'
 import Poetry from './views/Event/Poetry'
@@ -25,8 +25,8 @@ import FightEventDetails from './views/Event/FightEventDetails'
 import CatsEventDetails from './views/Event/CatsEventDetails'
 
 import { createEvent } from './views/Event/create-event';
-import AccountSetup from './views/AccountSetup/AccountSetup'
-import AddFriend from './views/AddFriend/AddFriend'
+import AccountSetup from './views/AccountSetup/AccountSetup';
+import AddFriend from './views/AddFriend/AddFriend';
 import { createCourse } from './views/Course/create-course';
 import AnimatedBg from './views/Home/Components/AnimatedBg';
 import InterestFinder from './views/InterestFinder';
@@ -34,8 +34,9 @@ import { useUser } from "./Contexts/UserContext";
 import DashboardRouter from "./views/Dashboard/DashboardRouter";
 import LoginRouter from "./views/Login/LoginRouter";
 import SignupRouter from "./views/Signup/SignupRouter";
-import ResetPassword from "./views/ResetPassword/RestPassword"
+import ResetPassword from "./views/ResetPassword/RestPassword";
 import Profile from "./views/Profile/Admin/profile";
+import PastEvents from './views/Dashboard/User/PastEvents';
 
 const theme = createTheme({
   typography: {
@@ -96,6 +97,7 @@ function App() {
             <Route path="/login" exact component={LoginRouter} />
             <Route path="/signup" exact component={SignupRouter} />
             <Route path="/Event" exact element> <Event eventId={eventId} setEventId={setEventId} /> </Route>
+            <Route path="/past-events" exact component={PastEvents} />
             <Route path="/EventDetails" exact component={EventDetails} />
             <Route path="/createEvent" exact component={createEvent}/>
             <Route path="/AccountSetup" exact component={AccountSetup}/>
