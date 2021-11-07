@@ -10,10 +10,12 @@ import { Stack } from "@mui/material";
 import Collapse from "@mui/material/Collapse";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useState } from "react";
-import IconButton from '@mui/material/IconButton';
+import IconButton from "@mui/material/IconButton";
+import NavbarMenu from "./NavbarMenu";
 
 const Navbar = () => {
   const [drop, setDrop] = useState(false);
+
 
   const handleDrop = (e) => {
     console.log("hello");
@@ -114,15 +116,7 @@ const Navbar = () => {
           UniConnect
         </Typography> */}
       </Stack>
-
-      <Toolbar className={classes.toolbar}>
-        <Button component={Link} to="/login" color="inherit">
-          Login
-        </Button>
-        <Button component={Link} to="/signup" color="inherit">
-          Signup
-        </Button>
-      </Toolbar>
+      <NavbarMenu />
     </AppBar>
   );
 };
