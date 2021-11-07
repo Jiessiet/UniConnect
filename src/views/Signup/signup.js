@@ -1,6 +1,6 @@
 import React from 'react'
 import background from "./greenbg.jpg"
-import { Button, Grid, Paper, Avatar, Typography, Box, Icon, TextField, Link } from '@mui/material';
+import { Button, Grid, Paper, Tooltip, Typography, Box, Icon, TextField, Link } from '@mui/material';
 import { green } from '@mui/material/colors';
 // import SignUpImg from './signupimg.svg'
 import SignUpImg from './signupanimate.svg'
@@ -37,22 +37,18 @@ function Signup() {
                 elevation={6}
                 borderRadius={16}
                 padding='0px'
-            // sx={{
-            //     // background:`url(${SignUpImg})`,
-            //     backgroundColor: 'white',
-            //     // justifyContent: 'flex-start',
-            //     backgroundImage:`url(${SignUpImg})`,
-            //     backgroundRepeat: "no-repeat",
-            // backgroundPosition: "center flex-end",
-            // // backgroundSize: "cover",
-            // // backgroundAttachment: "fixed",
-            // height: '0%'
-            //  }}
-            // xs={6}
+                xs={7}
+                mt='6vh'
             >
-                <Grid item xs={6} alignItems='flex-end' zIndex='800' >
-                    <img src={SignUpImg} />
-                </Grid>
+                {/* <Grid item xs={6} alignItems='flex-end' zIndex='800'> */}
+                    <img src={SignUpImg}
+                    style={{
+                        position: 'abolsute',
+                        marginLeft: '-3vw',
+                        marginRight: '-15vw',
+                        maxHeight: 800
+                    }} />
+                {/* </Grid> */}
                 <Grid container
                     direction="column"
                     alignItems="center"
@@ -82,9 +78,11 @@ function Signup() {
                                 </Grid>
                             <Grid item><label htmlFor="icon-button-file" xs={1}>
                                     <Input accept="image/*" id="icon-button-file" type="file" />
+                                    <Tooltip title='Upload your profile picture'>
                                     <IconButton color="green" component="span">
                                         <PhotoCamera background='green' />
                                     </IconButton>
+                                    </Tooltip>
                                 </label>
                             </Grid>
                             </Grid>
@@ -107,7 +105,6 @@ function Signup() {
                         </Link>
                     </Grid>
                 </Grid>
-                {/* <Grid xs={3}/> */}
             </Grid>
         </Grid>)
 }
