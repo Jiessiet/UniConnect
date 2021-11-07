@@ -1,5 +1,7 @@
 import React from 'react';
 import useStyles from './styles';
+import CreateEventModal from '../../../components/Modals/createEventModal'
+import {Modal} from '@mui/material'
 import {
   Grow,
   Grid,
@@ -20,6 +22,10 @@ import PersonIcon from '@material-ui/icons/Person';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const classes = useStyles();
   return (
     <Grow in>
@@ -70,9 +76,15 @@ const Dashboard = () => {
               </Grid>
               <Grid item xs={12} sm={4}>
               <Paper style={{ height: '100%' }}>
-              <Button fullWidth style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
+              <Button fullWidth onClick={handleOpen} style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
                   Create Events
               </Button>
+              <Modal
+                    open={open}
+                    onClose={handleClose}
+                >
+                    <CreateEventModal handleClose={handleClose} />
+                </Modal>
             </Paper>
               </Grid>
               <Grid item xs={12} sm={4}>
