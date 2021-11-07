@@ -34,6 +34,7 @@ import { useUser } from "./Contexts/UserContext";
 import DashboardRouter from "./views/Dashboard/DashboardRouter";
 import LoginRouter from "./views/Login/LoginRouter";
 import SignupRouter from "./views/Signup/SignupRouter";
+import Profile from "./views/Profile/Admin/profile";
 
 const theme = createTheme({
   typography: {
@@ -98,6 +99,7 @@ function App() {
             <Route path="/createEvent" exact component={createEvent}/>
             <Route path="/AccountSetup" exact component={AccountSetup}/>
             <Route path="/dashboard" exact component={DashboardRouter}/>
+            <Route path="/profile" exact component={Profile}/>
             <Route path="/AddFriend" exact component={AddFriend}/>
             <Route path="/createCourse" exact component={createCourse}/>
             <Route path="/AnimatedBg" exact component={AnimatedBg}/>
