@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Alert, Snackbar, Grid, Paper, Autocomplete, Avatar, Typography, Box, TextField, Link, SliderValueLabel } from '@mui/material';
+import { Button, Alert, Tooltip, Snackbar, Grid, Paper, Autocomplete, Avatar, Typography, Box, TextField, Link, SliderValueLabel } from '@mui/material';
 import { green } from '@mui/material/colors';
 import AppRegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRounded';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -17,7 +17,8 @@ function Modal({ handleClose }) {
             addEvent();
             setOpen(true);
             window.setTimeout(function () {
-                window.location.reload()}, 2000) 
+                window.location.reload()
+            }, 2000)
         } else {
             // return a negative snackbar
         }
@@ -181,16 +182,18 @@ function Modal({ handleClose }) {
                                 "&:hover": {
                                     backgroundColor: "#74A651",
                                     color: "#C6F2C4",
-                                  },
-                            }} 
-                            >
+                                },
+                            }}
+                        >
                             Create
                         </Button>
                         <label htmlFor="icon-button-file">
                             <Input accept="image/*" id="icon-button-file" type="file" />
-                            <IconButton color="green" component="span">
-                                <PhotoCamera background='green' />
-                            </IconButton>
+                            <Tooltip title="Upload an photo for your event">
+                                <IconButton color="green" component="span">
+                                    <PhotoCamera background='green' />
+                                </IconButton>
+                            </Tooltip>
                         </label>
                     </Grid>
                 </Grid>
