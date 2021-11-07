@@ -102,9 +102,12 @@ const InterestFinder = () => {
 
   return (
     <Grid
-    backgroundColor='linear-gradient(180deg, #C9D991 0%, #d0f0c0 51%, #F2F2F2 75%)'>
+    justifyContent='center'
+    sx={{background: 'linear-gradient(180deg, #C9D991 0%, #d0f0c0 51%, #F2F2F2 75%);',
+    backgroundSize: 'cover', paddingTop: '20vh'}}
+    >
       
-    <Container sx={{mt:20}}>
+    <Container>
       <Search>
         <SearchIconWrapper>
           <SearchIcon />

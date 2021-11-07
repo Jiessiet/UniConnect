@@ -35,7 +35,7 @@ const NavbarMenu = () => {
           <IconButton color="secondary" component="span" size="large" component={Link} to="/timeline">
             <HomeRoundedIcon />
           </IconButton>
-          <IconButton color="secondary" component="span" size="large" component={Link} to="/timeline">
+          <IconButton color="secondary" component="span" size="large" component={Link} to="/Profile">
             <AccountCircleTwoToneIcon />
           </IconButton>
           <IconButton color="secondary" component="span" size="large" component={Link} to="/dashboard">
