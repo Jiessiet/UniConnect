@@ -49,6 +49,7 @@ import UserProfile from "./views/Profile/UserProfile/UserProfile";
 import AdminProfile from "./views/Profile/AdminProfile/AdminProfile";
 import PastEvents from './views/Event/PastEvents';
 import UpcomingEvents from './views/Event/UpcomingEvents';
+import ProfileRouter from "./views/Profile/ProfileRouter";
 
 const theme = createTheme({
   typography: {
@@ -129,8 +130,7 @@ function App() {
             <Route path="/AnimatedBg" exact component={AnimatedBg}/>
             <Route path="/interestFinder" exact component={InterestFinder}/>
             <Route path="/ResetPassword" exact component={ResetPassword}/>
-            <Route path="/userProfile" exact component={UserProfile}/>
-            <Route path="/adminProfile" exact component={AdminProfile}/>
+            <Route path="/Profile" exact component={ProfileRouter}/>
             </div>
           </Switch>
         </React.StrictMode>     
