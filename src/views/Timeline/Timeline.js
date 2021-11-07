@@ -27,7 +27,7 @@ const Timeline = () => {
     <Grid
     justifyContent='center'
     sx={{background: 'linear-gradient(120deg, #C9D991 0%, #d0f0c0 51%, #F2F2F2 75%);',
-    backgroundSize: 'cover'}}
+    backgroundSize: 'cover' , paddingBottom: 5}}
     >
     <Container 
     // sx={{mt: 12}}

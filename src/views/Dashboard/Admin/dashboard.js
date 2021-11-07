@@ -15,7 +15,6 @@ import EqualizerIcon from '@mui/icons-material/Equalizer';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 
 const Dashboard = () => {
-  //   classes = useStyles();
   return (
     <Container maxWidth='md' sx={{ mt: 12}}>
       <Grid container justify='space-between' spacing={3} mt={0}>
@@ -83,4 +82,4 @@ const Dashboard = () => {
   );
 };
 
-export default ;
+export default Dashboard;

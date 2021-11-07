@@ -1,9 +1,9 @@
 import React from 'react'
-import TimelineEventCard from '../../../components/TimelineEventCard/TimelineEventCard'
-import { events } from '../../../constant/Events'
+import TimelineEventCard from '../../components/TimelineEventCard/TimelineEventCard'
+import { events } from '../../constant/Events'
 import { Grid, Container, Typography } from '@mui/material'
 
-const PastEvents = () => {
+const UpcomingEvents = () => {
 
     const eventRender = (event) => {
         return (
@@ -16,7 +16,7 @@ const PastEvents = () => {
     const eventsRender = (events) => {
         const eventsArray = [];
         events.forEach((event) => {
-            if (event.id %2 == 0) {
+            if (event.id %2 == 1) {
                 eventsArray.push(eventRender(event));
             }
         });
@@ -30,7 +30,7 @@ const PastEvents = () => {
         backgroundSize: 'cover'}}
         >
             <Container>
-                <Typography style={{marginTop: 80, paddingTop: 20}} variant='h2'>Past Events</Typography>
+                <Typography style={{marginTop: 80, paddingTop: 20}} variant='h2'>Upcoming Events</Typography>
                 <Grid container spacing={3} mt={12}>
                 {eventsRender(events)}
                 </Grid>
@@ -38,4 +38,4 @@ const PastEvents = () => {
         </Grid>
     )}
 
-export default PastEvents
+export default UpcomingEvents

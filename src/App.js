@@ -34,13 +34,11 @@ import { useUser } from "./Contexts/UserContext";
 import DashboardRouter from "./views/Dashboard/DashboardRouter";
 import LoginRouter from "./views/Login/LoginRouter";
 import SignupRouter from "./views/Signup/SignupRouter";
-<<<<<<< HEAD
 import ResetPassword from "./views/ResetPassword/ResetPassword"
-=======
-import ResetPassword from "./views/ResetPassword/RestPassword";
->>>>>>> pastEvents
-import Profile from "./views/Profile/Admin/profile";
-import PastEvents from './views/Dashboard/User/PastEvents';
+import UserProfile from "./views/Profile/UserProfile/UserProfile";
+import AdminProfile from "./views/Profile/AdminProfile/AdminProfile";
+import PastEvents from './views/Event/PastEvents';
+import UpcomingEvents from './views/Event/UpcomingEvents';
 
 const theme = createTheme({
   typography: {
@@ -102,16 +100,18 @@ function App() {
             <Route path="/signup" exact component={SignupRouter} />
             <Route path="/Event" exact element> <Event eventId={eventId} setEventId={setEventId} /> </Route>
             <Route path="/past-events" exact component={PastEvents} />
+            <Route path="/upcoming-events" exact component={UpcomingEvents} />
             <Route path="/EventDetails" exact component={EventDetails} />
             <Route path="/createEvent" exact component={createEvent}/>
             <Route path="/AccountSetup" exact component={AccountSetup}/>
             <Route path="/dashboard" exact component={DashboardRouter}/>
-            <Route path="/profile" exact component={Profile}/>
             <Route path="/AddFriend" exact component={AddFriend}/>
             <Route path="/createCourse" exact component={createCourse}/>
             <Route path="/AnimatedBg" exact component={AnimatedBg}/>
             <Route path="/interestFinder" exact component={InterestFinder}/>
             <Route path="/ResetPassword" exact component={ResetPassword}/>
+            <Route path="/userProfile" exact component={UserProfile}/>
+            <Route path="/adminProfile" exact component={AdminProfile}/>
             </div>
           </Switch>
         </React.StrictMode>     
