@@ -1,12 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import loginImage from "./loginImage.svg";
 import background from "./greenbg.jpg"
 import { Button, Grid, Paper, Avatar, Typography, Box, TextField, Link} from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
+import { useUser } from "../../Contexts/UserContext";
 
-export class login extends React.Component {
+const Login = () => {
+    const {setCurrentUser} = useUser()
 
-render() {
+    const [userName, setUserName] = useState('')
+    const [password, setPassword] = useState('')
+
+    const handleUserNameChange = event => {
+        const value = event.target.value;
+    
+        setUserName(value)
+    };
+
+    const handlePasswordChange = event => {
+        const value = event.target.value;
+    
+        setPassword(value)
+    };
+
+    const submitHandler = (event) => {
+        event.preventDefault()
+
+        if (userName == 'admin' && password == 'admin'){
+            window.localStorage.setItem('userType', 'admin')
+            setCurrentUser((currentUser) => {return {...currentUser, type: 'admin'}})
+        }
+        else if(userName == 'user' && password == 'user'){
+            window.localStorage.setItem('userType', 'user')
+            setCurrentUser((currentUser) => {return {...currentUser, type: 'user'}})
+        }
+        else{
+            setPassword('')
+            setUserName('')
+        }
+    }
+
     return(  
     <Grid 
         container component="main" 
@@ -56,12 +89,16 @@ render() {
                             fullWidth 
                             label='Username' 
                             margin = 'normal' 
-                            placeholder='Enter Username'/>
+                            placeholder='Enter Username'
+                            value = {userName}
+                            onChange={handleUserNameChange}/>
                         <TextField 
                             fullWidth 
                             label='Password' 
                             marginBottom = 'normal' 
-                            placeholder='Enter Password'/>
+                            placeholder='Enter Password'
+                            value = {password}
+                            onChange={handlePasswordChange}/>
                     </form>
                     <Grid 
                         alignItems='center' 
@@ -69,7 +106,8 @@ render() {
                         <Button 
                             type = 'submit' 
                             variant="contained" 
-                            href= '/timeline' 
+                            // href= '/timeline'
+                            onClick={submitHandler} 
                             mt='2' 
                             background='green' 
                             sx={{
@@ -105,7 +143,6 @@ render() {
             </Grid>
         </Grid>
     </Grid>)
-    }
 }
 
- export default login
+ export default Login
