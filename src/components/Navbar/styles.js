@@ -9,7 +9,8 @@ export default makeStyles((theme) => ({
         alignItems: 'center',
         padding: '10px 30px',
         width: '100vw',
-        backgroundColor: '#5CA651'
+        backgroundColor: '#F2F2F2',
+        elevation: '4'
     },
     toolbar: {
         display: 'flex',

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useUser } from "../../../Contexts/UserContext";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-//import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
+import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { IconButton } from "@mui/material";
 import { useHistory } from "react-router";
@@ -34,6 +34,9 @@ const NavbarMenu = () => {
         <Toolbar>
           <IconButton color="secondary" component="span" size="large" component={Link} to="/timeline">
             <HomeRoundedIcon />
+          </IconButton>
+          <IconButton color="secondary" component="span" size="large" component={Link} to="/timeline">
+            <AccountCircleTwoToneIcon />
           </IconButton>
           <IconButton color="secondary" component="span" size="large" component={Link} to="/dashboard">
             <DashboardRoundedIcon />

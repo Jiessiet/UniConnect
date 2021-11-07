@@ -45,7 +45,8 @@ const InterestFinder = () => {
       });
       result.push(
         <InterestCategory title={category.title} key={uniqid()}>
-          <Grid container spacing={3} mt={4} alignItems="center">
+          <Grid container spacing={3} mt={4} alignItems="center"
+          sx={{ cursor: "pointer" }}>
             {tags}
           </Grid>
         </InterestCategory>
@@ -100,7 +101,10 @@ const InterestFinder = () => {
   }));
 
   return (
-    <Container sx={{mt:12}}>
+    <Grid
+    backgroundColor='linear-gradient(180deg, #C9D991 0%, #d0f0c0 51%, #F2F2F2 75%)'>
+      
+    <Container sx={{mt:20}}>
       <Search>
         <SearchIconWrapper>
           <SearchIcon />
@@ -131,6 +135,7 @@ const InterestFinder = () => {
         </Typography>
       </Button>
     </Container>
+    </Grid>
   );
 };
 
