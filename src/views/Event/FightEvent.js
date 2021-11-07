@@ -37,7 +37,7 @@ const theme = createTheme({
 const commonStyles = {
   m: 1,
   borderColor: 'text.primary',
-  width: '40rem',
+  width: '35rem',
   height: '10rem',
   border: 1,
 };
@@ -47,7 +47,7 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
 }));
 
-export class Event extends React.Component {
+export class FightEvent extends React.Component {
 
   render() {
   return (
@@ -85,7 +85,7 @@ export class Event extends React.Component {
       container spacing={2}>
         <Grid item>
           <ButtonBase sx={{ maxWidth: 500, mx: 2 }}>
-          <Img alt="Event Picture" src="/images/Connected-pana.png" />
+          <Img alt="Event Picture" src="https://picsum.photos/id/155/400/400" />
           </ButtonBase>
         </Grid>
 
@@ -96,7 +96,7 @@ export class Event extends React.Component {
             <Grid item xs
             sx={{mt: 2}}>
               <Typography variant="h1" component="div" gutterBottom>
-                  Event Name
+              Martial Arts Club
               </Typography>
 
               <Grid item xs
@@ -107,7 +107,7 @@ export class Event extends React.Component {
               padding= '0px'
               >
                 <Typography variant="subtitle1" component="div" gutterBottom>
-                  Host name
+                  John Roberts
                 </Typography>
               </Grid>
 
@@ -124,15 +124,22 @@ export class Event extends React.Component {
                 sx={{maxWidth: '600px'}}
                 >
                   
-                  {Array.from(Array(10)).map((_, index) => (
+                  {/* {Array.from(Array(10)).map((_, index) => ( */}
                     <Button variant="outlined"
                     sx={{m: 1}}>
                         <Typography variant="button" component="div" gutterBottom 
                         sx={{ cursor: 'pointer' }}>
-                            Tag
+                            Club
                         </Typography>
                     </Button>
-                    ))}
+                    <Button variant="outlined"
+                    sx={{m: 1}}>
+                        <Typography variant="button" component="div" gutterBottom 
+                        sx={{ cursor: 'pointer' }}>
+                            Teamwork
+                        </Typography>
+                    </Button>
+                    {/* ))} */}
 
                 </Grid>
               </Box>
@@ -153,13 +160,13 @@ export class Event extends React.Component {
                 />                  
                   <Typography variant="subtitle1" component="div" 
                   >
-                    Time and Location
+                    Queens Park | Toronto
                   </Typography>
                 </IconButton>
 
                 <Typography variant="subtitle1" component="div" 
                 >
-                  Attendee Limit
+                  Attendee Limit: 10
                 </Typography>
               </Grid>
               
@@ -167,10 +174,7 @@ export class Event extends React.Component {
                 <Box sx={{ ...commonStyles, border: 1, borderRadius: '16px'}}>
                   <Typography paragraph variant="body2" color="text.secondary"
                   sx={{ p: 2, marginleft: '1', maxWidth: 500, flexGrow: 1}}>
-                      Description
-                      Description
-                      Description
-                      Description
+                          Join if you are looking for a chance to get to practice martial arts! Looking for those with a particular vendetta against supernatural beings. We meet at night at Queens Park
                   </Typography>
                 </Box> 
               </Box>
@@ -191,8 +195,6 @@ export class Event extends React.Component {
                 <AvatarGroup max={3}>
                 <Avatar alt="Sue" src="pfp" />
                 <Avatar alt="Onur" src="pfp" />        
-                <Avatar alt="Jiessie" src="pfp" />                
-                <Avatar alt="Mizna" src="pfp" />
               </AvatarGroup>
               </Link>
 
@@ -206,7 +208,6 @@ export class Event extends React.Component {
                 spacing={{ xs: 1, md: 2, }}
                 columns={{ xs: 4, sm: 8, md: 12 }}
                 >
-                
                 <Button 
                 variant="contained"                
                 sx={{mt: 3, minWidth: 100, maxWidth: '100px', mb: 3}}>
@@ -218,7 +219,7 @@ export class Event extends React.Component {
 
                 <Button 
                 sx={{mt: 3, minWidth: 100, maxWidth: '100px', mb: 3}}
-                component={Link} to='/EventDetails' 
+                component={Link} to='/FightEventDetails' 
                 variant="contained"
                 >
                     <Typography variant="button" component="div" gutterBottom 
@@ -240,4 +241,4 @@ export class Event extends React.Component {
 
 }
 }
-export default Event;
+export default FightEvent;

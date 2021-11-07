@@ -45,12 +45,12 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
 }));
 
-export class EventDetails extends React.Component {
+export class CatsEventDetails extends React.Component {
 
   render() {
     return (
   
-    <Grid
+      <Grid
       container
       spacing={0}
       direction="row"
@@ -64,7 +64,7 @@ export class EventDetails extends React.Component {
         borderRadius: '16px',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        background: 'linear-gradient(141deg, #C9D991 0%, #d0f0c0 51%, #F2F2F2 75%);',}}
+        background: 'linear-gradient(180deg, #C9D991 0%, #d0f0c0 51%, #F2F2F2 75%);',}}
     >
       <Grid 
       container 
@@ -74,7 +74,7 @@ export class EventDetails extends React.Component {
       elevation={6}
       borderRadius= {16}
       padding= '0px'
-      xs={9.5}
+      xs={10}
       sx={{mt: 10}}
       >
         <Grid 
@@ -82,8 +82,8 @@ export class EventDetails extends React.Component {
         justifyContent="center" 
         container spacing={2}>
           <Grid item>
-            <ButtonBase sx={{ maxWidth: 500 }}>
-            <Img alt="Event Picture" src="/images/Connected-pana.png" />
+            <ButtonBase sx={{ maxWidth: 500, mx: 2 }}>
+            <Img alt="Event Picture" src="https://picsum.photos/id/26/400/400" />
             </ButtonBase>
           </Grid>
   
@@ -91,9 +91,10 @@ export class EventDetails extends React.Component {
   
             <Grid item xs container direction="column" spacing={2}>
               
-              <Grid item xs>
+              <Grid item xs
+              sx={{mt: 2}}>
                 <Typography variant="h1" component="div" gutterBottom>
-                    Event Name
+                    Movie Night
                 </Typography>
   
                 <Grid item xs
@@ -104,7 +105,7 @@ export class EventDetails extends React.Component {
                 padding= '0px'
                 >
                   <Typography variant="subtitle1" component="div" gutterBottom>
-                    Host name
+                    Petey Peter
                   </Typography>
                 </Grid>
   
@@ -121,17 +122,29 @@ export class EventDetails extends React.Component {
                   sx={{maxWidth: '600px'}}
                   >
                     
-                    {Array.from(Array(10)).map((_, index) => (
+                    {/* {Array.from(Array(10)).map((_, index) => ( */}
                       <Button variant="outlined"
                       sx={{m: 1}}>
-                        {/* <Item> */}
                           <Typography variant="button" component="div" gutterBottom 
                           sx={{ cursor: 'pointer' }}>
-                              Tag
+                              Movie
                           </Typography>
-                        {/* </Item> */}
                       </Button>
-                      ))}
+                      <Button variant="outlined"
+                      sx={{m: 1}}>
+                          <Typography variant="button" component="div" gutterBottom 
+                          sx={{ cursor: 'pointer' }}>
+                              Emotional
+                          </Typography>
+                      </Button>
+                      <Button variant="outlined"
+                      sx={{m: 1}}>
+                          <Typography variant="button" component="div" gutterBottom 
+                          sx={{ cursor: 'pointer' }}>
+                              Culture
+                          </Typography>
+                      </Button>
+                      {/* ))} */}
   
                   </Grid>
                 </Box>
@@ -140,7 +153,6 @@ export class EventDetails extends React.Component {
                  container
                  direction="row"
                  justifyContent="space-between"
-                //  alignItems="baseline"
                 >
                   <IconButton 
                   type="submit" 
@@ -153,27 +165,22 @@ export class EventDetails extends React.Component {
                   />                  
                     <Typography variant="subtitle1" component="div" 
                     >
-                      Time and Location
+                      3829 Jarvis Street East
                     </Typography>
                   </IconButton>
   
                   <Typography variant="subtitle1" component="div" 
-                  // gutterBottom
                   >
-                    Attendee Limit
+                    Attendee Limit: 50
                   </Typography>
-  
                 </Grid>
-  
                 
                 <Box sx={{ display: 'flex'}}>
                   <Box sx={{ ...commonStyles, border: 1, borderRadius: '16px'}}>
                     <Typography paragraph variant="body2" color="text.secondary"
                     sx={{ p: 2, marginleft: '1', maxWidth: 500, flexGrow: 1}}>
-                        Description
-                        Description
-                        Description
-                        Description
+                      Watch the critically acclaimed Cats 2: Electric Boogaloo in theatres with a group of cat enthusiasts. If it's anything like the first, it's sure to be a great time.
+  
                     </Typography>
                   </Box> 
                 </Box>
@@ -190,7 +197,7 @@ export class EventDetails extends React.Component {
                   
                   <Button 
                   variant="contained"
-                  component={Link} to='/Event'                 
+                  component={Link} to='/CatsEvent'                 
                   sx={{mt: 3, minWidth: 100, maxWidth: '100px', mb: 3}}>
                       <Typography variant="button" component="div" gutterBottom 
                       sx={{ cursor: 'pointer' }}>
@@ -212,4 +219,4 @@ export class EventDetails extends React.Component {
 
 }
 }
-export default EventDetails;
+export default CatsEventDetails;

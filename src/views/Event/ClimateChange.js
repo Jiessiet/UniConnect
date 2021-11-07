@@ -37,7 +37,7 @@ const theme = createTheme({
 const commonStyles = {
   m: 1,
   borderColor: 'text.primary',
-  width: '40rem',
+  width: '35rem',
   height: '10rem',
   border: 1,
 };
@@ -47,7 +47,7 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
 }));
 
-export class Event extends React.Component {
+export class ClimateChange extends React.Component {
 
   render() {
   return (
@@ -84,8 +84,8 @@ export class Event extends React.Component {
       justifyContent="center" 
       container spacing={2}>
         <Grid item>
-          <ButtonBase sx={{ maxWidth: 500, mx: 2 }}>
-          <Img alt="Event Picture" src="/images/Connected-pana.png" />
+          <ButtonBase sx={{ maxWidth: 500, m: 2 }}>
+          <Img alt="ClimateChange Picture" src="https://picsum.photos/id/10/690/400" />
           </ButtonBase>
         </Grid>
 
@@ -96,7 +96,7 @@ export class Event extends React.Component {
             <Grid item xs
             sx={{mt: 2}}>
               <Typography variant="h1" component="div" gutterBottom>
-                  Event Name
+              Walk on the Queen Street
               </Typography>
 
               <Grid item xs
@@ -107,7 +107,7 @@ export class Event extends React.Component {
               padding= '0px'
               >
                 <Typography variant="subtitle1" component="div" gutterBottom>
-                  Host name
+                  Elmer Tape
                 </Typography>
               </Grid>
 
@@ -124,15 +124,22 @@ export class Event extends React.Component {
                 sx={{maxWidth: '600px'}}
                 >
                   
-                  {Array.from(Array(10)).map((_, index) => (
+                  {/* {Array.from(Array(10)).map((_, index) => ( */}
                     <Button variant="outlined"
                     sx={{m: 1}}>
                         <Typography variant="button" component="div" gutterBottom 
                         sx={{ cursor: 'pointer' }}>
-                            Tag
+                            Exercise
                         </Typography>
                     </Button>
-                    ))}
+                    <Button variant="outlined"
+                    sx={{m: 1}}>
+                        <Typography variant="button" component="div" gutterBottom 
+                        sx={{ cursor: 'pointer' }}>
+                            Sunlight
+                        </Typography>
+                    </Button>
+                    {/* ))} */}
 
                 </Grid>
               </Box>
@@ -153,13 +160,13 @@ export class Event extends React.Component {
                 />                  
                   <Typography variant="subtitle1" component="div" 
                   >
-                    Time and Location
+                    Queen Street | Toronto
                   </Typography>
                 </IconButton>
 
                 <Typography variant="subtitle1" component="div" 
                 >
-                  Attendee Limit
+                  Attendee Limit: 6
                 </Typography>
               </Grid>
               
@@ -167,10 +174,11 @@ export class Event extends React.Component {
                 <Box sx={{ ...commonStyles, border: 1, borderRadius: '16px'}}>
                   <Typography paragraph variant="body2" color="text.secondary"
                   sx={{ p: 2, marginleft: '1', maxWidth: 500, flexGrow: 1}}>
-                      Description
-                      Description
-                      Description
-                      Description
+                          Breathe in the crisp fall air. 
+                          Explore the beautiful autumn foliage, 
+                          hear the crunch of the leaves in melodious synchrony 
+                          with your steps. 
+                          Join before global warming takes it away forever.
                   </Typography>
                 </Box> 
               </Box>
@@ -218,7 +226,7 @@ export class Event extends React.Component {
 
                 <Button 
                 sx={{mt: 3, minWidth: 100, maxWidth: '100px', mb: 3}}
-                component={Link} to='/EventDetails' 
+                component={Link} to='/ClimateChangeDetails' 
                 variant="contained"
                 >
                     <Typography variant="button" component="div" gutterBottom 
@@ -240,4 +248,4 @@ export class Event extends React.Component {
 
 }
 }
-export default Event;
+export default ClimateChange;

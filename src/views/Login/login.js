@@ -1,12 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import loginImage from "./loginImage.svg";
 import background from "./greenbg.jpg"
 import { Button, Grid, Paper, Typography, Box, TextField, Link} from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
+import { useUser } from "../../Contexts/UserContext";
 
-export class login extends React.Component {
+const Login = () => {
+    const {setCurrentUser} = useUser()
 
-render() {
+    const [userName, setUserName] = useState('')
+    const [password, setPassword] = useState('')
+
+    const handleUserNameChange = event => {
+        const value = event.target.value;
+    
+        setUserName(value)
+    };
+
+    const handlePasswordChange = event => {
+        const value = event.target.value;
+    
+        setPassword(value)
+    };
+
+    const submitHandler = (event) => {
+        event.preventDefault()
+
+        if (userName == 'admin' && password == 'admin'){
+            window.localStorage.setItem('userType', 'admin')
+            setCurrentUser((currentUser) => {return {...currentUser, type: 'admin'}})
+        }
+        else if(userName == 'user' && password == 'user'){
+            window.localStorage.setItem('userType', 'user')
+            setCurrentUser((currentUser) => {return {...currentUser, type: 'user'}})
+        }
+        else{
+            setPassword('')
+            setUserName('')
+        }
+    }
+
     return(  
     <Grid 
         container component="main" 
@@ -46,62 +79,73 @@ render() {
                         variant = 'h3' 
                         fontFamily= 'revert' 
                         fontSize = '50px' 
-                        marginRight = '10px'> Welcome back to<em><b> UniConnect</b></em>! 
+                        marginRight = '10px' > 
+                        Welcome Back to<em><b> UniConnect</b></em>! 
                     </Typography>
+                </Grid>
                     <form spacing={2}> 
                         <TextField 
                             fullWidth 
                             label='Username' 
                             margin = 'normal' 
-                            placeholder='Enter Username'/>
+                            placeholder='Enter Username'
+                            value = {userName}
+                            onChange={handleUserNameChange}/>
                         <TextField 
                             fullWidth 
                             label='Password' 
                             marginBottom = 'normal' 
-                            placeholder='Enter Password'/>
+                            placeholder='Enter Password'
+                            value = {password}
+                            onChange={handlePasswordChange}/>
                     </form>
-                    <Box 
-                    className="footer" 
-                    alignItems='center'/>
+                    <Grid 
+                        alignItems='center' 
+                        justifyItems='center'>
                         <Button 
                             type = 'submit' 
                             variant="contained" 
-                            href= '/timeline' 
+                            // href= '/timeline'
+                            onClick={submitHandler} 
                             mt='2' 
                             background='green' 
-                            sx=
-                                {{mt: 2, background:'green'}}>
+                            sx={{
+                                mt: 2, 
+                                background:'green'
+                            }}>
                             Login
                         </Button>
-            </Grid>
-            <Grid 
-                container 
-                direction='row' 
-                alignItems='flex-end' 
-                justifyContent='flex-end' 
-                padding='0' 
-                sx={{mt: 0, mb: 4, mr: 5, ml: 5}}>
-                <Grid xs={6}> </Grid>
-                <Grid item xs>
-                <Link 
-                    href="/AccountSetup" 
-                    variant="body2" 
-                    color="#1fc449">
-                    Forgot password?
-                </Link>
+                    </Grid>
+                    <Grid 
+                        container 
+                        direction='row' 
+                        alignItems='center' 
+                        justifyContent='center' 
+                        marginTop='4vh'>
+                            {/* alignItems='flex-end' 
+                            justifyContent='flex-end' 
+                            padding='0' 
+                            sx={{mt: 0, mb: 4, mr: 5, ml: 5}}>
+                            <Grid xs={6}> </Grid> */}
+                    <Grid item xs>
+                        <Link 
+                            href="/AccountSetup" 
+                            variant="body2" 
+                            color="#1fc449">
+                            Forgot password?
+                        </Link>
+                    </Grid>
+                    <Grid item>
+                        <Link 
+                            href="/signup" 
+                            variant="body2" 
+                            color="#1fc449">
+                            {"Don't have an account? Sign Up"}
+                        </Link>
+                    </Grid>
                 </Grid>
-                <Grid item>
-                <Link 
-                    href="/signup" 
-                    variant="body2" 
-                    color="#1fc449">
-                    Don't have an account? Sign Up
-                </Link>
-                </Grid>
             </Grid>
-        </Grid>
     </Grid>)
-    }
 }
 
- export default login
+ export default Login

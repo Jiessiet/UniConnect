@@ -9,8 +9,10 @@ import AvatarGroup from '@mui/material/AvatarGroup';
 import Button from '@mui/material/Button';
 import RoomIcon from '@mui/icons-material/Room';
 import IconButton from '@mui/material/IconButton';
-import { Link } from 'react-router-dom';
 import {Box, ThemeProvider, createTheme, positions} from '@mui/system';
+import { GridClassKey } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+
 
 const Img = styled('img')({
   margin: 'auto',
@@ -21,38 +23,34 @@ const Img = styled('img')({
 
 const theme = createTheme({
   palette: {
-    text: {
-      primary: '#173A5E',
-      secondary: '#46505A',
-    },
-    action: {
-      active: '#001E3C',
-    },
-    success: {
-      dark: '#009688',
+    background: {
+      paper: '#ddbea9',
     },
   },
 });
 
 const commonStyles = {
+  bgcolor: 'background.paper',
   m: 1,
   borderColor: 'text.primary',
   width: '40rem',
   height: '10rem',
   border: 1,
+
 };
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.button,
+  backgroundColor: theme.palette.background.paper,
   padding: theme.spacing(1),
 }));
 
-export class Event extends React.Component {
+export class GameEventDetails extends React.Component {
 
   render() {
-  return (
-
-  <Grid
+    return (
+  
+<Grid
     container
     spacing={0}
     direction="row"
@@ -85,7 +83,7 @@ export class Event extends React.Component {
       container spacing={2}>
         <Grid item>
           <ButtonBase sx={{ maxWidth: 500, mx: 2 }}>
-          <Img alt="Event Picture" src="/images/Connected-pana.png" />
+          <Img alt="Event Picture" src="https://picsum.photos/id/100/400/400" />
           </ButtonBase>
         </Grid>
 
@@ -96,7 +94,7 @@ export class Event extends React.Component {
             <Grid item xs
             sx={{mt: 2}}>
               <Typography variant="h1" component="div" gutterBottom>
-                  Event Name
+              Game Night
               </Typography>
 
               <Grid item xs
@@ -107,7 +105,7 @@ export class Event extends React.Component {
               padding= '0px'
               >
                 <Typography variant="subtitle1" component="div" gutterBottom>
-                  Host name
+                  Chris Hemmy
                 </Typography>
               </Grid>
 
@@ -124,15 +122,29 @@ export class Event extends React.Component {
                 sx={{maxWidth: '600px'}}
                 >
                   
-                  {Array.from(Array(10)).map((_, index) => (
+                  {/* {Array.from(Array(10)).map((_, index) => ( */}
                     <Button variant="outlined"
                     sx={{m: 1}}>
                         <Typography variant="button" component="div" gutterBottom 
                         sx={{ cursor: 'pointer' }}>
-                            Tag
+                            It's a me,
                         </Typography>
                     </Button>
-                    ))}
+                    <Button variant="outlined"
+                    sx={{m: 1}}>
+                        <Typography variant="button" component="div" gutterBottom 
+                        sx={{ cursor: 'pointer' }}>
+                            Mario
+                        </Typography>
+                    </Button>
+                    <Button variant="outlined"
+                    sx={{m: 1}}>
+                        <Typography variant="button" component="div" gutterBottom 
+                        sx={{ cursor: 'pointer' }}>
+                            Wee
+                        </Typography>
+                    </Button>
+                    {/* ))} */}
 
                 </Grid>
               </Box>
@@ -153,13 +165,13 @@ export class Event extends React.Component {
                 />                  
                   <Typography variant="subtitle1" component="div" 
                   >
-                    Time and Location
+                    226 Yonge Street | Toronto
                   </Typography>
                 </IconButton>
 
                 <Typography variant="subtitle1" component="div" 
                 >
-                  Attendee Limit
+                  Attendee Limit: 12
                 </Typography>
               </Grid>
               
@@ -167,77 +179,48 @@ export class Event extends React.Component {
                 <Box sx={{ ...commonStyles, border: 1, borderRadius: '16px'}}>
                   <Typography paragraph variant="body2" color="text.secondary"
                   sx={{ p: 2, marginleft: '1', maxWidth: 500, flexGrow: 1}}>
-                      Description
-                      Description
-                      Description
-                      Description
+                          Join us for a gaming session! 
+                          We will be playing Mario Kart and 
+                          Super Smash Bros. Free to attend and 
+                          for all skill levels. 
+                          Refreshments are provided.
+
                   </Typography>
                 </Box> 
               </Box>
             </Grid>
-
-            <Grid item 
-            direction="column" 
-            alignItems="flex-start" 
-            item xs={12} sm container>
-              
-              <Link
-              style={{ textDecoration: 'none' }}
-              sx={{ cursor: 'pointer' }} 
-              to='/profile' 
-              variant="body2"
-              >
-                Attendees
-                <AvatarGroup max={3}>
-                <Avatar alt="Sue" src="pfp" />
-                <Avatar alt="Onur" src="pfp" />        
-                <Avatar alt="Jiessie" src="pfp" />                
-                <Avatar alt="Mizna" src="pfp" />
-              </AvatarGroup>
-              </Link>
-
+  
+                <Grid 
+                  container
+                  direction="row"
+                  justifyContent="space-evenly"
+                  alignItems="center"
+                  spacing={{ xs: 1, md: 2, }}
+                  columns={{ xs: 4, sm: 8, md: 12 }}
+                  >
+                  
+                  <Button 
+                  variant="contained"
+                  component={Link} to='/GameEvent'                 
+                  sx={{mt: 3, minWidth: 100, maxWidth: '100px', mb: 3}}>
+                      <Typography variant="button" component="div" gutterBottom 
+                      sx={{ cursor: 'pointer' }}>
+                          Attend
+                      </Typography>
+                  </Button>
+  
+                </Grid>
+  
             </Grid>
-
-            <Grid 
-                container
-                direction="row"
-                justifyContent="space-evenly"
-                alignItems="center"
-                spacing={{ xs: 1, md: 2, }}
-                columns={{ xs: 4, sm: 8, md: 12 }}
-                >
-                
-                <Button 
-                variant="contained"                
-                sx={{mt: 3, minWidth: 100, maxWidth: '100px', mb: 3}}>
-                    <Typography variant="button" component="div" gutterBottom 
-                    sx={{ cursor: 'pointer' }}>
-                        Attending
-                    </Typography>
-                </Button>
-
-                <Button 
-                sx={{mt: 3, minWidth: 100, maxWidth: '100px', mb: 3}}
-                component={Link} to='/EventDetails' 
-                variant="contained"
-                >
-                    <Typography variant="button" component="div" gutterBottom 
-                    sx={{ cursor: 'pointer' }}>
-                        Completed
-                    </Typography>
-                </Button>
-
-              </Grid>
-
+  
           </Grid>
-
         </Grid>
       </Grid>
-    </Grid>
-  </Grid> 
+    </Grid> 
+  
 
   );
 
 }
 }
-export default Event;
+export default GameEventDetails;
