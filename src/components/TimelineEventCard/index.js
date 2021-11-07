@@ -17,10 +17,15 @@ const TimelineEventCard = ({
   picture,
   totalParticipant,
   currentParticipant,
+  eventId,
+  setEventId,
+  key
 }) => {
+
+
   return (
     <Link to='/Event'>
-    <Card sx={{ maxWidth: 600 }}>
+    <Card sx={{ maxWidth: 600 }} onClick={()=>{setEventId(key)}}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={5}>
           <CardMedia

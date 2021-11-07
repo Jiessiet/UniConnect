@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import Container from '@mui/material/Container';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
@@ -40,6 +40,8 @@ const theme = createTheme({
 
 
 function App() {
+  const [eventId, setEventId] = useState(0);
+
   return (
     <ThemeProvider theme={theme}>
     <div className='App'>
@@ -49,10 +51,10 @@ function App() {
             <Route path="/" exact component={Home} />
             <div>
             <Navbar />
-            <Route path="/timeline" exact component={Timeline} />
+            <Route path="/timeline" exact> <Timeline eventId={eventId} setEventId={setEventId}/> </Route>
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={Signup} />
-            <Route path="/Event" exact component={Event} />
+            <Route path="/Event" exact element> <Event eventId={eventId} setEventId={setEventId} /> </Route>
             <Route path="/EventDetails" exact component={EventDetails} />
             <Route path="/createEvent" exact component={createEvent}/>
             <Route path="/AccountSetup" exact component={AccountSetup}/>
