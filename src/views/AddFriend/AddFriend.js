@@ -80,23 +80,6 @@ export class AddFriend extends React.Component {
         background: 'linear-gradient(141deg, #C9D991 0%, #d0f0c0 51%, #F2F2F2 75%);',}}
     >
 
-    <Paper
-    component="form"
-    sx={{ p: '2px 3px', display: 'flex', justifyContent: "center", 
-    alignItems: 'center', width: 900, marginTop: 5, marginBottom: 0,}}
-    >
-      <InputBase
-      sx={{ ml: 1, flex: 1}}
-      placeholder="Find buddies :)"
-      margin='none'
-      inputProps={{ 'aria-label': 'search' }}
-      />
-
-      <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-      <SearchIcon />
-      </IconButton>
-    </Paper>
-
     <Grid 
       container 
       direction="row" 

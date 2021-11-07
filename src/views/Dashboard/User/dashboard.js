@@ -1,6 +1,9 @@
 import React from 'react';
 import useStyles from './styles';
 import CreateEventModal from '../../../components/Modals/createEventModal'
+import AddCourse from '../../../components/Modals/addCourseModal';
+import AddFriend from '../../../components/Modals/addFriendModal';
+import AddTags from '../../../components/Modals/addTagsModal';
 import {Modal} from '@mui/material'
 import {
   Grow,
@@ -23,9 +26,22 @@ import PersonIcon from '@material-ui/icons/Person';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openEvent, setOpenEvent] = React.useState(false);
+  const handleOpenEvent = () => setOpenEvent(true);
+
+  const [openCourse, setOpenCourse] = React.useState(false);
+  const handleOpenCourse = () => setOpenCourse(true);
+
+  const [openTags, setOpenTags] = React.useState(false);
+  const handleOpenTags = () => setOpenTags(true);
+
+  const [openFriend, setOpenFriend] = React.useState(false);
+  const handleOpenFriend = () => setOpenFriend(true);
+
+  const handleCloseEvent = () => setOpenEvent(false);
+  const handleCloseCourse = () => setOpenCourse(false);
+  const handleCloseTags = () => setOpenTags(false);
+  const handleCloseFriend = () => setOpenFriend(false);
 
   const classes = useStyles();
   return (
@@ -70,21 +86,27 @@ const Dashboard = () => {
             <Grid item container className={classes.cards} spacing={3}>
               <Grid item xs={12} sm={4}>
               <Paper style={{ height: 220 }}>
-              <Button fullWidth style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
+              <Button fullWidth onClick={handleOpenTags} style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
                   Add tags
               </Button>
+              <Modal
+                    open={openTags}
+                    onClose={handleCloseTags}
+                >
+                    <AddTags handleClose={handleCloseTags} />
+                </Modal>
             </Paper>
               </Grid>
               <Grid item xs={12} sm={4}>
               <Paper style={{ height: '100%' }}>
-              <Button fullWidth onClick={handleOpen} style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
+              <Button fullWidth onClick={handleOpenEvent} style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
                   Create Events
               </Button>
               <Modal
-                    open={open}
-                    onClose={handleClose}
+                    open={openEvent}
+                    onClose={handleCloseEvent}
                 >
-                    <CreateEventModal handleClose={handleClose} />
+                    <CreateEventModal handleClose={handleCloseEvent} />
                 </Modal>
             </Paper>
               </Grid>
@@ -104,14 +126,26 @@ const Dashboard = () => {
                 </Button>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <Button component={Link} to='/createCourse' variant='outlined' className={classes.button} fullWidth>
+                <Button onClick={handleOpenCourse} variant='outlined' className={classes.button} fullWidth>
                   <Typography>Add a Course</Typography>
                 </Button>
+                <Modal
+                    open={openCourse}
+                    onClose={handleCloseCourse}
+                >
+                    <AddCourse handleClose={handleCloseCourse} />
+                </Modal>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <Button component={Link} to='/AddFriend' variant='outlined' className={classes.button} fullWidth>
+                <Button onClick={handleOpenFriend} variant='outlined' className={classes.button} fullWidth>
                   <Typography>Add Friend</Typography>
                 </Button>
+                <Modal
+                    open={openFriend}
+                    onClose={handleCloseFriend}
+                >
+                    <AddCourse handleClose={handleCloseFriend} />
+                </Modal>
               </Grid>
             </Grid>
           </Grid>

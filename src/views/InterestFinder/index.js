@@ -1,4 +1,4 @@
-import { Container, Grid, Button, Typography } from "@mui/material";
+import { Container, Grid, Button, Typography, TextField, Autocomplete } from "@mui/material";
 import InterestTagCard from "../../components/InterestTagCard";
 import InterestCategory from "../../components/InterestCategory";
 import uniqid from "uniqid";
@@ -28,6 +28,19 @@ const InterestFinder = () => {
     },
   ];
 
+  const tags = [
+    { tag: 'Gaming' },
+    { tag: 'Movies' },
+    { tag: 'Friends' },
+    { tag: 'Zelda' },
+    { tag: 'Skyrim' },
+    { tag: 'Animal Crossing'},
+    { tag: 'League of Legends'},
+    { tag: 'Music' },
+    { tag: 'Theater'},
+    { tag: 'Series' },
+  ];
+
   const tagCardRender = (tag) => {
     return (
       <Grid item justifyContent="flex-start">
@@ -46,7 +59,7 @@ const InterestFinder = () => {
       result.push(
         <InterestCategory title={category.title} key={uniqid()}>
           <Grid container spacing={3} mt={4} alignItems="center"
-          sx={{ cursor: "pointer" }}>
+            sx={{ cursor: "pointer" }}>
             {tags}
           </Grid>
         </InterestCategory>
@@ -59,7 +72,7 @@ const InterestFinder = () => {
     position: "relative",
     height: "80%",
     transform: "translate(0, 20%)",
-    borderWidth: "3px", 
+    borderWidth: "3px",
     borderColor: "#C8D9A3",
     borderStyle: "solid",
     borderRadius: theme.shape.borderRadius,
@@ -102,42 +115,57 @@ const InterestFinder = () => {
 
   return (
     <Grid
-    justifyContent='center'
-    sx={{background: 'linear-gradient(180deg, #C9D991 0%, #d0f0c0 51%, #F2F2F2 75%);',
-    backgroundSize: 'cover', paddingTop: '20vh'}}
+      justifyContent='center'
+      sx={{
+        background: 'linear-gradient(180deg, #C9D991 0%, #d0f0c0 51%, #F2F2F2 75%);',
+        backgroundSize: 'cover', paddingTop: '20vh'
+      }}
     >
-      
-    <Container>
-      <Search>
-        <SearchIconWrapper>
+
+      <Container>
+        <Search>
+          <Autocomplete
+            multiple
+            fullWidth
+            options={tags}
+            getOptionLabel={(option) => option.tag}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Find your interests!"
+                placeholder="Add all related tags"
+              />
+            )}
+          />
+          {/* <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
           placeholder="Search…"
           inputProps={{ "aria-label": "search" }}
-        />
-      </Search>
-      {tagCategoyRender(tagCategoryArray)}
-      <Button
-        variant="contained"
-        sx={{
-          margin: 2,
-          color: "#74A651",
-          backgroundColor: "#C8D9A3",
-          marginLeft: "80vw",
-          "&:hover": {
-            backgroundColor: "#C6F2C4",
+        /> */}
+        </Search>
+        {tagCategoyRender(tagCategoryArray)}
+        <Button
+          variant="contained"
+          sx={{
+            margin: 2,
             color: "#74A651",
-          },
-        }}
-        href="/login"
-        size="large"
-      >
-        <Typography variant="button" component="div" sx={{ cursor: "pointer" }}>
-          Submit
-        </Typography>
-      </Button>
-    </Container>
+            backgroundColor: "#C8D9A3",
+            marginLeft: "80vw",
+            "&:hover": {
+              backgroundColor: "#C6F2C4",
+              color: "#74A651",
+            },
+          }}
+          href="/login"
+          size="large"
+        >
+          <Typography variant="button" component="div" sx={{ cursor: "pointer" }}>
+            Submit
+          </Typography>
+        </Button>
+      </Container>
     </Grid>
   );
 };
