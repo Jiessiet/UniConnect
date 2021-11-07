@@ -13,6 +13,7 @@ import EventDetails from './views/Event/EventDetails'
 import { createEvent } from './views/Event/create-event';
 import AccountSetup from './views/AccountSetup/AccountSetup'
 import profile from './views/Profile/User/profile.js'
+import Dashboard from './views/Dashboard/Admin/dashboard';
 import AddFriend from './views/AddFriend/AddFriend'
 import { createCourse } from './views/Course/create-course';
 import AnimatedBg from './views/Home/Components/AnimatedBg';
@@ -59,6 +60,7 @@ function App() {
             <Route path="/createEvent" exact component={createEvent}/>
             <Route path="/AccountSetup" exact component={AccountSetup}/>
             <Route path="/profile" exact component={profile}/>
+            <Route path="/dashboard" exact component={Dashboard}/>
             <Route path="/AddFriend" exact component={AddFriend}/>
             <Route path="/createCourse" exact component={createCourse}/>
             <Route path="/AnimatedBg" exact component={AnimatedBg}/>
