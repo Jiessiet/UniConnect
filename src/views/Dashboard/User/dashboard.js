@@ -144,7 +144,7 @@ const Dashboard = () => {
                     open={openFriend}
                     onClose={handleCloseFriend}
                 >
-                    <AddCourse handleClose={handleCloseFriend} />
+                    <AddFriend handleClose={handleCloseFriend} />
                 </Modal>
               </Grid>
             </Grid>
