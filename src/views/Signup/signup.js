@@ -26,19 +26,20 @@ function Signup() {
             justifyContent="center"
             style={{ minHeight: '100vh', minWidth: '100vw' }}
             sx={{
-                backgroundImage: `url(${background})`,
+                background: 'linear-gradient(180deg, #C9D991 10%, #d0f0c0 40%, #F2F2F2 75%)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center'
             }}>
             <Grid container
                 direction="row"
                 alignItems="center"
-                component={Paper}
+                // component={Paper}
                 elevation={6}
                 borderRadius={16}
                 padding='0px'
                 xs={7}
                 mt='6vh'
+                md={7}
             >
                 {/* <Grid item xs={6} alignItems='flex-end' zIndex='800'> */}
                     <img src={SignUpImg}
@@ -46,7 +47,7 @@ function Signup() {
                         position: 'abolsute',
                         marginLeft: '-3vw',
                         marginRight: '-15vw',
-                        maxHeight: 800
+                        maxHeight: 600
                     }} />
                 {/* </Grid> */}
                 <Grid container
@@ -54,14 +55,20 @@ function Signup() {
                     alignItems="center"
                     justifyItems='center'
                     justifyContent='center'
-                    // component={Paper} 
+                    component={Paper} 
                     elevation={6}
                     variant='outlined'
                     borderRadius={16}
                     padding='0px'
                     marginRight='1vw'
                     zIndex='1000'
-                    style={{ minHeight: '50vh', minWidth: '30vw', border: `3px solid ${green[200]}`, padding: '5vh' }}
+                    style={{ 
+                        minHeight: '50vh', 
+                        minWidth: '30vw', 
+                        border: `3px solid ${green[200]}`, 
+                        padding: '5vh',
+                        backgroundColor: '#F2F2F2'
+                     }}
                     xs={4}>
                     <Grid container direction='column' alignItems='center'>
                         <Grid item xs={9}>
@@ -73,10 +80,10 @@ function Signup() {
                     <Grid item>
                         <form>
                             <Grid container direction='row' alignItems='center'justifyItems='center'>
-                                <Grid item xs= {10.75}>
+                                <Grid item xs= {10}>
                                     <TextField fullWidth label='Username' right-padding='5px' margin='normal' required='true' placeholder='Create your own unique username' />
                                 </Grid>
-                            <Grid item><label htmlFor="icon-button-file" xs={1}>
+                            <Grid item><label htmlFor="icon-button-file" xs={1.5}>
                                     <Input accept="image/*" id="icon-button-file" type="file" />
                                     <Tooltip title='Upload your profile picture'>
                                     <IconButton color="green" component="span">
