@@ -34,6 +34,7 @@ import { useUser } from "./Contexts/UserContext";
 import DashboardRouter from "./views/Dashboard/DashboardRouter";
 import LoginRouter from "./views/Login/LoginRouter";
 import SignupRouter from "./views/Signup/SignupRouter";
+import ResetPassword from "./views/ResetPassword/RestPassword"
 
 const theme = createTheme({
   typography: {
@@ -102,6 +103,7 @@ function App() {
             <Route path="/createCourse" exact component={createCourse}/>
             <Route path="/AnimatedBg" exact component={AnimatedBg}/>
             <Route path="/interestFinder" exact component={InterestFinder}/>
+            <Route path="/ResetPassword" exact component={ResetPassword}/>
             </div>
           </Switch>
         </React.StrictMode>     
