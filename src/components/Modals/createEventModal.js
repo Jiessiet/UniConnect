@@ -100,6 +100,7 @@ function Modal({ handleClose }) {
                             label='Event Description'
                             multiline='true'
                             margin='normal'
+                            rows={2}
                             placeholder="Let other's know what your event is about!"
                         />
                         <TextField
@@ -146,7 +147,7 @@ function Modal({ handleClose }) {
                             <Grid item xs={10}>
                                 <Autocomplete
                                     multiple
-                                    options={top100Films}
+                                    options={tags}
                                     getOptionLabel={(option) => option.tag}
                                     renderInput={(params) => (
                                         <TextField
@@ -213,7 +214,7 @@ function Modal({ handleClose }) {
 export default Modal;
 
 
-const top100Films = [
+const tags = [
     { tag: 'gaming' },
     { tag: 'movies' },
     { tag: 'friends' }];
