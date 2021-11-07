@@ -17,7 +17,7 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 const Dashboard = () => {
   //   classes = useStyles();
   return (
-    <Container maxWidth='md' >
+    <Container maxWidth='md' sx={{ mt: 12}}>
       <Grid container justify='space-between' spacing={3} mt={0}>
         <Grid item container xs={12} sm={7} spacing={3}>
           <Grid item container spacing={3} textAlign='center'>
