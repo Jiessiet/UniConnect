@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+##### <b>README :</b> TEAM 23 </br></br>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# <b>Welcome to <em>UniConnect</em>!</b>
+<em><b>‘UniConnect’</b></em> aims to join students from various universities across downtown Toronto through common interests and events. Students who want to participate in group activities but do not know where to look can now go onto our web app to do so. Users can select their interests through our unique tagging system, ranging from arts and music to technology and gaming which will allow them to find related events. By joining events, users can meet up with people virtually and in person to connect through common interests. </br></br>
 
-## Available Scripts
+# Features
 
-In the project directory, you can run:
+Below, we have listed out our main features provided for users on our web app. Differences between administrators and users will be explained as well as our plans going forwards.
 
-### `npm start`
+### <b>Navigation</b>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+When first arriving on our page, end-users will be greeted by our lively landing page. From there, users can search for events using the search bar, login or signup. When logging in, users can always reset their password or make a new account. Admins, on the other hand, are created only on an appointed basis, and thus cannot simply sign up. Further functionality for admins will be added with a database. 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### <b>Login and Logout</b>
 
-### `npm test`
+### <b>User and Admin</b>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### <b>Dashboard</b>
 
-### `npm run build`
+### <b>Profile</b>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### <b>Timeline</b>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### <b>Events</b>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+</br></br>
+## Next Steps
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+</br></br>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+# Notes
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Third Party Libraries: 
+* React.Js
+* @mui/material
+* @mui/icons-materials
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Third Party Resources
+* Wave generator: https://getwaves.io/ 
+* Stories by FreePik
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+####
