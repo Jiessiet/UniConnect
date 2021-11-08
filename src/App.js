@@ -109,6 +109,8 @@ function App() {
               <Route path="/interestFinder" exact component={InterestFinder} />
               <Route path="/ResetPassword" exact component={ResetPassword} />
               <Route path="/Profile" exact component={ProfileRouter} />
+
+              <Route path="/UserProfile" exact component={UserProfile} />
             </div>
           </Switch>
         </React.StrictMode>
