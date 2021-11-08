@@ -67,7 +67,7 @@ const TimelineEventCard = ({
                 Learn More
               </Button>
             </Typography>
-            {currentUser.type == "admin" && (
+            {(currentUser.type == "admin" || urrentUser.type == "unauthorized") && (
               <>
                 <Button>Delete The Post</Button>
               </>
