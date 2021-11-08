@@ -91,7 +91,7 @@ After clicking attend, users will be able to see the list of attendees. By click
 
 #### Admins
 <img src='README-Images\image8.png'></img>
-Admins will not be able to attend events, however they will be able to see the list of attendees without needing to attend. By clicking on the attendee list, admins can see p
+Admins will not be able to attend events, however they will be able to see the list of attendees without needing to attend. By clicking on the attendee list, admins can see the profiles of all attendees.
 
 
 #
