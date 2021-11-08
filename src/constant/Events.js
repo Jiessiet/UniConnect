@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import { useUser } from '../Contexts/UserContext';
 
 export const events = [
     {
@@ -10,10 +11,7 @@ export const events = [
     location: 'Queen Street | Toronto',
     totalParticipant: 6,
     currentParticipant: 4,
-    eventLink: 
-    <Button to="/ClimateChangeDetails" component={Link}>
-    Learn More
-    </Button>
+    eventLink: ["/ClimateChange", "/ClimateChangeDetails"]
   },
     {
     id: 2,
@@ -23,10 +21,7 @@ export const events = [
     location: '226 Yonge Street | Toronto',
     totalParticipant: 12,
     currentParticipant: 6,
-    eventLink: 
-    <Button to="/GameEventDetails" component={Link}>
-    Learn More
-    </Button>
+    eventLink: ["/GameEvent", "/GameEventDetails"]
   },
     {
     id: 3,
@@ -36,10 +31,7 @@ export const events = [
     location: '4492 London Street West | Toronto',
     totalParticipant: 30,
     currentParticipant: 2,
-    eventLink: 
-    <Button to="/PoetryDetails" component={Link}>
-    Learn More
-    </Button>
+    eventLink: ["/Poetry", "/PoetryDetails"]
   },
   {
     id: 4,
@@ -49,10 +41,7 @@ export const events = [
     location: 'Queens Park | Toronto',
     totalParticipant: 6,
     currentParticipant: 5,
-    eventLink: 
-    <Button to="/MoonDetails" component={Link}>
-    Learn More
-    </Button>
+    eventLink: ["/Moon", "/MoonDetails"]
   },
   {
     id: 5,
@@ -62,10 +51,7 @@ export const events = [
     location: 'Queens Park | Toronto',
     totalParticipant: 5,
     currentParticipant: 3,
-    eventLink: 
-    <Button to="/BloodEventDetails" component={Link}>
-    Learn More
-    </Button>
+    eventLink: ["/BloodEvent", "/BloodEventDetails"]
   },
   {
     id: 6,
@@ -75,10 +61,7 @@ export const events = [
     location: 'Queens Park | Toronto',
     totalParticipant: 10,
     currentParticipant: 2,
-    eventLink: 
-    <Button to="/FightEventDetails" component={Link}>
-    Learn More
-    </Button>
+    eventLink: ["/FightEvent", "/FightEventDetails"]
   },
   {
     id: 7,
@@ -88,9 +71,6 @@ export const events = [
     location: '3829 Jarvis Street East | Toronto',
     totalParticipant: 50,
     currentParticipant: 47,
-    eventLink: 
-    <Button to="/CatsEventDetails" component={Link}>
-    Learn More
-    </Button>
+    eventLink: ["/CatsEvent", "/CatsEventDetails"]
   }
   ]
