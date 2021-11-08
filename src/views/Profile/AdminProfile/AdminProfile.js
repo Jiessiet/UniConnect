@@ -47,7 +47,7 @@ const commonStyles = {
 };
 
 const AdminProfile = () => {
-  const handleMemberList = event =>{
+  const handleMemberList = event => {
     //gets list of users and displays to admin
   }
   return (
@@ -94,7 +94,7 @@ const AdminProfile = () => {
 
                 <Grid item xs container direction='row'>
                   <IconButton type='submit' sx={{ p: '10px' }} aria-label='search'
-                  onClick={handleMemberList}>
+                    onClick={handleMemberList}>
                     <PersonIcon sx={{ borderRadius: 2 }} />
                     <Typography variant='subtitle1' component='div'>
                       257 members
@@ -102,17 +102,17 @@ const AdminProfile = () => {
                   </IconButton>
                 </Grid>
 
-                  <Grid
-                    container
-                    direction='row'
-                    columns={{ xs: 4, sm: 8, md: 12 }}
-                    spacing={2}
-                    pb={1}
-                    pl={1}
-                  >
-                      <Grid item>
-                    </Grid>
+                <Grid
+                  container
+                  direction='row'
+                  columns={{ xs: 4, sm: 8, md: 12 }}
+                  spacing={2}
+                  pb={1}
+                  pl={1}
+                >
+                  <Grid item>
                   </Grid>
+                </Grid>
                 <Grid item xs>
                   <Box sx={{ ...commonStyles, border: 1, borderRadius: '16px' }}>
                     <Typography
@@ -124,17 +124,17 @@ const AdminProfile = () => {
                       Description Description Description Description
                     </Typography>
                   </Box>
-                  </Grid>
+                </Grid>
                 <Box display='flex'>
-                <Button variant='contained' component={Link} to="/dashboard" style={{margin: 5}} >View Statistics</Button>
-                {/* <Button variant='contained' component={Link} to="/upcoming-events" style={{margin: 5}}>Upcoming Events</Button> */}
+                  <Button variant='contained' component={Link} to="/dashboard" style={{ margin: 5 }} >View Statistics</Button>
+                  {/* <Button variant='contained' component={Link} to="/upcoming-events" style={{margin: 5}}>Upcoming Events</Button> */}
                 </Box>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-      </Grid>
+    </Grid>
   );
 };
 

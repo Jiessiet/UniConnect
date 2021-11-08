@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import { useUser } from '../Contexts/UserContext';
 
 export const events = [
-    {
+  {
     id: 1,
     title: 'Walk on the Queen Street',
     description: 'Breathe in the crisp fall air. Explore the beautiful autumn foliage, hear the crunch of the leaves in melodious synchrony with your steps. Join before global warming takes it away forever.',
@@ -13,7 +13,7 @@ export const events = [
     currentParticipant: 4,
     eventLink: ["/ClimateChange", "/ClimateChangeDetails"]
   },
-    {
+  {
     id: 2,
     title: 'Game Night',
     description: 'Join us for a gaming session! We will be playing Mario Kart and Super Smash Bros. Free to attend and for all skill levels. Refreshments are provided.',
@@ -23,7 +23,7 @@ export const events = [
     currentParticipant: 6,
     eventLink: ["/GameEvent", "/GameEventDetails"]
   },
-    {
+  {
     id: 3,
     title: 'Slam Poetry',
     description: 'Are you looking for a way to let out all those pesky emotions? We are looking for lonely young students who have a passion for poetry. Drinks are provided.',
@@ -73,4 +73,4 @@ export const events = [
     currentParticipant: 47,
     eventLink: ["/CatsEvent", "/CatsEventDetails"]
   }
-  ]
+]

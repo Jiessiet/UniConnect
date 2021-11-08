@@ -32,7 +32,7 @@ const Dashboard = () => {
   const handleOpenUser = () => setOpenUser(true);
   const handleCloseUser = () => setOpenUser(false);
   return (
-    <Container maxWidth='md' sx={{ mt: 12}}>
+    <Container maxWidth='md' sx={{ mt: 12 }}>
       <Grid container justify='space-between' spacing={3} mt={0}>
         <Grid item container xs={12} sm={7} spacing={3}>
           <Grid item container spacing={3} textAlign='center'>
@@ -42,10 +42,10 @@ const Dashboard = () => {
                   component='img'
                   height='200'
                   image='https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg'
-                  style={{marginBottom: 20}}
+                  style={{ marginBottom: 20 }}
                 />
                 <Button fullWidth variant='contained' style={{ backgroundColor: '#099441' }} size='medium'
-                href='/Profile'>
+                  href='/Profile'>
                   Edit Profile
                 </Button>
               </Paper>
@@ -56,91 +56,91 @@ const Dashboard = () => {
                   {/* Statistics will be taken from the database and displayed. Currently, these are only placeholders. */}
                   STATS
                 </Typography>
-                <EqualizerIcon style={{fontSize:200}}/>
+                <EqualizerIcon style={{ fontSize: 200 }} />
                 <KeyboardArrowDownOutlinedIcon />
               </Paper>
             </Grid>
           </Grid>
           <Grid item xs={12} sm={12} textAlign='center'>
             {/* <Paper style={{ height: '100%' }}> */}
-              <Button fullWidth 
-              onClick={handleOpen} 
-              style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px'}}
+            <Button fullWidth
+              onClick={handleOpen}
+              style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }}
               // sx={{p:'10'}} 
               variant='contained'
-              >
-                  Add tags
-              </Button>
-              <Modal
-                open={open}
-                onClose={handleClose}
-                >
-                    <AddTags handleClose={handleClose} />
-                </Modal>
+            >
+              Add tags
+            </Button>
+            <Modal
+              open={open}
+              onClose={handleClose}
+            >
+              <AddTags handleClose={handleClose} />
+            </Modal>
 
 
 
-                <Button fullWidth 
-              onClick={handleOpenTags} 
-              style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }} 
+            <Button fullWidth
+              onClick={handleOpenTags}
+              style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }}
               variant='contained'
-              >
-                  Delete Tags
-              </Button>
-              <Modal
-                open={openTags}
-                onClose={handleCloseTags}
-                >
-                    <DeleteTags handleClose={handleCloseTags} />
-                </Modal>
+            >
+              Delete Tags
+            </Button>
+            <Modal
+              open={openTags}
+              onClose={handleCloseTags}
+            >
+              <DeleteTags handleClose={handleCloseTags} />
+            </Modal>
 
 
 
 
-              <Button fullWidth 
-              onClick={handleOpenUser} 
-              style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }} 
+            <Button fullWidth
+              onClick={handleOpenUser}
+              style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }}
               variant='contained'
-              >
-                  Delete User
-              </Button>
-              <Modal
-                open={openUser}
-                onClose={handleCloseUser}
-                >
-                    <DeleteUser handleClose={handleCloseUser} />
-                </Modal>
+            >
+              Delete User
+            </Button>
+            <Modal
+              open={openUser}
+              onClose={handleCloseUser}
+            >
+              <DeleteUser handleClose={handleCloseUser} />
+            </Modal>
 
 
 
             {/* </Paper> */}
           </Grid>
         </Grid>
-        <Grid item xs={12} sm={5} style={{textAlign:'center', alignitems:'center'}}>
+        <Grid item xs={12} sm={5} style={{ textAlign: 'center', alignitems: 'center' }}>
           <Paper style={{ height: '400px' }}>
             <Typography variant='h5' pt={2} color='#099441'>
               REPORT FEED
             </Typography>
             {/* these reports will be taken from the database and displayed. Currently these are hardcoded in */}
             <Card style={{ width: '90%', margin: '20px auto', backgroundColor: '#eff5eb' }}>
-                <CardContent style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
-              <AccountCircleIcon style={{ marginRight: '1px' }} />
-              <Typography>User 1928 has been reported</Typography>
+              <CardContent style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+                <AccountCircleIcon style={{ marginRight: '1px' }} />
+                <Typography>User 1928 has been reported</Typography>
               </CardContent>
             </Card>
             <Card style={{ width: '90%', margin: '20px auto', backgroundColor: '#eff5eb' }}>
-            <CardContent style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
-              <AccountCircleIcon style={{ marginRight: '1px' }} />
-              <Typography>User 1928 has been reported</Typography>
+              <CardContent style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+                <AccountCircleIcon style={{ marginRight: '1px' }} />
+                <Typography>User 1928 has been reported</Typography>
               </CardContent>
             </Card>
             <Card style={{ width: '90%', margin: '20px auto', backgroundColor: '#eff5eb' }}>
-            <CardContent style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
-              <AccountCircleIcon style={{ marginRight: '1px' }} />
-              <Typography>User 1928 has been reported</Typography>
+              <CardContent style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+                <AccountCircleIcon style={{ marginRight: '1px' }} />
+                <Typography>User 1928 has been reported</Typography>
               </CardContent>
             </Card>
-            <KeyboardArrowDownOutlinedIcon style={{ marginTop: 30 }}/>
+            <KeyboardArrowDownOutlinedIcon style={{ marginTop: 30 }} />
           </Paper>
         </Grid>
       </Grid>

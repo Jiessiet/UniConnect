@@ -23,11 +23,11 @@ const descriptions = [
     title: 'Credits',
     description:
       "This website was created by Jiessie, Mizna, Sue and Onur. Credits to Stories by FreePik for all images seen in the website. See link below for more information:",
-    link:<Link href="https://www.freepik.com/vectors/people" 
-    target="_blank">
-    People vector created by stories - www.freepik.com
+    link: <Link href="https://www.freepik.com/vectors/people"
+      target="_blank">
+      People vector created by stories - www.freepik.com
     </Link>,
-      imageUrl: teamPic,
+    imageUrl: teamPic,
     time: 1500,
   },
   {
@@ -44,7 +44,7 @@ export default function () {
   return (
     <div className={classes.root} id="description">
       <ImageCard description={descriptions[1]} checked={checked} />
-      <ImageCard description={descriptions[0]} checked={checked} />  
+      <ImageCard description={descriptions[0]} checked={checked} />
     </div>
   );
 }

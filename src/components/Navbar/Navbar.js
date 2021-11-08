@@ -49,23 +49,9 @@ const Navbar = () => {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    color:"#4b592d"
+    color: "#4b592d"
   }));
 
-  // const DropIconWrapper = styled("div")(({ theme }) => ({
-  //   color: "red",
-  //   padding: theme.spacing(0, 2),
-  //   height: "100%",
-  //   position: "absolute",
-  //   left: "60vw",
-  //   bottom: "-50px",
-  //   pointerEvents: "none",
-  //   display: "flex",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  //   transform: drop ? "rotate(-90deg)" : "rotate(-90deg",
-  //   transition: theme.transitions.create("transform"),
-  // }));
 
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: "inherit",

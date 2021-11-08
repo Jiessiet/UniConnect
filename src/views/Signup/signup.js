@@ -13,11 +13,11 @@ import { useUser } from '../../Contexts/UserContext';
 
 
 function Signup() {
-    const {setCurrentUser} = useUser
+    const { setCurrentUser } = useUser
 
     function handleRegister() {
         window.localStorage.setItem('userType', 'user')
-        setCurrentUser((currentUser) => {return {...currentUser, type: 'user'}})
+        setCurrentUser((currentUser) => { return { ...currentUser, type: 'user' } })
     }
 
     const Input = styled('input')({
@@ -48,7 +48,7 @@ function Signup() {
                 mt='6vh'
             >
                 {/* <Grid item xs={6} alignItems='flex-end' zIndex='800'> */}
-                    <img src={SignUpImg}
+                <img src={SignUpImg}
                     style={{
                         position: 'abolsute',
                         marginLeft: '-3vw',
@@ -61,38 +61,40 @@ function Signup() {
                     alignItems="center"
                     justifyItems='center'
                     justifyContent='center'
-                    component={Paper} 
+                    component={Paper}
                     elevation={6}
                     variant='outlined'
                     borderRadius={16}
                     padding='0px'
                     marginRight='1vw'
                     // zIndex='1000'
-                    style={{ maxHeight: '90vh', minWidth: '20vw', border: `3px solid ${green[200]}`, 
-                    padding: '5vh' }}
+                    style={{
+                        maxHeight: '90vh', minWidth: '20vw', border: `3px solid ${green[200]}`,
+                        padding: '5vh'
+                    }}
                     xs={7}>
                     <Grid container direction='column' alignItems='center'>
                         <Grid item xs={9}>
-                            <Typography component="h1" variant='h3' marginTop='2vh' fontFamily='revert' fontStyle='revert'> 
+                            <Typography component="h1" variant='h3' marginTop='2vh' fontFamily='revert' fontStyle='revert'>
                                 Sign Up!
                             </Typography>
                         </Grid>
                     </Grid>
                     <Grid item>
                         <form>
-                            <Grid container direction='row' alignItems='center'justifyItems='center'>
-                                <Grid item xs= {10.25}>
+                            <Grid container direction='row' alignItems='center' justifyItems='center'>
+                                <Grid item xs={10.25}>
                                     <TextField fullWidth label='Username' right-padding='5px' margin='normal' required='true' placeholder='Create your own unique username' />
                                 </Grid>
-                            <Grid item><label htmlFor="icon-button-file" xs={1}>
+                                <Grid item><label htmlFor="icon-button-file" xs={1}>
                                     <Input accept="image/*" id="icon-button-file" type="file" />
                                     <Tooltip title='Upload your profile picture'>
-                                    <IconButton color="green" component="span">
-                                        <PhotoCamera background='green' />
-                                    </IconButton>
+                                        <IconButton color="green" component="span">
+                                            <PhotoCamera background='green' />
+                                        </IconButton>
                                     </Tooltip>
                                 </label>
-                            </Grid>
+                                </Grid>
                             </Grid>
                             <TextField fullWidth label='Email' margin='normal' required='true' placeholder='Type your email' />
                             <TextField fullWidth label='University' required='true' margin='normal' placeholder='Enter your University' />

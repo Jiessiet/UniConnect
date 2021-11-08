@@ -34,10 +34,10 @@ const InterestFinder = () => {
     { tag: 'Friends' },
     { tag: 'Zelda' },
     { tag: 'Skyrim' },
-    { tag: 'Animal Crossing'},
-    { tag: 'League of Legends'},
+    { tag: 'Animal Crossing' },
+    { tag: 'League of Legends' },
     { tag: 'Music' },
-    { tag: 'Theater'},
+    { tag: 'Theater' },
     { tag: 'Series' },
   ];
 
@@ -171,7 +171,7 @@ const InterestFinder = () => {
           onClick={handleTags}
         >
           <Typography variant="button" component="div" sx={{ cursor: "pointer" }}
-          onClick={handleSubmit}>
+            onClick={handleSubmit}>
             Submit
           </Typography>
         </Button>
