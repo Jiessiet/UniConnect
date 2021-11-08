@@ -11,8 +11,8 @@ Below, we have listed out our main features provided for users on our web app. D
 
 When first arriving on our page, end-users will be greeted by our lively landing page. 
 
-<img src='README-Images\LandingPage.png'></img>
-<img src='README-Images\LandingPageScroll.png'></img>
+<img src='README-Images\LandingPage.png'/>
+<img src='README-Images\LandingPageScroll.png'/>
 
 From there, users can search for events using the search bar, login or signup. When logging in, users can always reset their password or make a new account. 
 <img src='README-Images\loginv1.png'></img>
