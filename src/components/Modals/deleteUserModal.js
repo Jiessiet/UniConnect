@@ -1,7 +1,9 @@
 import React from 'react'
+import { useState } from "react";
 import { Icon, Button, Alert, IconButton, Tooltip, Snackbar, Grid, Paper, Autocomplete, Avatar, Typography, Box, TextField, Link, SliderValueLabel } from '@mui/material';
 import { green } from '@mui/material/colors';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer'; import { styled } from '@mui/material/styles';
+import PersonAddDisabledIcon from '@mui/icons-material/PersonAddDisabled';
+import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 
 
@@ -9,11 +11,11 @@ function Modal({ handleClose }) {
     const [open, setOpen] = React.useState(false);
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
-    const [tagsChosen, setTagChosen] = useState('')
+    const [userChosen, setUserChosen] = useState('')
 
-    const handle = event => {
+    const handleUserSelectChange = event => {
         const value = event.target.value;
-        setTagChosen(value)
+        setUserChosen(value)
     };
 
     const handleClick = () => {
@@ -86,11 +88,11 @@ function Modal({ handleClose }) {
                     </Grid>
                     <Grid item xs={3}>
                         <IconButton>
-                            <LocalOfferIcon sx={{ fontSize: 60, color: green[300], mb: '2' }} />
+                            <PersonAddDisabledIcon sx={{ fontSize: 60, color: green[300], mb: '2' }} />
                         </IconButton>
                     </Grid>
                     <Grid item xs={9}>
-                        <Typography component="h1" variant='h3' align='center' fontFamily='revert'> Delete Tag</Typography>
+                        <Typography component="h1" variant='h3' align='center' fontFamily='revert'> Delete User</Typography>
                     </Grid>
                 </Grid>
                 <Grid item align='center' xs={12}>
@@ -103,7 +105,7 @@ function Modal({ handleClose }) {
                                 {...params}
                                 label="Users"
                                 placeholder="All Users to delete"
-                                value={usersChosen}
+                                value={userChosen}
                                 onChange={handleUserSelectChange}
                             />
                         )}
@@ -116,7 +118,7 @@ function Modal({ handleClose }) {
                         onClick={handleClick}
                         sx=
                         {{ mt: 2, background: 'green' }}>
-                        Create Tag
+                        Delete User
                     </Button>
                 </Grid>
             </Grid>
@@ -125,7 +127,7 @@ function Modal({ handleClose }) {
                     open={open}
                     autoHideDuration={1000}
                 >
-                    <Alert severity='success'> Tag Created </Alert>
+                    <Alert severity='success'> User Deleted </Alert>
                 </Snackbar>
             </div>
             <div>
@@ -133,7 +135,7 @@ function Modal({ handleClose }) {
                     open={openSnackbar}
                     autoHideDuration={1000}
                 >
-                    <Alert severity='error'> Event Not Created </Alert>
+                    <Alert severity='error'> User Not Deleted</Alert>
                 </Snackbar>
             </div>
         </Grid>)

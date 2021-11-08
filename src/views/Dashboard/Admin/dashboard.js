@@ -15,13 +15,22 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import AddTags from '../../../components/Modals/addTagsModal'
+import DeleteTags from '../../../components/Modals/deleteTagModal'
+import DeleteUser from '../../../components/Modals/deleteUserModal'
 
 const Dashboard = () => {
   //   classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [openTags, setOpenTags] = React.useState(false);
+  const [openUser, setOpenUser] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const handleOpenTags = () => setOpenTags(true);
+  const handleCloseTags = () => setOpenTags(false);
+
+  const handleOpenUser = () => setOpenUser(true);
+  const handleCloseUser = () => setOpenUser(false);
   return (
     <Container maxWidth='md' sx={{ mt: 12}}>
       <Grid container justify='space-between' spacing={3} mt={0}>
@@ -68,21 +77,42 @@ const Dashboard = () => {
                 >
                     <AddTags handleClose={handleClose} />
                 </Modal>
+
+
+
                 <Button fullWidth 
-              onClick={handleOpen} 
+              onClick={handleOpenTags} 
               style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }} 
               variant='contained'
               >
                   Delete Tags
               </Button>
+              <Modal
+                open={openTags}
+                onClose={handleCloseTags}
+                >
+                    <DeleteTags handleClose={handleCloseTags} />
+                </Modal>
+
+
+
 
               <Button fullWidth 
-              onClick={handleOpen} 
+              onClick={handleOpenUser} 
               style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }} 
               variant='contained'
               >
                   Delete User
               </Button>
+              <Modal
+                open={openUser}
+                onClose={handleCloseUser}
+                >
+                    <DeleteUser handleClose={handleCloseUser} />
+                </Modal>
+
+
+
             {/* </Paper> */}
           </Grid>
         </Grid>
