@@ -121,7 +121,7 @@ const Dashboard = () => {
 
             <Grid item container className={classes.buttons} spacing={3} >
               <Grid item xs={12} sm={4}>
-                <Button variant='outlined' className={classes.button} fullWidth>
+                <Button variant='outlined' className={classes.button} component={Link} to="/interestFinder" fullWidth>
                   <Typography>Edit Interests</Typography>
                 </Button>
               </Grid>
@@ -144,13 +144,15 @@ const Dashboard = () => {
                     open={openFriend}
                     onClose={handleCloseFriend}
                 >
-                    <AddCourse handleClose={handleCloseFriend} />
+                    <AddFriend handleClose={handleCloseFriend} />
                 </Modal>
               </Grid>
             </Grid>
           </Grid>
           <Box mt={3}>
           <Typography variant='h6'>Upcoming Events...</Typography>
+          {/* These events will be taken from the user's event list from the database. 
+          Currently these are hardcoded in */}
           </Box>
           <Grid item container xs={12} sm={12} className={classes.events}>
             <Grid item container className={classes.cards} spacing={3}>

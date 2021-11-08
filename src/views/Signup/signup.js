@@ -7,11 +7,18 @@ import SignUpImg from './signupanimate.svg'
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { IconButton } from "@material-ui/core";
 import { styled } from '@mui/material/styles';
+import { useUser } from '../../Contexts/UserContext';
 
 
 
 
 function Signup() {
+    const {setCurrentUser} = useUser
+
+    function handleRegister() {
+        window.localStorage.setItem('userType', 'user')
+        setCurrentUser((currentUser) => {return {...currentUser, type: 'user'}})
+    }
 
     const Input = styled('input')({
         display: 'none',
@@ -96,7 +103,8 @@ function Signup() {
                     <Grid item padding='0'>
                         <Button href='/AccountSetup' type='submit'
                             variant="outline"
-                            sx={{ mt: 1, color: 'white', background: 'green' }}>
+                            sx={{ mt: 1, color: 'white', background: 'green' }}
+                            onClick={handleRegister}>
                             Register
                         </Button>
                     </Grid>

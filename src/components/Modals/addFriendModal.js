@@ -12,17 +12,16 @@ function Modal({ handleClose }) {
     const handleClick = () => {
         if (true) { 
             // check if input is a user who exists in the database
-            // then redirect to that user's profile page
+            // then redirect to that user's profile page using their id from the database
             window.location.href = "/AddFriend"; 
         } else {
-            // return a negative snackbar component
+            // if does not exist display failed snackbar component
         }
     };
 
     const Input = styled('input')({
         display: 'none',
     });
-
 
     return (
         <Grid

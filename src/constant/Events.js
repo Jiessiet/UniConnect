@@ -11,7 +11,7 @@ export const events = [
     totalParticipant: 6,
     currentParticipant: 4,
     eventLink: 
-    <Button to="/ClimateChange" component={Link}>
+    <Button to="/ClimateChangeDetails" component={Link}>
     Learn More
     </Button>
   },
@@ -24,7 +24,7 @@ export const events = [
     totalParticipant: 12,
     currentParticipant: 6,
     eventLink: 
-    <Button to="/GameEvent" component={Link}>
+    <Button to="/GameEventDetails" component={Link}>
     Learn More
     </Button>
   },
@@ -37,7 +37,7 @@ export const events = [
     totalParticipant: 30,
     currentParticipant: 2,
     eventLink: 
-    <Button to="/Poetry" component={Link}>
+    <Button to="/PoetryDetails" component={Link}>
     Learn More
     </Button>
   },
@@ -50,7 +50,7 @@ export const events = [
     totalParticipant: 6,
     currentParticipant: 5,
     eventLink: 
-    <Button to="/Moon" component={Link}>
+    <Button to="/MoonDetails" component={Link}>
     Learn More
     </Button>
   },
@@ -63,7 +63,7 @@ export const events = [
     totalParticipant: 5,
     currentParticipant: 3,
     eventLink: 
-    <Button to="/BloodEvent" component={Link}>
+    <Button to="/BloodEventDetails" component={Link}>
     Learn More
     </Button>
   },
@@ -76,7 +76,7 @@ export const events = [
     totalParticipant: 10,
     currentParticipant: 2,
     eventLink: 
-    <Button to="/FightEvent" component={Link}>
+    <Button to="/FightEventDetails" component={Link}>
     Learn More
     </Button>
   },
@@ -89,7 +89,7 @@ export const events = [
     totalParticipant: 50,
     currentParticipant: 47,
     eventLink: 
-    <Button to="/CatsEvent" component={Link}>
+    <Button to="/CatsEventDetails" component={Link}>
     Learn More
     </Button>
   }

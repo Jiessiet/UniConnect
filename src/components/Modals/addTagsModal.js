@@ -8,7 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 function Modal({ handleClose }) {
     const [open, setOpen] = React.useState(false);
     const handleClick = () => {
-        if (true) { // TODO: all event forms are not empty
+        if (true) {
             addTag();
             setOpen(true);
             window.setTimeout(function () {
@@ -24,7 +24,7 @@ function Modal({ handleClose }) {
     });
 
     function addTag() {
-        //here we will be adding to the database with the new events information
+        //here we will be adding to the database with the new tag information
         return null
     }
 

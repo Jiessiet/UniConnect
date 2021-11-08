@@ -1,35 +1,41 @@
 import React from 'react'
 import { Icon, Button, Alert, IconButton, Tooltip, Snackbar, Grid, Paper, Autocomplete, Avatar, Typography, Box, TextField, Link, SliderValueLabel } from '@mui/material';
 import { green } from '@mui/material/colors';
-import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-import { styled } from '@mui/material/styles';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer'; import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 
 
-function AddCourse({ handleClose }) {
+function Modal({ handleClose }) {
     const [open, setOpen] = React.useState(false);
+    const [openSnackbar, setOpenSnackbar] = React.useState(false);
+
+    const [tagsChosen, setTagChosen] = useState('')
+
+    const handle = event => {
+        const value = event.target.value;
+        setTagChosen(value)
+    };
+
     const handleClick = () => {
-        if (true) { 
-            // all 
-            addCourse(); 
+        if (true) {  //check if the user exists in the database
+            deleteUser();
             setOpen(true);
             window.setTimeout(function () {
                 window.location.reload()
             }, 2000)
         } else {
-            // display a negative 
+            setOpenSnackbar(true)
         }
     };
-
-    function addCourse() {
-        // here we will be adding the course to the user's list of courses in the database
-        return null
-    }
 
     const Input = styled('input')({
         display: 'none',
     });
 
+    function deleteUser() {
+        //here we will be deleting from the database with the given users information
+        return null
+    }
 
 
     return (
@@ -80,26 +86,28 @@ function AddCourse({ handleClose }) {
                     </Grid>
                     <Grid item xs={3}>
                         <IconButton>
-                            <AddCircleOutlineRoundedIcon sx={{ fontSize: 60, color: green[300] }} />
+                            <LocalOfferIcon sx={{ fontSize: 60, color: green[300], mb: '2' }} />
                         </IconButton>
                     </Grid>
                     <Grid item xs={9}>
-                        <Typography component="h1" variant='h3' align='center' fontFamily='revert'> Add a Course</Typography>
+                        <Typography component="h1" variant='h3' align='center' fontFamily='revert'> Delete Tag</Typography>
                     </Grid>
                 </Grid>
-                <Grid item align='center'>
-                    <Box component="form">
-                        <TextField fullWidth margin='normal' label="Course Code" required='true' placeholder='ex. CSC309' type="search" />
-                        <TextField fullWidth margin='normal' label="Professor Name" placeholder="Please provide your Professor's Full Name" type="search" />
-                        <Autocomplete
-                            options={semesters}
-                            required='true'
-                            getOptionLabel={(option) => option.sem}
-                            fullWidth
-                            renderInput={(params) => <TextField {...params} label="Semester" placeholder="ex. Fall, Winter"/>}
-                        />
-                        <TextField fullWidth margin='normal' label="Section" placeholder='ex. L0101' type="search" />
-                    </Box>
+                <Grid item align='center' xs={12}>
+                    <Autocomplete
+                        multiple
+                        options={users}
+                        getOptionLabel={(option) => option.user}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Users"
+                                placeholder="All Users to delete"
+                                value={usersChosen}
+                                onChange={handleUserSelectChange}
+                            />
+                        )}
+                    />                
                 </Grid>
                 <Grid item padding='0'>
                     <Button
@@ -107,8 +115,8 @@ function AddCourse({ handleClose }) {
                         variant="outline"
                         onClick={handleClick}
                         sx=
-                        {{ mt: 3, background: 'green' }}>
-                        Add Course
+                        {{ mt: 2, background: 'green' }}>
+                        Create Tag
                     </Button>
                 </Grid>
             </Grid>
@@ -117,22 +125,22 @@ function AddCourse({ handleClose }) {
                     open={open}
                     autoHideDuration={1000}
                 >
-                    <Alert severity='success'> Course Added</Alert>
+                    <Alert severity='success'> Tag Created </Alert>
                 </Snackbar>
             </div>
-            {/* </Grid> */}
+            <div>
+                <Snackbar
+                    open={openSnackbar}
+                    autoHideDuration={1000}
+                >
+                    <Alert severity='error'> Event Not Created </Alert>
+                </Snackbar>
+            </div>
         </Grid>)
 }
-export default AddCourse
+export default Modal
 
-// these values will be called from the database
-const courses = [
-    { course: 'LIN203' },
-    { course: 'CSC209' },
-    { course: 'CSC309' }];
-
-const semesters = [
-    { sem: 'Fall' },
-    { sem: 'Winter' },
-    { sem: 'Full Year' },
-    { sem: 'Summer' }];
+const users = [
+    { user: 'student030' },
+    { user: 'u0ft3' },
+    { user: 'p3rs0n' }];
