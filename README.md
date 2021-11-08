@@ -118,6 +118,7 @@ With the addition of databases, the above features will be able to be flushed ou
 * Wave generator: https://getwaves.io/ 
 * Stories by FreePik
 
+See README-DocsV for more pictures of our website!
 #
 
 ###### Designed and Coded by : Mizna Dada, Jiessie Tie, Suhyun Park, Onur Eren Arpaci 
