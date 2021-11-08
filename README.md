@@ -20,7 +20,7 @@ When first arriving on our page, end-users will be greeted by our lively landing
 ### <b>Profile</b>
 
 ### <b>Timeline</b>
-
+<img src=README-Images\Landing Page.png
 ### <b>Events</b>
 
 
