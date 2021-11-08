@@ -192,10 +192,11 @@ const BloodEvent = () => {
                 alignItems="flex-start"
                 item xs={12} sm container>
 
+                  
                 <Link
                   style={{ textDecoration: 'none' }}
                   sx={{ cursor: 'pointer' }}
-                  to='/profile'
+                  to='/UserProfile'
                   variant="body2"
                 >
                   Attendees
