@@ -19,13 +19,13 @@ function Modal({ handleClose }) {
     };
 
     const handleClick = () => {
-        if (true) {  //check if the tag exists in the database
+        if (true) {  //check if the tag exists in the database, right now we are assuming it is
             deleteTag();
             setOpen(true);
             window.setTimeout(function () {
                 window.location.reload()
             }, 2000)
-        } else {
+        } else { // if not deleted then
             setOpenSnackbar(true)
         }
     };
@@ -99,13 +99,13 @@ function Modal({ handleClose }) {
                     <Autocomplete
                         multiple
                         options={tags}
+                        inputValue = {tagsChosen}
                         getOptionLabel={(option) => option.tag}
                         renderInput={(params) => (
                             <TextField
                                 {...params}
                                 label="Tags"
                                 placeholder="All tags to delete"
-                                value={tagsChosen}
                                 onChange={handleTagSelectChange}
                             />
                         )}
