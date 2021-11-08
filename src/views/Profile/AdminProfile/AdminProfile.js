@@ -47,6 +47,9 @@ const commonStyles = {
 };
 
 const AdminProfile = () => {
+  const handleMemberList = event =>{
+    //gets list of users and displays to admin
+  }
   return (
     <Grid
       container
@@ -90,7 +93,8 @@ const AdminProfile = () => {
                 </Typography>
 
                 <Grid item xs container direction='row'>
-                  <IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
+                  <IconButton type='submit' sx={{ p: '10px' }} aria-label='search'
+                  onClick={handleMemberList}>
                     <PersonIcon sx={{ borderRadius: 2 }} />
                     <Typography variant='subtitle1' component='div'>
                       257 members
@@ -107,13 +111,6 @@ const AdminProfile = () => {
                     pl={1}
                   >
                       <Grid item>
-                    <Button variant='outlined'>
-                      <Typography
-                        sx={{ cursor: 'pointer' }}
-                      >
-                          Create tags
-                      </Typography>
-                    </Button>
                     </Grid>
                   </Grid>
                 <Grid item xs>
@@ -129,8 +126,8 @@ const AdminProfile = () => {
                   </Box>
                   </Grid>
                 <Box display='flex'>
-                <Button variant='contained' component={Link} to="/past-events" style={{margin: 5}} >Past Events</Button>
-                <Button variant='contained' component={Link} to="/upcoming-events" style={{margin: 5}}>Upcoming Events</Button>
+                <Button variant='contained' component={Link} to="/dashboard" style={{margin: 5}} >View Statistics</Button>
+                {/* <Button variant='contained' component={Link} to="/upcoming-events" style={{margin: 5}}>Upcoming Events</Button> */}
                 </Box>
               </Grid>
             </Grid>

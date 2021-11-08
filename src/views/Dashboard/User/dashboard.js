@@ -151,6 +151,8 @@ const Dashboard = () => {
           </Grid>
           <Box mt={3}>
           <Typography variant='h6'>Upcoming Events...</Typography>
+          {/* These events will be taken from the user's event list from the database. 
+          Currently these are hardcoded in */}
           </Box>
           <Grid item container xs={12} sm={12} className={classes.events}>
             <Grid item container className={classes.cards} spacing={3}>

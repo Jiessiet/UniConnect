@@ -77,6 +77,19 @@ export default function Header() {
   useEffect(() => {
     setChecked(true);
   }, []);
+
+  const [userSearch, setUserSearch] = useState('')
+
+  const handleSearch = event => {
+    const value = event.target.value;
+    
+    setUserSearch(value)
+    checkDatabaseSearch()
+  }
+
+  function checkDatabaseSearch(){
+    //serach database for user's search value
+  }
   return (
     <Fragment>
   <Grid
@@ -153,9 +166,13 @@ export default function Header() {
             placeholder="Find buddies :)"
             margin='none'
             inputProps={{ 'aria-label': 'search' }}
+            value={userSearch}
+            onChange={handleSearch}
           />
-          <IconButton type="submit" sx={{ p: '10px', pb: '20px' }} aria-label="search">
-          <Link to="/Event">
+          <IconButton type="submit" sx={{ p: '10px', pb: '20px' }} aria-label="search"
+          // onClick={handleSearch}
+          >
+          <Link to="/Timeline">
             <SearchIcon />
           </Link>
           </IconButton>
