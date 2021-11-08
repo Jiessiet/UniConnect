@@ -3,6 +3,8 @@
 # <b>Welcome to <em>UniConnect</em>!</b>
 <em><b>‘UniConnect’</b></em> aims to join students from various universities across downtown Toronto through common interests and events. Students who want to participate in group activities but do not know where to look can now go onto our web app to do so. Users can select their interests through our unique tagging system, ranging from arts and music to technology and gaming which will allow them to find related events. By joining events, users can meet up with people virtually and in person to connect through common interests. </br></br>
 
+See README-DocsV for more pictures of our website!
+
 # Features
 
 Below, we have listed out our main features provided for users on our web app. Differences between administrators and users will be explained as well as our plans going forwards.
@@ -118,7 +120,6 @@ With the addition of databases, the above features will be able to be flushed ou
 * Wave generator: https://getwaves.io/ 
 * Stories by FreePik
 
-See README-DocsV for more pictures of our website!
 #
 
 ###### Designed and Coded by : Mizna Dada, Jiessie Tie, Suhyun Park, Onur Eren Arpaci 
