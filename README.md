@@ -9,7 +9,11 @@ Below, we have listed out our main features provided for users on our web app. D
 
 ### <b>Navigation</b>
 
-When first arriving on our page, end-users will be greeted by our lively landing page. From there, users can search for events using the search bar, login or signup. When logging in, users can always reset their password or make a new account. Admins, on the other hand, are created only on an appointed basis, and thus cannot simply sign up. Further functionality for admins will be added with a database. 
+When first arriving on our page, end-users will be greeted by our lively landing page. 
+
+<img src='README-Images\LandingPage.png'></img>
+
+From there, users can search for events using the search bar, login or signup. When logging in, users can always reset their password or make a new account. Admins, on the other hand, are created only on an appointed basis, and thus cannot simply sign up. Further functionality for admins will be added with a database. 
 
 ### <b>Login and Logout</b>
 
@@ -20,7 +24,8 @@ When first arriving on our page, end-users will be greeted by our lively landing
 ### <b>Profile</b>
 
 ### <b>Timeline</b>
-<img src=README-Images\Landing Page.png
+
+
 ### <b>Events</b>
 
 
