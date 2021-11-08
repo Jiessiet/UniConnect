@@ -3,7 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Grid, createTheme, Stack} from "@mui/material";
+import { Grid, createTheme, Stack } from "@mui/material";
 import LocationOnSharpIcon from "@mui/icons-material/LocationOnSharp";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 
@@ -19,23 +19,23 @@ const TimelineEventCard = ({
 
 
   return (
-    <Card style={{height: '100%'}}>
+    <Card style={{ height: '100%' }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={5}>
           <CardMedia
             component="img"
             height="250"
             image={picture}
-            style={{padding:10}}
+            style={{ padding: 10 }}
           />
         </Grid>
         <Grid item xs={12} md={7}>
-          <CardContent style={{paddingBottom:16}}>
+          <CardContent style={{ paddingBottom: 16 }}>
             <Typography gutterBottom variant="h5" component="div">
               {title}
             </Typography>
-            <Stack direction="row"  mt={3} mb={0}>
-              <LocationOnSharpIcon/>
+            <Stack direction="row" mt={3} mb={0}>
+              <LocationOnSharpIcon />
               <Typography
                 variant="overline"
                 display="block"
@@ -51,13 +51,13 @@ const TimelineEventCard = ({
               <PeopleAltIcon />
             </Stack>
             <Typography variant="body1" display="block" color="textSecondary">
-                {eventLink}
+              {eventLink}
             </Typography>
           </CardContent>
         </Grid>
       </Grid>
     </Card>
-    
+
   );
 };
 

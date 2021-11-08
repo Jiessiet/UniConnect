@@ -4,7 +4,7 @@ import CreateEventModal from '../../../components/Modals/createEventModal'
 import AddCourse from '../../../components/Modals/addCourseModal';
 import AddFriend from '../../../components/Modals/addFriendModal';
 import AddTags from '../../../components/Modals/addTagsModal';
-import {Modal} from '@mui/material'
+import { Modal } from '@mui/material'
 import {
   Grow,
   Grid,
@@ -55,18 +55,18 @@ const Dashboard = () => {
                 height='150'
                 image='https://cdn.allthings.how/wp-content/uploads/2020/10/allthings.how-how-to-change-your-profile-picture-on-google-meet-profile-photo-759x427.png'
               />
-              <CardContent style={{padding: 0, marginTop: 5}}>
+              <CardContent style={{ padding: 0, marginTop: 5 }}>
                 <Typography variant='h5' component='div'>
                   Mona Lisa
                 </Typography>
                 <Grid className={classes.icons}>
-                  <Grid container direction='row' alignItems='center' style={{marginRight: 10}}>
-                    <FavoriteOutlined fontSize='large'/>
+                  <Grid container direction='row' alignItems='center' style={{ marginRight: 10 }}>
+                    <FavoriteOutlined fontSize='large' />
                     <Typography>10</Typography>
                   </Grid>
                   <Grid container direction='row' alignItems='center'>
                     <Grid item>
-                      <PersonIcon fontSize='large'/>
+                      <PersonIcon fontSize='large' />
                     </Grid>
                     <Grid item>
                       <Typography>10</Typography>
@@ -75,7 +75,7 @@ const Dashboard = () => {
                 </Grid>
               </CardContent>
               <CardActions justifyContent='center' className={classes.action}>
-                <Button size='large' variant='contained' style={{backgroundColor: '#099441', color:'white'}}>
+                <Button size='large' variant='contained' style={{ backgroundColor: '#099441', color: 'white' }}>
                   Edit Profile
                 </Button>
               </CardActions>
@@ -85,37 +85,37 @@ const Dashboard = () => {
           <Grid item xs={12} sm={8}>
             <Grid item container className={classes.cards} spacing={3}>
               <Grid item xs={12} sm={4}>
-              <Paper style={{ height: 220 }}>
-              <Button fullWidth onClick={handleOpenTags} style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
-                  Add tags
-              </Button>
-              <Modal
+                <Paper style={{ height: 220 }}>
+                  <Button fullWidth onClick={handleOpenTags} style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
+                    Add tags
+                  </Button>
+                  <Modal
                     open={openTags}
                     onClose={handleCloseTags}
-                >
+                  >
                     <AddTags handleClose={handleCloseTags} />
-                </Modal>
-            </Paper>
+                  </Modal>
+                </Paper>
               </Grid>
               <Grid item xs={12} sm={4}>
-              <Paper style={{ height: '100%' }}>
-              <Button fullWidth onClick={handleOpenEvent} style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
-                  Create Events
-              </Button>
-              <Modal
+                <Paper style={{ height: '100%' }}>
+                  <Button fullWidth onClick={handleOpenEvent} style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
+                    Create Events
+                  </Button>
+                  <Modal
                     open={openEvent}
                     onClose={handleCloseEvent}
-                >
+                  >
                     <CreateEventModal handleClose={handleCloseEvent} />
-                </Modal>
-            </Paper>
+                  </Modal>
+                </Paper>
               </Grid>
               <Grid item xs={12} sm={4}>
-              <Paper style={{ height: '100%' }}>
-              <Button component={Link} to="/past-events" fullWidth style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
-                  Past Events
-              </Button>
-            </Paper>
+                <Paper style={{ height: '100%' }}>
+                  <Button component={Link} to="/past-events" fullWidth style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
+                    Past Events
+                  </Button>
+                </Paper>
               </Grid>
             </Grid>
 
@@ -130,10 +130,10 @@ const Dashboard = () => {
                   <Typography>Add a Course</Typography>
                 </Button>
                 <Modal
-                    open={openCourse}
-                    onClose={handleCloseCourse}
+                  open={openCourse}
+                  onClose={handleCloseCourse}
                 >
-                    <AddCourse handleClose={handleCloseCourse} />
+                  <AddCourse handleClose={handleCloseCourse} />
                 </Modal>
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -141,17 +141,17 @@ const Dashboard = () => {
                   <Typography>Add Friend</Typography>
                 </Button>
                 <Modal
-                    open={openFriend}
-                    onClose={handleCloseFriend}
+                  open={openFriend}
+                  onClose={handleCloseFriend}
                 >
-                    <AddFriend handleClose={handleCloseFriend} />
+                  <AddFriend handleClose={handleCloseFriend} />
                 </Modal>
               </Grid>
             </Grid>
           </Grid>
           <Box mt={3}>
-          <Typography variant='h6'>Upcoming Events...</Typography>
-          {/* These events will be taken from the user's event list from the database. 
+            <Typography variant='h6'>Upcoming Events...</Typography>
+            {/* These events will be taken from the user's event list from the database. 
           Currently these are hardcoded in */}
           </Box>
           <Grid item container xs={12} sm={12} className={classes.events}>

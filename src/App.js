@@ -66,54 +66,54 @@ function App() {
   // const [userType, setUsertype] = useState("unauthorized");
   // //const [userType, setUsertype] = useState("user");
   const history = useHistory();
-  const { currentUser, setCurrentUser} = useUser()
+  const { currentUser, setCurrentUser } = useUser()
 
   return (
     <ThemeProvider theme={theme}>
-    <div className='App'>
-      <React.StrictMode>
+      <div className='App'>
+        <React.StrictMode>
           <Switch>
             <Route path="/" exact component={Home} />
             <div>
-            <Navbar />
-            <Route path="/timeline" exact> <Timeline eventId={eventId} setEventId={setEventId}/> </Route>
-            
-            <Route exact path="/Event" exact element> <Event eventId={eventId} setEventId={setEventId} /> </Route>
-            <Route exact path="/ClimateChange" exact element> <ClimateChange eventId={eventId} setEventId={setEventId} /> </Route>
-            <Route exact path="/BloodEvent" exact element> <BloodEvent eventId={eventId} setEventId={setEventId} /> </Route>
-            <Route exact path="/CatsEvent" exact element> <CatsEvent eventId={eventId} setEventId={setEventId} /> </Route>
-            <Route exact path="/FightEvent" exact element> <FightEvent eventId={eventId} setEventId={setEventId} /> </Route>
-            <Route exact path="/GameEvent" exact element> <GameEvent eventId={eventId} setEventId={setEventId} /> </Route>
-            <Route exact path="/Moon" exact element> <Moon eventId={eventId} setEventId={setEventId} /> </Route>
-            <Route exact path="/Poetry" exact element> <Poetry eventId={eventId} setEventId={setEventId} /> </Route>
+              <Navbar />
+              <Route path="/timeline" exact> <Timeline eventId={eventId} setEventId={setEventId} /> </Route>
 
-            <Route exact path="/EventDetails" exact component={EventDetails} />
-            <Route path="/BloodEventDetails" exact component={BloodEventDetails} />
-            <Route path="/CatsEventDetails" exact component={CatsEventDetails} />
-            <Route path="/ClimateChangeDetails" exact component={ClimateChangeDetails} />
-            <Route path="/FightEventDetails" exact component={FightEventDetails} />
-            <Route path="/GameEventDetails" exact component={GameEventDetails} />
-            <Route path="/MoonDetails" exact component={MoonDetails} />
-            <Route path="/PoetryDetails" exact component={PoetryDetails} />
+              <Route exact path="/Event" exact element> <Event eventId={eventId} setEventId={setEventId} /> </Route>
+              <Route exact path="/ClimateChange" exact element> <ClimateChange eventId={eventId} setEventId={setEventId} /> </Route>
+              <Route exact path="/BloodEvent" exact element> <BloodEvent eventId={eventId} setEventId={setEventId} /> </Route>
+              <Route exact path="/CatsEvent" exact element> <CatsEvent eventId={eventId} setEventId={setEventId} /> </Route>
+              <Route exact path="/FightEvent" exact element> <FightEvent eventId={eventId} setEventId={setEventId} /> </Route>
+              <Route exact path="/GameEvent" exact element> <GameEvent eventId={eventId} setEventId={setEventId} /> </Route>
+              <Route exact path="/Moon" exact element> <Moon eventId={eventId} setEventId={setEventId} /> </Route>
+              <Route exact path="/Poetry" exact element> <Poetry eventId={eventId} setEventId={setEventId} /> </Route>
 
-            <Route path="/login" exact component={LoginRouter} />
-            <Route path="/signup" exact component={SignupRouter} />
-            <Route path="/Event" exact element> <Event eventId={eventId} setEventId={setEventId} /> </Route>
-            <Route path="/past-events" exact component={PastEvents} />
-            <Route path="/upcoming-events" exact component={UpcomingEvents} />
-            <Route path="/EventDetails" exact component={EventDetails} />
-            <Route path="/AccountSetup" exact component={AccountSetup}/>
-            <Route path="/dashboard" exact component={DashboardRouter}/>
-            <Route path="/AddFriend" exact component={AddFriend}/>
-            <Route path="/AnimatedBg" exact component={AnimatedBg}/>
-            <Route path="/interestFinder" exact component={InterestFinder}/>
-            <Route path="/ResetPassword" exact component={ResetPassword}/>
-            <Route path="/Profile" exact component={ProfileRouter}/>
+              <Route exact path="/EventDetails" exact component={EventDetails} />
+              <Route path="/BloodEventDetails" exact component={BloodEventDetails} />
+              <Route path="/CatsEventDetails" exact component={CatsEventDetails} />
+              <Route path="/ClimateChangeDetails" exact component={ClimateChangeDetails} />
+              <Route path="/FightEventDetails" exact component={FightEventDetails} />
+              <Route path="/GameEventDetails" exact component={GameEventDetails} />
+              <Route path="/MoonDetails" exact component={MoonDetails} />
+              <Route path="/PoetryDetails" exact component={PoetryDetails} />
+
+              <Route path="/login" exact component={LoginRouter} />
+              <Route path="/signup" exact component={SignupRouter} />
+              <Route path="/Event" exact element> <Event eventId={eventId} setEventId={setEventId} /> </Route>
+              <Route path="/past-events" exact component={PastEvents} />
+              <Route path="/upcoming-events" exact component={UpcomingEvents} />
+              <Route path="/EventDetails" exact component={EventDetails} />
+              <Route path="/AccountSetup" exact component={AccountSetup} />
+              <Route path="/dashboard" exact component={DashboardRouter} />
+              <Route path="/AddFriend" exact component={AddFriend} />
+              <Route path="/AnimatedBg" exact component={AnimatedBg} />
+              <Route path="/interestFinder" exact component={InterestFinder} />
+              <Route path="/ResetPassword" exact component={ResetPassword} />
+              <Route path="/Profile" exact component={ProfileRouter} />
             </div>
           </Switch>
-        </React.StrictMode>     
-    </div>
-  </ThemeProvider>
+        </React.StrictMode>
+      </div>
+    </ThemeProvider>
   );
 }
 

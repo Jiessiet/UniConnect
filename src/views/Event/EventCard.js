@@ -32,33 +32,33 @@ export default function EventCard({ place, checked }) {
   const classes = useStyles();
 
   return (
-      <Card className={classes.root}>
-        <CardMedia
-          className={classes.media}
-          image={place.imageUrl}
-          title="pictures"
-        />
-        <CardContent>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="h1"
-            className={classes.title}
-          >
-            {place.title}
-          </Typography>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            component="p"
-            className={classes.desc}
-          >
-            {place.description}
-          </Typography>
-          <Typography>
-            {place.link}
-          </Typography>
-        </CardContent>
-      </Card>
+    <Card className={classes.root}>
+      <CardMedia
+        className={classes.media}
+        image={place.imageUrl}
+        title="pictures"
+      />
+      <CardContent>
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="h1"
+          className={classes.title}
+        >
+          {place.title}
+        </Typography>
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          component="p"
+          className={classes.desc}
+        >
+          {place.description}
+        </Typography>
+        <Typography>
+          {place.link}
+        </Typography>
+      </CardContent>
+    </Card>
   );
 }

@@ -14,19 +14,19 @@ const NavbarMenu = () => {
 
   function logouthandler() {
     window.localStorage.setItem('userType', 'unauthorized')
-    setCurrentUser((currentUser) => {return {...currentUser, type: 'unauthorized'}})
+    setCurrentUser((currentUser) => { return { ...currentUser, type: 'unauthorized' } })
   }
 
   function navbarMenuRender(logouthandler) {
     if (currentUser.type == "unauthorized") {
       return (
         <Toolbar>
-          <Button component={Link} to="/login" 
+          <Button component={Link} to="/login"
           // color="inherit"
           >
             Login
           </Button>
-          <Button component={Link} to="/signup" 
+          <Button component={Link} to="/signup"
           // color="inherit"
           >
             Signup

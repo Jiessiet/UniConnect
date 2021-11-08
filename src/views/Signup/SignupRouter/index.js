@@ -3,20 +3,20 @@ import Signup from '../signup';
 import { useHistory } from 'react-router-dom';
 
 const SignupRouter = () => {
-    const history = useHistory();
-    const { currentUser, setCurrentUser} = useUser()
+  const history = useHistory();
+  const { currentUser, setCurrentUser } = useUser()
 
-    function signupRoute() {
-        if(currentUser.type == "unauthorized"){
-          return <Signup />
-        }
-        else{
-          history.push("/timeline");
-          return null
-        }
-      }
+  function signupRoute() {
+    if (currentUser.type == "unauthorized") {
+      return <Signup />
+    }
+    else {
+      history.push("/timeline");
+      return null
+    }
+  }
 
-    return signupRoute()    
+  return signupRoute()
 }
 
 export default SignupRouter;

@@ -9,7 +9,7 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserContextProvider user={{ type: (window.localStorage.getItem('userType') || "unauthorized") }}>
-      <App />
+        <App />
       </UserContextProvider>
     </BrowserRouter>
   </React.StrictMode>,
