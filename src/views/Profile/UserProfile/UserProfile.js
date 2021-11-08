@@ -37,6 +37,8 @@ const theme = createTheme({
   }
 });
 
+const tags = ['CSC309', 'UofT', 'Game'];
+
 const commonStyles = {
   bgcolor: 'background.paper',
   m: 1,
@@ -104,64 +106,58 @@ const UserProfile = () => {
                   </IconButton>
                 </Grid>
 
-                  <Grid
-                    container
-                    direction='row'
-                    columns={{ xs: 4, sm: 8, md: 12 }}
-                    spacing={2}
-                    pb={1}
-                    pl={1}
+                <Grid
+                  container
+                  direction='row'
+                  columns={{ xs: 4, sm: 8, md: 12 }}
+                  spacing={2}
+                  pb={1}
+                  pl={1}
+                >
+                  {tags.map((tag) => (
+                    <Grid item key={tag._id}>
+                      <Button variant='outlined'>
+                        <Typography sx={{ cursor: 'pointer' }}>{tag}</Typography>
+                      </Button>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Grid>
+              <Grid item xs>
+                <Box sx={{ ...commonStyles, border: 1, borderRadius: '16px' }}>
+                  <Typography
+                    paragraph
+                    variant='body2'
+                    color='text.secondary'
+                    sx={{ p: 2, marginleft: '1', maxWidth: 300, flexGrow: 1 }}
                   >
-                      <Grid item>
-                    <Button variant='outlined'>
-                      <Typography
-                        sx={{ cursor: 'pointer' }}
-                      >
-                          CSC309
-                      </Typography>
-                    </Button>
-                    </Grid>
-                    <Grid item>
-                    <Button variant='outlined'>
-                      <Typography
-                        sx={{ cursor: 'pointer' }}
-                      >
-                          Game
-                      </Typography>
-                    </Button>
-                    </Grid>
-                    <Grid item>
-                    <Button variant='outlined'>
-                      <Typography
-                        sx={{ cursor: 'pointer' }}
-                      >
-                          UofT
-                      </Typography>
-                    </Button>
-                    </Grid>
-                  </Grid>
-                <Grid item xs>
-                  <Box sx={{ ...commonStyles, border: 1, borderRadius: '16px' }}>
-                    <Typography
-                      paragraph
-                      variant='body2'
-                      color='text.secondary'
-                      sx={{ p: 2, marginleft: '1', maxWidth: 300, flexGrow: 1 }}
-                    >
-                      Description Description Description Description
-                    </Typography>
-                  </Box>
-                  </Grid>
-                <Box display='flex'>
-                <Button variant='contained' component={Link} to="/past-events" style={{margin: 5}} >Past Events</Button>
-                <Button variant='contained' component={Link} to="/upcoming-events" style={{margin: 5}}>Upcoming Events</Button>
+                    Description Description Description Description
+                  </Typography>
                 </Box>
               </Grid>
+              <Box display='flex'>
+                <Button
+                  variant='contained'
+                  component={Link}
+                  to='/past-events'
+                  style={{ margin: 5 }}
+                >
+                  Past Events
+                </Button>
+                <Button
+                  variant='contained'
+                  component={Link}
+                  to='/upcoming-events'
+                  style={{ margin: 5 }}
+                >
+                  Upcoming Events
+                </Button>
+              </Box>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-      </Grid>
+    </Grid>
   );
 };
 

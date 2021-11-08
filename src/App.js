@@ -49,8 +49,6 @@ import UserProfile from "./views/Profile/UserProfile/UserProfile";
 import AdminProfile from "./views/Profile/AdminProfile/AdminProfile";
 import PastEvents from './views/Event/PastEvents';
 import UpcomingEvents from './views/Event/UpcomingEvents';
-import Profile from "./views/Profile/Admin/profile";
-import PastEvents from './views/Dashboard/User/PastEvents';
 
 const theme = createTheme({
   typography: {

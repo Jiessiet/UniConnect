@@ -11,6 +11,8 @@ import RoomIcon from '@mui/icons-material/Room';
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom';
 import {Box, ThemeProvider, createTheme, positions} from '@mui/system';
+import { useUser } from '../../Contexts/UserContext';
+
 
 const Img = styled('img')({
   margin: 'auto',
@@ -47,12 +49,11 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
 }));
 
-export class Poetry extends React.Component {
 
-  render() {
+const Poetry = () => {
+  const { currentUser, setCurrentUser} = useUser();
   return (
-
-  <Grid
+    <Grid
     container
     spacing={0}
     direction="row"
@@ -78,6 +79,7 @@ export class Poetry extends React.Component {
     padding= '0px'
     xs={10}
     sx={{mt: 10}}
+    style={{height: 600}}
     >
       <Grid 
       alignItems="center"
@@ -216,6 +218,8 @@ export class Poetry extends React.Component {
                 columns={{ xs: 4, sm: 8, md: 12 }}
                 >
                 
+                {!(currentUser.type == "admin" || currentUser.type == "unauthorized") && (
+                <>
                 <Button 
                 variant="contained"                
                 sx={{mt: 3, minWidth: 100, maxWidth: '100px', mb: 3}}>
@@ -227,7 +231,7 @@ export class Poetry extends React.Component {
 
                 <Button 
                 sx={{mt: 3, minWidth: 100, maxWidth: '100px', mb: 3}}
-                component={Link} to='/PoetryDetails' 
+                component={Link} to='/BloodEventDetails' 
                 variant="contained"
                 >
                     <Typography variant="button" component="div" gutterBottom 
@@ -235,7 +239,8 @@ export class Poetry extends React.Component {
                         Completed
                     </Typography>
                 </Button>
-
+                </>
+                )}
               </Grid>
 
           </Grid>
@@ -244,9 +249,7 @@ export class Poetry extends React.Component {
       </Grid>
     </Grid>
   </Grid> 
-
-  );
-
+  )
 }
-}
-export default Poetry;
+
+export default Poetry
