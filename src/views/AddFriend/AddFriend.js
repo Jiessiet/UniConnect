@@ -169,7 +169,7 @@ const AddFriend = () => {
                 justifyContent="flex-start"
                 alignItems="flex-start">
 
-                <Button component={Link} to='/UserProfile' color="secondary"
+                <Button component={Link} to='/Profile' color="secondary"
                   onChange={handleFindFriend}>
                   <Item>
                     <Typography variant="button" component="div" gutterBottom
