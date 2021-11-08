@@ -31,7 +31,7 @@ function Modal({ handleClose }) {
 
 
     const handleClick = () => {
-        if (eventName !== '' && eventDesc !== '') { 
+        if (eventName !== '' && eventDesc !== '') {
             addEventToDatabase(); //database function below
             setOpen(true);
             window.setTimeout(function () {
@@ -61,7 +61,7 @@ function Modal({ handleClose }) {
         const value = event.target.value;
         setEventStart(value)
     };
-    
+
     const handleEventEndChange = event => {
         const value = event.target.value;
         setEventEnd(value)
@@ -83,8 +83,8 @@ function Modal({ handleClose }) {
     }
 
     const Input = styled('input')({
-            display: 'none',
-        });
+        display: 'none',
+    });
 
     return (
         <Grid

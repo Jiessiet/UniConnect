@@ -109,7 +109,7 @@ function Modal({ handleClose }) {
                                 onChange={handleUserSelectChange}
                             />
                         )}
-                    />                
+                    />
                 </Grid>
                 <Grid item padding='0'>
                     <Button

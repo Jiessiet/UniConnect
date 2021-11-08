@@ -2,7 +2,8 @@ import React from 'react'
 import { useState } from "react";
 import { Icon, Button, Alert, IconButton, Tooltip, Snackbar, Grid, Paper, Autocomplete, Avatar, Typography, Box, TextField, Link, SliderValueLabel } from '@mui/material';
 import { green } from '@mui/material/colors';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';import { styled } from '@mui/material/styles';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 
 
@@ -86,7 +87,7 @@ function Modal({ handleClose }) {
                     </Grid>
                 </Grid>
                 <Grid item align='center' xs={12}>
-                        <TextField fullWidth margin='normal' label="New Tag Name" placeholder='ex. gaming, movies' type="search" />
+                    <TextField fullWidth margin='normal' label="New Tag Name" placeholder='ex. gaming, movies' type="search" />
                 </Grid>
                 <Grid item padding='0'>
                     <Button

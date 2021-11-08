@@ -10,10 +10,10 @@ import { HowToVoteRounded } from '@material-ui/icons';
 
 function Modal({ handleClose }) {
     const handleClick = () => {
-        if (true) { 
+        if (true) {
             // check if input is a user who exists in the database
             // then redirect to that user's profile page using their id from the database
-            window.location.href = "/AddFriend"; 
+            window.location.href = "/AddFriend";
         } else {
             // if does not exist display failed snackbar component
         }
@@ -90,7 +90,7 @@ function Modal({ handleClose }) {
                         }}
                     >
                         <InputBase
-                            sx={{ ml: 1, flex: 1, border:'2px'}}
+                            sx={{ ml: 1, flex: 1, border: '2px' }}
                             placeholder="Find buddies :)"
                             margin='none'
                             inputProps={{ 'aria-label': 'search' }}
@@ -98,9 +98,9 @@ function Modal({ handleClose }) {
                     </Paper>
                 </Grid>
                 <Grid item padding='0'>
-                <IconButton type="submit">
+                    <IconButton type="submit">
                         <SearchIcon onClick={handleClick} />
-                </IconButton>
+                    </IconButton>
                 </Grid>
             </Grid>
         </Grid>)

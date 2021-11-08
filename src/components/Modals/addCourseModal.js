@@ -9,9 +9,9 @@ import CloseIcon from '@mui/icons-material/Close';
 function AddCourse({ handleClose }) {
     const [open, setOpen] = React.useState(false);
     const handleClick = () => {
-        if (true) { 
+        if (true) {
             // all 
-            addCourse(); 
+            addCourse();
             setOpen(true);
             window.setTimeout(function () {
                 window.location.reload()
@@ -96,7 +96,7 @@ function AddCourse({ handleClose }) {
                             required='true'
                             getOptionLabel={(option) => option.sem}
                             fullWidth
-                            renderInput={(params) => <TextField {...params} label="Semester" placeholder="ex. Fall, Winter"/>}
+                            renderInput={(params) => <TextField {...params} label="Semester" placeholder="ex. Fall, Winter" />}
                         />
                         <TextField fullWidth margin='normal' label="Section" placeholder='ex. L0101' type="search" />
                     </Box>
