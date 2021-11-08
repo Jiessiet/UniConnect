@@ -1,9 +1,9 @@
 ##### <b>README :</b> TEAM 23 </br></br>
 
+## **README-DocsV is the most updated version of the README as of Nov 7th*
+
 # <b>Welcome to <em>UniConnect</em>!</b>
 <em><b>‘UniConnect’</b></em> aims to join students from various universities across downtown Toronto through common interests and events. Students who want to participate in group activities but do not know where to look can now go onto our web app to do so. Users can select their interests through our unique tagging system, ranging from arts and music to technology and gaming which will allow them to find related events. By joining events, users can meet up with people virtually and in person to connect through common interests. </br></br>
-
-See README-DocsV for more pictures of our website!
 
 # Features
 
