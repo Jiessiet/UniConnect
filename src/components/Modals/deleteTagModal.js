@@ -1,21 +1,30 @@
 import React from 'react'
 import { Icon, Button, Alert, IconButton, Tooltip, Snackbar, Grid, Paper, Autocomplete, Avatar, Typography, Box, TextField, Link, SliderValueLabel } from '@mui/material';
 import { green } from '@mui/material/colors';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';import { styled } from '@mui/material/styles';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer'; import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 
 
 function Modal({ handleClose }) {
     const [open, setOpen] = React.useState(false);
+    const [openSnackbar, setOpenSnackbar] = React.useState(false);
+
+    const [tagsChosen, setTagChosen] = useState('')
+
+    const handleTagSelectChange = event => {
+        const value = event.target.value;
+        setTagChosen(value)
+    };
+
     const handleClick = () => {
-        if (true) {
-            addTag();
+        if (true) {  //check if the tag exists in the database
+            deleteTag();
             setOpen(true);
             window.setTimeout(function () {
                 window.location.reload()
             }, 2000)
         } else {
-            // return a negative snackbar
+            setOpenSnackbar(true)
         }
     };
 
@@ -23,8 +32,8 @@ function Modal({ handleClose }) {
         display: 'none',
     });
 
-    function addTag() {
-        //here we will be adding to the database with the new tag information
+    function deleteTag() {
+        //here we will be deleting from the database with the given tag's information
         return null
     }
 
@@ -81,11 +90,24 @@ function Modal({ handleClose }) {
                         </IconButton>
                     </Grid>
                     <Grid item xs={9}>
-                        <Typography component="h1" variant='h3' align='center' fontFamily='revert'> Create Tag</Typography>
+                        <Typography component="h1" variant='h3' align='center' fontFamily='revert'> Delete Tag</Typography>
                     </Grid>
                 </Grid>
                 <Grid item align='center' xs={12}>
-                        <TextField fullWidth margin='normal' label="New Tag Name" placeholder='ex. gaming, movies' type="search" />
+                    <Autocomplete
+                        multiple
+                        options={tags}
+                        getOptionLabel={(option) => option.tag}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Tags"
+                                placeholder="All tags to delete"
+                                value={tagsChosen}
+                                onChange={handleTagSelectChange}
+                            />
+                        )}
+                    />                
                 </Grid>
                 <Grid item padding='0'>
                     <Button
@@ -106,7 +128,19 @@ function Modal({ handleClose }) {
                     <Alert severity='success'> Tag Created </Alert>
                 </Snackbar>
             </div>
-            {/* </Grid> */}
+            <div>
+                <Snackbar
+                    open={openSnackbar}
+                    autoHideDuration={1000}
+                >
+                    <Alert severity='error'> Event Not Created </Alert>
+                </Snackbar>
+            </div>
         </Grid>)
 }
 export default Modal
+
+const tags = [
+    { tag: 'Gaming' },
+    { tag: 'Movies' },
+    { tag: 'Friends' }];
