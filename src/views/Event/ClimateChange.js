@@ -233,7 +233,7 @@ const ClimateChange = () => {
 
                     <Button
                       sx={{ mt: 3, minWidth: 100, maxWidth: '100px', mb: 3 }}
-                      component={Link} to='/BloodEventDetails'
+                      component={Link} to='/ClimateChangeDetails'
                       variant="contained"
                     >
                       <Typography variant="button" component="div" gutterBottom
