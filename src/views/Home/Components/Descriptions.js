@@ -33,7 +33,7 @@ const descriptions = [
   {
     title: 'Introducing: UniConnect!',
     description:
-      'Explore events, make friends and diversify your interests. There are events for everyone, just use our search engine or our interest tag selector and the perfect event for you will be found. You can even make your own!',
+      'Explore events, make friends and diversify your interests. There is something for everyone, just use our search engine or our interest selector and your perfect event will be found. Try making your own!',
     imageUrl: uniConnect,
     time: 1500,
   },
