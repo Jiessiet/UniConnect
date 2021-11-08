@@ -24,7 +24,7 @@ function Modal({ handleClose }) {
     });
 
     function addTag() {
-        //here we will be adding to the database with the new events information
+        //here we will be adding to the database with the new tag information
         return null
     }
 

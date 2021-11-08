@@ -8,30 +8,83 @@ import CloseIcon from '@mui/icons-material/Close';
 import { styled } from '@mui/material/styles';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { useState } from "react";
+import AddTagModal from '../../components/Modals/addTagsModal'
+
 
 
 function Modal({ handleClose }) {
     const [open, setOpen] = React.useState(false);
+    const [openTagModal, setOpenTagModal] = React.useState(false);
+    const [openSnackbar, setOpenSnackbar] = React.useState(false);
+
+    const handleTagModal = () => setOpenTagModal(true);
+    const handleTagClose = () => setOpenTagModal(false);
+
+    const [eventName, setEventName] = useState('')
+    const [eventDesc, setEventDesc] = useState('')
+    const [eventDate, setEventDate] = useState('')
+    const [eventStart, setEventStart] = useState('')
+    const [eventEnd, setEventEnd] = useState('')
+    const [eventTags, setEventTags] = useState('')
+    const [eventAttendees, setEventAttendees] = useState('')
+
+
     const handleClick = () => {
-        if (true) { // TODO: all event forms are not empty
-            addEvent();
+        if (eventName !== '' && eventDesc !== '') { 
+            addEventToDatabase(); //database function below
             setOpen(true);
             window.setTimeout(function () {
                 window.location.reload()
             }, 2000)
         } else {
-            // return a negative snackbar
+            setOpenSnackbar(true)
         }
     };
 
-    const Input = styled('input')({
-        display: 'none',
-    });
+    const handleEventNameChange = event => {
+        const value = event.target.value;
+        setEventName(value)
+    };
 
-    function addEvent() {
-        //here we will be adding to the database with the new events information
+    const handleEventDescChange = event => {
+        const value = event.target.value;
+        setEventDesc(value)
+    };
+
+    const handleEventDateChange = event => {
+        const value = event.target.value;
+        setEventDate(value)
+    };
+
+    const handleEventStartChange = event => {
+        const value = event.target.value;
+        setEventStart(value)
+    };
+    
+    const handleEventEndChange = event => {
+        const value = event.target.value;
+        setEventEnd(value)
+    };
+
+    const handleEventTagsChange = event => {
+        const value = event.target.value;
+        setEventTags(value)
+    };
+
+    const handleEventAttendeesChange = event => {
+        const value = event.target.value;
+        setEventAttendees(value)
+    };
+
+    function addEventToDatabase() {
+        //adding to the events database with the new event's information
         return null
     }
+
+    const Input = styled('input')({
+            display: 'none',
+        });
 
     return (
         <Grid
@@ -93,15 +146,21 @@ function Modal({ handleClose }) {
                             label='Event Title'
                             right-padding='5px'
                             margin='normal'
+                            required='true'
                             placeholder='Name your event'
+                            value={eventName}
+                            onChange={handleEventNameChange}
                         />
                         <TextField
                             fullWidth
                             label='Event Description'
                             multiline='true'
                             margin='normal'
+                            required='true'
                             rows={2}
                             placeholder="Let other's know what your event is about!"
+                            value={eventDesc}
+                            onChange={handleEventDescChange}
                         />
                         <TextField
                             fullWidth
@@ -111,6 +170,9 @@ function Modal({ handleClose }) {
                             InputLabelProps=
                             {{ shrink: true }}
                             placeholder='What day will you event happen?'
+                            value={eventDate}
+                            onChange={handleEventDateChange}
+
                         />
                         <Grid container direction='row' alignItems='center'>
                             <Grid item xs>
@@ -123,6 +185,8 @@ function Modal({ handleClose }) {
                                     InputLabelProps=
                                     {{ shrink: true }}
                                     placeholder='What time will you event start?'
+                                    value={eventStart}
+                                    onChange={handleEventStartChange}
                                 />
                             </Grid>
                             <Grid item xs paddingLeft='1vh'>
@@ -135,16 +199,18 @@ function Modal({ handleClose }) {
                                     InputLabelProps=
                                     {{ shrink: true }}
                                     placeholder='What time will your event end?'
+                                    event={eventEnd}
+                                    onChange={handleEventEndChange}
                                 />
                             </Grid>
                         </Grid>
                         <Grid container direction='row-reverse' alignItems='center' justifyItems='center'>
-                            <Grid item xs={2}>
+                            {/* <Grid item xs={2}>
                                 <IconButton>
-                                    <AddCircleOutlineIcon fontSize='medium' />
+                                    <AddCircleOutlineIcon fontSize='medium'/>
                                 </IconButton>
-                            </Grid>
-                            <Grid item xs={10}>
+                            </Grid> */}
+                            <Grid item xs={12}>
                                 <Autocomplete
                                     multiple
                                     options={tags}
@@ -154,6 +220,8 @@ function Modal({ handleClose }) {
                                             {...params}
                                             label="Tags"
                                             placeholder="Add all related tags"
+                                            value={eventTags}
+                                            onChange={handleEventTagsChange}
                                         />
                                     )}
                                 />
@@ -166,6 +234,8 @@ function Modal({ handleClose }) {
                             defaultValue='1'
                             margin='normal'
                             placeholder='How many people are allowed to sign up?'
+                            value={eventAttendees}
+                            onChange={handleEventAttendeesChange}
                         />
                     </Box>
                 </Grid>
@@ -176,7 +246,7 @@ function Modal({ handleClose }) {
                             type='submit'
                             variant="outline"
                             paddingRight='30vh'
-                            onClick={() => { handleClick(); addEvent() }}
+                            onClick={() => { handleClick(); addEventToDatabase() }}
                             sx={{
                                 color: 'white',
                                 background: 'green',
@@ -200,6 +270,14 @@ function Modal({ handleClose }) {
                 </Grid>
                 <div>
                     <Snackbar
+                        open={openSnackbar}
+                        autoHideDuration={1000}
+                    >
+                        <Alert severity='error'> Event Not Created </Alert>
+                    </Snackbar>
+                </div>
+                <div>
+                    <Snackbar
                         open={open}
                         autoHideDuration={1000}
                     >
@@ -215,6 +293,6 @@ export default Modal;
 
 
 const tags = [
-    { tag: 'gaming' },
-    { tag: 'movies' },
-    { tag: 'friends' }];
+    { tag: 'Gaming' },
+    { tag: 'Movies' },
+    { tag: 'Friends' }];
