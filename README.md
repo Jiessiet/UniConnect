@@ -94,10 +94,14 @@ After clicking attend, users will be able to see the list of attendees. By click
 Admins will not be able to attend events, however they will be able to see the list of attendees without needing to attend. By clicking on the attendee list, admins can see p
 
 
-</br></br>
-## Next Steps
-
 #
+## Next Steps
+In Phase 2, we plan on incorporating more functionality for users. Below are possible new features that we will provide:
+Hearts: Users will be able to send hearts to friends and receive hearts. 
+Chats: Users will be able to create group chats with their friends after attending the same event, or taking the same school courses.
+
+With the addition of databases, the above features will be able to be flushed out, and users will have more interactions together. Admins will be able to regulate the statistical side of the website more. Tags, events, profiles will all be able to be created and saved. Please look forward to our next implementation!
+
 
 
 </br></br>
