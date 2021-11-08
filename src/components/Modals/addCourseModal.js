@@ -9,25 +9,27 @@ import CloseIcon from '@mui/icons-material/Close';
 function AddCourse({ handleClose }) {
     const [open, setOpen] = React.useState(false);
     const handleClick = () => {
-        if (true) { // TODO: all event forms are not empty
-            addEvent();
+        if (true) { 
+            // all 
+            addCourse(); 
             setOpen(true);
             window.setTimeout(function () {
                 window.location.reload()
             }, 2000)
         } else {
-            // return a negative snackbar
+            // display a negative 
         }
     };
+
+    function addCourse() {
+        // here we will be adding the course to the user's list of courses in the database
+        return null
+    }
 
     const Input = styled('input')({
         display: 'none',
     });
 
-    function addEvent() {
-        //here we will be adding to the database with the new events information
-        return null
-    }
 
 
     return (

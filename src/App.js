@@ -34,10 +34,8 @@ import BloodEventDetails from './views/Event/BloodEventDetails'
 import FightEventDetails from './views/Event/FightEventDetails'
 import CatsEventDetails from './views/Event/CatsEventDetails'
 
-import { createEvent } from './views/Event/create-event';
 import AccountSetup from './views/AccountSetup/AccountSetup';
 import AddFriend from './views/AddFriend/AddFriend';
-import { createCourse } from './views/Course/create-course';
 import AnimatedBg from './views/Home/Components/AnimatedBg';
 import InterestFinder from './views/InterestFinder';
 import { useUser } from "./Contexts/UserContext";
@@ -122,11 +120,9 @@ function App() {
             <Route path="/past-events" exact component={PastEvents} />
             <Route path="/upcoming-events" exact component={UpcomingEvents} />
             <Route path="/EventDetails" exact component={EventDetails} />
-            <Route path="/createEvent" exact component={createEvent}/>
             <Route path="/AccountSetup" exact component={AccountSetup}/>
             <Route path="/dashboard" exact component={DashboardRouter}/>
             <Route path="/AddFriend" exact component={AddFriend}/>
-            <Route path="/createCourse" exact component={createCourse}/>
             <Route path="/AnimatedBg" exact component={AnimatedBg}/>
             <Route path="/interestFinder" exact component={InterestFinder}/>
             <Route path="/ResetPassword" exact component={ResetPassword}/>
