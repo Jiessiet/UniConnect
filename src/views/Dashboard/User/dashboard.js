@@ -75,7 +75,8 @@ const Dashboard = () => {
                 </Grid>
               </CardContent>
               <CardActions justifyContent='center' className={classes.action}>
-                <Button size='large' variant='contained' style={{ backgroundColor: '#099441', color: 'white' }}>
+                <Button size='large' variant='contained' style={{ backgroundColor: '#099441', color: 'white' }}
+                href='/Profile'>
                   Edit Profile
                 </Button>
               </CardActions>
