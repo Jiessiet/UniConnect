@@ -7,6 +7,7 @@ const ProfileRouter = () => {
   const history = useHistory();
   const { currentUser, setCurrentUser } = useUser()
 
+  // check if user is authorized
   function porfileRoute() {
     if (currentUser.type == "unauthorized") {
       history.push("/");
