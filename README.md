@@ -68,23 +68,23 @@ Admins will also be able to provide a description of themselves, along with a pr
 ### <b>Timeline</b>
 
 #### User
-
+<img src='README-Images\image4.png'></img>
 Users can see their timeline by clicking the home button on the left-most side of the icons on the navigation bar. A list of possible events will be displayed, and users can also search for more events by using their selected tags, which will become a functionality when databases are brought in. Users will be able to click ‘Learn More’ at the bottom of each of the event cards, which will bring users to a larger view of the event that will provide more information of the event. 
 
 #### Admin
-
+<img src='README-Images\image1.png'></img>
 An admin can see all the information of users to monitor appropriate activity. They cannot participate in events, however they have access to view all events, as well as deleting events. With databases, this functionality can be expanded upon. 
 
 ### <b>Events</b>
 
 #### User
-
+<img src='README-Images\image7.png'></img>
 After clicking learn more on an event, users will be brought to the event card. This displays the name of the event at the top, an image associated with the event that the organizer set. The organizer’s name is displayed under the title of the event, as well as a list of tags that the organizer has set that is suitable for the event. The organizer will also set the attendee limit, location and the description of the event. Users can then click attend if they would like to join the event. Users can also click on the location to see the designated location on google maps (to be implemented with databases).
-
+<img src='README-Images\image15.png'></img>
 After clicking attend, users will be able to see the list of attendees. By clicking on the attendee list, users can then connect with other users and see their profiles and add them as friends. Users can then click the ‘Complete’ button once the event has finished. 
 
 #### Admins
-
+<img src='README-Images\image8.png'></img>
 Admins will not be able to attend events, however they will be able to see the list of attendees without needing to attend. By clicking on the attendee list, admins can see p
 
 
