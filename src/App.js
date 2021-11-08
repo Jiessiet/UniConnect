@@ -8,15 +8,6 @@ import Navbar from './components/Navbar/Navbar';
 import Timeline from './views/Timeline/Timeline';
 import Event from './views/Event/Event';
 
-import Eventcopy from './views/Event copy/Event'
-import ClimateChangecopy from './views/Event copy/ClimateChange'
-import GameEventcopy from './views/Event copy/GameEvent'
-import Poetrycopy from './views/Event copy/Poetry'
-import Mooncopy from './views/Event copy/Moon'
-import BloodEventcopy from './views/Event copy/BloodEvent'
-import FightEventcopy from './views/Event copy/FightEvent'
-import CatsEventcopy from './views/Event copy/CatsEvent'
-
 import ClimateChange from './views/Event/ClimateChange'
 import GameEvent from './views/Event/GameEvent'
 import Poetry from './views/Event/Poetry'
@@ -95,15 +86,6 @@ function App() {
             <Route exact path="/GameEvent" exact element> <GameEvent eventId={eventId} setEventId={setEventId} /> </Route>
             <Route exact path="/Moon" exact element> <Moon eventId={eventId} setEventId={setEventId} /> </Route>
             <Route exact path="/Poetry" exact element> <Poetry eventId={eventId} setEventId={setEventId} /> </Route>
-
-            <Route exact path="/Eventcopy" exact element> <Eventcopy eventId={eventId} setEventId={setEventId} /> </Route>
-            <Route exact path="/ClimateChangecopy" exact element> <ClimateChangecopy eventId={eventId} setEventId={setEventId} /> </Route>
-            <Route exact path="/BloodEventcopy" exact element> <BloodEventcopy eventId={eventId} setEventId={setEventId} /> </Route>
-            <Route exact path="/CatsEventcopy" exact element> <CatsEventcopy eventId={eventId} setEventId={setEventId} /> </Route>
-            <Route exact path="/FightEventcopy" exact element> <FightEventcopy eventId={eventId} setEventId={setEventId} /> </Route>
-            <Route exact path="/GameEventcopy" exact element> <GameEventcopy eventId={eventId} setEventId={setEventId} /> </Route>
-            <Route exact path="/Mooncopy" exact element> <Mooncopy eventId={eventId} setEventId={setEventId} /> </Route>
-            <Route exact path="/Poetrycopy" exact element> <Poetrycopy eventId={eventId} setEventId={setEventId} /> </Route>
 
             <Route exact path="/EventDetails" exact component={EventDetails} />
             <Route path="/BloodEventDetails" exact component={BloodEventDetails} />
