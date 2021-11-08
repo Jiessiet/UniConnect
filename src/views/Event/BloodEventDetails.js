@@ -14,6 +14,8 @@ import { GridClassKey } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 
+
+
 const Img = styled('img')({
   margin: 'auto',
   display: 'block',
@@ -45,17 +47,14 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
 }));
 
-export class BloodEventDetails extends React.Component {
-
-  render() {
-    return (
-      <Grid
+const BloodEventDetails = () => {
+  return (
+    <Grid
       container
       spacing={0}
       direction="row"
       alignItems="center"
       justifyContent="center"
-      style={{ minHeight: '100vh' }}
       padding = '0px'
       padding-left='0px'
       style={{ minHeight: '100vh', minWidth: '100vw'}}
@@ -75,6 +74,7 @@ export class BloodEventDetails extends React.Component {
       padding= '0px'
       xs={10}
       sx={{mt: 10}}
+      style={{height: 550}}
       >
         <Grid 
         alignItems="center"
@@ -120,8 +120,6 @@ export class BloodEventDetails extends React.Component {
                   columns={{ xs: 4, sm: 8, md: 12 }}
                   sx={{maxWidth: '600px'}}
                   >
-                    
-                    {/* {Array.from(Array(10)).map((_, index) => ( */}
                       <Button variant="outlined"
                       sx={{m: 1}}>
                           <Typography variant="button" component="div" gutterBottom 
@@ -129,7 +127,6 @@ export class BloodEventDetails extends React.Component {
                               Good Soup
                           </Typography>
                       </Button>
-                      {/* ))} */}
   
                   </Grid>
                 </Box>
@@ -160,7 +157,6 @@ export class BloodEventDetails extends React.Component {
                   </Typography>
                 </Grid>
                 
-                <Box sx={{ display: 'flex'}}>
                   <Box sx={{ ...commonStyles, border: 1, borderRadius: '16px'}}>
                     <Typography paragraph variant="body2" color="text.secondary"
                     sx={{ p: 2, marginleft: '1', maxWidth: 500, flexGrow: 1}}>
@@ -177,7 +173,6 @@ export class BloodEventDetails extends React.Component {
                         Feel free to hang around after.
                     </Typography>
                   </Box> 
-                </Box>
               </Grid>
   
                 <Grid 
@@ -188,17 +183,15 @@ export class BloodEventDetails extends React.Component {
                   spacing={{ xs: 1, md: 2, }}
                   columns={{ xs: 4, sm: 8, md: 12 }}
                   >
-                  
-                  <Button 
-                  variant="contained"
-                  component={Link} to='/BloodEvent'                 
-                  sx={{mt: 3, minWidth: 100, maxWidth: '100px', mb: 3}}>
-                      <Typography variant="button" component="div" gutterBottom 
-                      sx={{ cursor: 'pointer' }}>
-                          Attend
-                      </Typography>
-                  </Button>
-  
+                    <Button 
+                    variant="contained"
+                    component={Link} to='/BloodEvent'                 
+                    sx={{mt: 3, minWidth: 100, maxWidth: '100px', mb: 3}}>
+                        <Typography variant="button" component="div" gutterBottom 
+                        sx={{ cursor: 'pointer' }}>
+                            Attend
+                        </Typography>
+                    </Button>
                 </Grid>
   
             </Grid>
@@ -207,10 +200,7 @@ export class BloodEventDetails extends React.Component {
         </Grid>
       </Grid>
     </Grid> 
-  
-
-  );
-
+  )
 }
-}
-export default BloodEventDetails;
+
+export default BloodEventDetails
