@@ -65,14 +65,27 @@ Users profiles will display their past and upcoming events. Past events will tak
 The admin profile is similar to the user, except that admins will not have tags as they do not need to attend events or find other users. Instead, they will be able to see a list of all users on the web app in order to find the user to delete or reprimand. This functionality will be developed further with databases. 
 Admins will also be able to provide a description of themselves, along with a profile picture, and they can click ‘view statistics’ in order to return to their dashboard. 
 
-
-
-
 ### <b>Timeline</b>
 
+#### User
 
+Users can see their timeline by clicking the home button on the left-most side of the icons on the navigation bar. A list of possible events will be displayed, and users can also search for more events by using their selected tags, which will become a functionality when databases are brought in. Users will be able to click ‘Learn More’ at the bottom of each of the event cards, which will bring users to a larger view of the event that will provide more information of the event. 
+
+#### Admin
+
+An admin can see all the information of users to monitor appropriate activity. They cannot participate in events, however they have access to view all events, as well as deleting events. With databases, this functionality can be expanded upon. 
 
 ### <b>Events</b>
+
+#### User
+
+After clicking learn more on an event, users will be brought to the event card. This displays the name of the event at the top, an image associated with the event that the organizer set. The organizer’s name is displayed under the title of the event, as well as a list of tags that the organizer has set that is suitable for the event. The organizer will also set the attendee limit, location and the description of the event. Users can then click attend if they would like to join the event. Users can also click on the location to see the designated location on google maps (to be implemented with databases).
+
+After clicking attend, users will be able to see the list of attendees. By clicking on the attendee list, users can then connect with other users and see their profiles and add them as friends. Users can then click the ‘Complete’ button once the event has finished. 
+
+#### Admins
+
+Admins will not be able to attend events, however they will be able to see the list of attendees without needing to attend. By clicking on the attendee list, admins can see p
 
 
 </br></br>
