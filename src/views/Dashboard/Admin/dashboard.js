@@ -35,7 +35,8 @@ const Dashboard = () => {
                   image='https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg'
                   style={{marginBottom: 20}}
                 />
-                <Button fullWidth variant='contained' style={{ backgroundColor: '#099441' }} size='medium'>
+                <Button fullWidth variant='contained' style={{ backgroundColor: '#099441' }} size='medium'
+                href='/Profile'>
                   Edit Profile
                 </Button>
               </Paper>
@@ -43,6 +44,7 @@ const Dashboard = () => {
             <Grid item xs={12} sm={7}>
               <Paper style={{ height: '100%' }}>
                 <Typography variant='h5' pt={2} pb={2} color='#099441'>
+                  {/* Statistics will be taken from the database and displayed. Currently, these are only placeholders. */}
                   STATS
                 </Typography>
                 <EqualizerIcon style={{fontSize:200}}/>
@@ -51,17 +53,37 @@ const Dashboard = () => {
             </Grid>
           </Grid>
           <Grid item xs={12} sm={12} textAlign='center'>
-            <Paper style={{ height: '100%' }}>
-              <Button fullWidth onClick={handleOpen} style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
+            {/* <Paper style={{ height: '100%' }}> */}
+              <Button fullWidth 
+              onClick={handleOpen} 
+              style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px'}}
+              // sx={{p:'10'}} 
+              variant='contained'
+              >
                   Add tags
               </Button>
               <Modal
-                    open={open}
-                    onClose={handleClose}
+                open={open}
+                onClose={handleClose}
                 >
                     <AddTags handleClose={handleClose} />
                 </Modal>
-            </Paper>
+                <Button fullWidth 
+              onClick={handleOpen} 
+              style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }} 
+              variant='contained'
+              >
+                  Delete Tags
+              </Button>
+
+              <Button fullWidth 
+              onClick={handleOpen} 
+              style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }} 
+              variant='contained'
+              >
+                  Delete User
+              </Button>
+            {/* </Paper> */}
           </Grid>
         </Grid>
         <Grid item xs={12} sm={5} style={{textAlign:'center', alignitems:'center'}}>
@@ -69,6 +91,7 @@ const Dashboard = () => {
             <Typography variant='h5' pt={2} color='#099441'>
               REPORT FEED
             </Typography>
+            {/* these reports will be taken from the database and displayed. Currently these are hardcoded in */}
             <Card style={{ width: '90%', margin: '20px auto', backgroundColor: '#eff5eb' }}>
                 <CardContent style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
               <AccountCircleIcon style={{ marginRight: '1px' }} />

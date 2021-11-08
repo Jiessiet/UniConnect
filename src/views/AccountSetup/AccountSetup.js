@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from "react";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -9,7 +10,8 @@ import Typography from '@mui/material/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import AnimatedBg from '../Home/Components/AnimatedBg'
 import classNames from "classnames";
-import { Paper, Avatar, TextField, Link} from '@mui/material';
+import { TextField} from '@mui/material';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,16 +31,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    •
-  </Box>
-);
+export default function AccountSetup() {
+  const [inputCode, setInputCode] = useState('')
+  const classes = useStyles();
 
-const card = (
+  const handleVerificationCode = event => {
+    const value = event.target.value;
+
+    setInputCode(value)
+    checkServerCode()
+};
+
+const handleResend = event => {
+
+  //goes into database to find email and resend verification
+}
+  function checkServerCode(){
+    //get code from server
+    const serverCode = "asdf"
+    if (serverCode == inputCode){
+      //allow user to enter
+    }
+    };
+  
+  const card = (
   <React.Fragment>
     <CardContent
     sx={{maxWidth: 550,}}>
@@ -48,20 +64,23 @@ const card = (
       <Typography align='center' variant="h5" gutterbottom>
         We sent an email to your account with a verification code. Enter it below:
       </Typography>
-      <form spacing={2}> 
+      <form spacing={2}
+      > 
           <TextField fullWidth label='Verification Code' margin = 'normal' placeholder='Enter Code'
-          InputProps={{endAdornment: <Button m={4} pt={3} size="large" href="/profile">Enter</Button>}}
+          InputProps={{endAdornment: <Button m={4} pt={3} size="large" href="/UserProfile" onClick={checkServerCode}>Enter</Button>}}
+          onChange={handleVerificationCode}
+          value={inputCode}
           />
       </form>
     </CardContent>
     <CardActions>
-      <Button m={4} pt={3} size="large">Click to Resend</Button>
+      <Button m={4} pt={3} size="large"
+      onChange={handleResend}
+      >Click to Resend</Button>
     </CardActions>
   </React.Fragment>
 );
 
-export default function AccountSetup() {
-  const classes = useStyles();
   return (
     <React.Fragment>
       
@@ -79,6 +98,8 @@ export default function AccountSetup() {
   
     <Box sx={{p:2, minWidth: 275, marginTop: 30}}>
       <Card variant="outlined" sx={{borderRadius: 16, p: '5vh'}}>{card}</Card>
+
+
     </Box>
     
 </Grid>

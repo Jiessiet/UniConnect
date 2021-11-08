@@ -59,9 +59,13 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
 }));
 
-export class AddFriend extends React.Component {
 
-  render() {
+const AddFriend = () => {
+
+  const handleFindFriend = event =>{
+    // finds friend from database and adds it to user's friend list
+  }
+
   return (
     <Grid
       container
@@ -164,7 +168,8 @@ export class AddFriend extends React.Component {
                 justifyContent="flex-start"
                 alignItems="flex-start">
 
-                <Button component={Link} to='/profile' color="secondary">
+                <Button component={Link} to='/UserProfile' color="secondary"
+                onChange={handleFindFriend}>
                   <Item>
                     <Typography variant="button" component="div" gutterBottom 
                     sx={{ cursor: 'pointer' }}>
@@ -181,9 +186,8 @@ export class AddFriend extends React.Component {
       </Grid>
     </Grid>
   </Grid> 
-
-  );
-
+  )
 }
-}
-export default AddFriend;
+
+export default AddFriend
+

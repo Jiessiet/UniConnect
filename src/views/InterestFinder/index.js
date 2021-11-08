@@ -113,6 +113,14 @@ const InterestFinder = () => {
     },
   }));
 
+  const handleTags = event => {
+    //add tags to an array of tags
+  }
+
+  const handleSubmit = event => {
+    //add array of tags to user tags
+  }
+
   return (
     <Grid
       justifyContent='center'
@@ -160,8 +168,10 @@ const InterestFinder = () => {
           }}
           href="/login"
           size="large"
+          onClick={handleTags}
         >
-          <Typography variant="button" component="div" sx={{ cursor: "pointer" }}>
+          <Typography variant="button" component="div" sx={{ cursor: "pointer" }}
+          onClick={handleSubmit}>
             Submit
           </Typography>
         </Button>
