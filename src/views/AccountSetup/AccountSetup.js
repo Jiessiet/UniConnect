@@ -67,7 +67,7 @@ export default function AccountSetup() {
         <form spacing={2}
         >
           <TextField fullWidth label='Verification Code' margin='normal' placeholder='Enter Code'
-            InputProps={{ endAdornment: <Button m={4} pt={3} size="large" href="/UserProfile" onClick={checkServerCode}>Enter</Button> }}
+            InputProps={{ endAdornment: <Button m={4} pt={3} size="large" href="/Profile" onClick={checkServerCode}>Enter</Button> }}
             onChange={handleVerificationCode}
             value={inputCode}
           />
