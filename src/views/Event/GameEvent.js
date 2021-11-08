@@ -79,7 +79,7 @@ const GameEvent = () => {
     padding= '0px'
     xs={10}
     sx={{mt: 10}}
-    style={{height: 600}}
+    style={{height: 650}}
     >
       <Grid 
       alignItems="center"
