@@ -43,15 +43,15 @@ const card = (
     <CardContent
       sx={{ maxWidth: 550, }}>
       <Typography sx={{ p: 2 }} align='center' variant="h2" component="div" gutterbottom>
-        Enter your new password below:
+        Enter your emails and new password below:
       </Typography>
-      <form spacing={2}>
-        <TextField fullWidth label='New Password' margin='normal' placeholder='Enter New Password'
+      <form spacing={2}> 
+          <TextField fullWidth label='Email Address' margin = 'normal' placeholder='Enter Email'
         //   InputProps={{endAdornment: <Button m={4} pt={3} size="large" href="/profile">Enter</Button>}}
         />
       </form>
-      <form spacing={2}>
-        <TextField fullWidth label='Retype Password' margin='normal' placeholder='Confirm New Password'
+      <form spacing={2}> 
+          <TextField fullWidth label='New Password' margin = 'normal' placeholder='Enter New Password'
         //   InputProps={{endAdornment: <Button m={4} pt={3} size="large" href="/profile">Enter</Button>}}
         />
       </form>

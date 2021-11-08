@@ -58,7 +58,7 @@ const TimelineEventCard = ({
             <Typography variant="body1" display="block" color="textSecondary">
               <Button
                 to={
-                  currentUser.type == "admin"
+                  (currentUser.type == "admin" || currentUser.type == "unauthorized")
                     ? eventLink[0]
                     : eventLink[1]
                 }
