@@ -1,13 +1,37 @@
+"use strict";
+
+const env = process.env.NODE_ENV
+
 const express = require("express");
 const cors = require("cors");
 const eventRouter = require("./routes/event-routes");
+const userRouter = require("./routes/user-routes");
+const session = require("express-session");
+const MongoStore = require('connect-mongo') 
 
 const app = express();
-app.use(cors())
+if (process.env.NODE_ENV !== 'production') { app.use(cors()) }
+
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET || "our hardcoded secret", // make a SESSION_SECRET environment variable when deploying (for example, on heroku)
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            expires: 60000,
+            httpOnly: true
+        },
+        // store the sessions on the database in production
+        store: env === 'production' ? MongoStore.create({
+                                                mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/StudentAPI'
+                                 }) : null
+    })
+);
 
+app.use("/", userRouter)
 app.use("/", eventRouter)
 
 module.exports = app;
