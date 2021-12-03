@@ -74,4 +74,54 @@ router.get("/users/check-session", (req, res) => {
     }
 });
 
+// get all users
+router.get("/api/users", (req, res) => {
+    User.find().then((users) => {
+        res.send(users)
+    }).catch((error) => {
+        res.status(500).send(error)
+    })
+})
+
+// get one user
+router.get("/api/users/:id", (req, res) => {
+    User.findOne({_id: req.params.id}).then((user) => {
+        res.send(user)
+    }).catch((error) => {
+        res.status(500).send(error)
+    })
+})
+
+// get user's friends
+// router.get("/users/:id", (req, res) => {
+//     User.findOne({_id: req.params.id}).then((user) => {
+//         res.send(user.friends)
+//     }).catch((error) => {
+//         res.status(500).send(error)
+//     })
+// })
+
+// // put user
+// router.put('/users/:id', (req, res) => {
+//     User.findOne({_id: req.params.id}).then((user) => {
+//         req.body
+//         res.send()
+//     }).catch((error) => {
+//         res.status(500).send(error)
+//     })
+// })
+
+// delete user
+router.delete('/api/users/:id', (req, res) => {
+    User.findOne({_id: req.params.id}).then((deletedUser) => {
+        User.deleteOne({_id: req.params.id}).then(() => {
+            res.send(deletedUser)
+        }).catch((error) => {
+            res.status(500).send(error)
+        })
+    }).catch((error) => { 
+        res.status(500).send(error)
+    })
+})
+
 module.exports = router;

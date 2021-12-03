@@ -22,49 +22,50 @@ const UserSchema = new mongoose.Schema({
 		required: true,
 		minlength: 6
 	},
-	username: {
-		type: String,
-		required: true,
-		minlength: 5
-	},
-	userType: {
-		type: Boolean,
-		required: true
-	},
-	userID: {
-		type: String,
-		required: true
-	},
-	name: {
-		type: String,
-		required: true
-	},
-	profilePhoto: {
-		type: Image
-	},
-	description: {
-		type: String,
-		required: true
-	},
-	tags: [{
-		type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tag'
-	}],
-	friends: [{
-		type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-	}],
-	attendingEvents: [{
-		type: mongoose.Schema.Types.ObjectId,
-        ref: 'Event'
-	}],
-	university: {
-		type: String,
-		required: true
-	},
-	actionLog:[{
-		type: String
-	}]
+	// username: {
+	// 	type: String,
+	// 	required: true,
+	// 	minlength: 5
+	// },
+	// userType: {
+	// 	type: Boolean,
+	// 	required: true
+	// },
+	// // userID: {
+	// // 	type: String,
+	// // 	required: true
+	// // },
+	// name: {
+	// 	type: String,
+	// 	required: true
+	// },
+	// profilePhoto: {
+	// 	data: Buffer,
+    //     contentType: String
+	// },
+	// description: {
+	// 	type: String,
+	// 	required: true
+	// },
+	// tags: [{
+	// 	type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Tag'
+	// }],
+	// friends: [{
+	// 	type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'User',
+	// }],
+	// attendingEvents: [{
+	// 	type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Event'
+	// }],
+	// university: {
+	// 	type: String,
+	// 	required: true
+	// },
+	// actionLog:[{
+	// 	type: String
+	// }]
 })
 
 UserSchema.pre('save', function(next) {
