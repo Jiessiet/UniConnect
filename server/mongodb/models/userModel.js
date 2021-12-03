@@ -40,7 +40,8 @@ const UserSchema = new mongoose.Schema({
 		required: true
 	},
 	profilePhoto: {
-		type: Image
+		data: Buffer,
+        contentType: String
 	},
 	description: {
 		type: String,
