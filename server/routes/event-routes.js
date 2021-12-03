@@ -55,4 +55,18 @@ router.delete('/api/events/:id', authenticate, async (req, res) => {
     res.json({ message: 'Event deleted successfully' })
 });
 
+// get events by uid
+router.get('/api/events', authenticate, async (req, res) => {
+    if (!req.user) return res.json({ message: 'Unauthenticated' });
+
+    try {
+        const eventByUid = Event.find({ creator: req.user })
+
+        res.status(200).json(eventByUid);
+
+    } catch {
+        res.status(404).json({ message: error.message });
+    }
+});
+
 module.exports = router;
