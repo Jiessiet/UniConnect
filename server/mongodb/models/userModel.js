@@ -24,16 +24,12 @@ const UserSchema = new mongoose.Schema({
 	},
 	username: {
 		type: String,
-		required: true,
-		minlength: 5
+		minlength: 5,
+		required: true
 	},
 	userType: {
 		type: Boolean,
-		required: true
-	},
-	userID: {
-		type: String,
-		required: true
+		default: false
 	},
 	name: {
 		type: String,
@@ -45,7 +41,7 @@ const UserSchema = new mongoose.Schema({
 	},
 	description: {
 		type: String,
-		required: true
+		default: ''
 	},
 	tags: [{
 		type: mongoose.Schema.Types.ObjectId,
