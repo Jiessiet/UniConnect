@@ -26,7 +26,9 @@ function Modal({ handleClose }) {
     });
 
     function addTag() {
-        //here we will be adding to the database with the new tag information
+        let databody = {
+
+        }
         return null
     }
 
