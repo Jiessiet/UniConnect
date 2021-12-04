@@ -49,7 +49,7 @@ const Event = ({ event }) => {
                 Learn More
               </Button>
             </Typography>
-            {currentUser.type == 'admin' && (
+            {(currentUser && currentUser.userType) && (
               <>
                 <Button>Delete The Post</Button>
               </>
