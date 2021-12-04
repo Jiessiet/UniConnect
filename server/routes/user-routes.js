@@ -140,14 +140,21 @@ router.get("/api/users/username/:username", authenticate, (req, res) => {
 // })
 
 
-// put user
-
-router.put('/api/users/:id', authenticate, (req, res) => {
-
-    User.findByIdAndUpdate({_id: req.params.id}, { ...req.body}, {new: true}).then((updatedUser) => {
-        res.send(updatedUser)
+// patch user
+router.patch('/api/users/:id', authenticate, (req, res) => {
+    User.findById({_id: req.params.id}).then((oldUserDetails) => {
+        if (req.user.userType || (req.user._id == req.params.id)) {
+            User.findByIdAndUpdate({_id: req.params.id}, { ...req.body}, {new: true}).then((updatedUser) => {
+                res.send(updatedUser)
+            }).catch((error) => {
+                res.status(404).send("User cannot be updated")
+            })
+        }
+        else {
+            res.status(401).send('Unauthorized Request')
+        }
     }).catch((error) => {
-        res.status(404).send("User does not exist and/or cannot be updated")
+        res.status(404).send("User does not exist")
     })
 })
 
