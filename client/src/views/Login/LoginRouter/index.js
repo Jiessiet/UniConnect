@@ -7,7 +7,7 @@ const LoginRouter = () => {
   const { currentUser, setCurrentUser } = useUser()
 
   function loginRoute() {
-    if (currentUser.type == "unauthorized") {
+    if (!currentUser) {
       return <Login />
     }
     else {

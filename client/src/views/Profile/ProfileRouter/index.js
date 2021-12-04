@@ -9,11 +9,11 @@ const ProfileRouter = () => {
 
   // check if user is authorized
   function porfileRoute() {
-    if (currentUser.type == "unauthorized") {
+    if (!currentUser) {
       history.push("/");
       return null
     }
-    else if (currentUser.type == "admin") {
+    else if (currentUser.userType) {
       return <AdminProfile />
     }
     else {

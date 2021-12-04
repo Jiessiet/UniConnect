@@ -21,9 +21,9 @@ router.post("/api/users/login", (req, res) => {
         .then(user => {
             // Add the user's id to the session.
             // We can check later if this exists to ensure we are logged in.
-            req.session.user = user._id;
-            req.session.email = user.email; // we will later send the email to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
-            res.send({ currentUser: user.email });
+            req.session.user = user._doc;
+             // we will later send the email to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
+            res.send({ ...user._doc });
         })
         .catch(error => {
             res.status(400).send()
@@ -76,7 +76,7 @@ router.get("/users/check-session", (req, res) => {
     // }
 
     if (req.session.user) {
-        res.send({ currentUser: req.session.email });
+        res.send(req.session.user);
     } else {
         res.status(401).send();
     }

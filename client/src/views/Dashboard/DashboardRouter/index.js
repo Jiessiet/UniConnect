@@ -8,11 +8,11 @@ const DashboardRouter = () => {
   const { currentUser, setCurrentUser } = useUser()
 
   function dashboardRoute() {
-    if (currentUser.type == "unauthorized") {
+    if (!currentUser) {
       history.push("/");
       return null
     }
-    else if (currentUser.type == "admin") {
+    else if (currentUser.userType) {
       return <AdminDashboard />
     }
     else {

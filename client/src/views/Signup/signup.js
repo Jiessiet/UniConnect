@@ -13,7 +13,7 @@ import { useUser } from '../../Contexts/UserContext';
 
 
 function Signup() {
-    const { setCurrentUser } = useUser
+    const { setCurrentUser } = useUser()
 
     function handleRegister() {
         window.localStorage.setItem('userType', 'user')

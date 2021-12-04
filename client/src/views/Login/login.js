@@ -4,17 +4,18 @@ import background from "./greenbg.jpg"
 import { Button, Grid, Paper, Avatar, Typography, Box, TextField, Link } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import { useUser } from "../../Contexts/UserContext";
+import axios from '../../api';
 
 const Login = () => {
     const { setCurrentUser } = useUser()
 
-    const [userName, setUserName] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleUserNameChange = event => {
+    const handleemailChange = event => {
         const value = event.target.value;
 
-        setUserName(value)
+        setEmail(value)
     };
 
     const handlePasswordChange = event => {
@@ -26,18 +27,19 @@ const Login = () => {
     const submitHandler = (event) => {
         event.preventDefault()
 
-        if (userName == 'admin' && password == 'admin') {
-            window.localStorage.setItem('userType', 'admin')
-            setCurrentUser((currentUser) => { return { ...currentUser, type: 'admin' } })
-        }
-        else if (userName == 'user' && password == 'user') {
-            window.localStorage.setItem('userType', 'user')
-            setCurrentUser((currentUser) => { return { ...currentUser, type: 'user' } })
-        }
-        else {
-            setPassword('')
-            setUserName('')
-        }
+        axios({
+            method: 'post',
+            url: '/api/users/login',
+            data: {
+                email: email,
+                password: password
+            }
+          }).then(response => {
+              console.log(response)
+              setCurrentUser(response.data)
+          }).catch(function (error) {
+            console.log(error);
+          });
     }
 
     return (
@@ -88,11 +90,11 @@ const Login = () => {
                     <form spacing={2}>
                         <TextField
                             fullWidth
-                            label='Username'
+                            label='email'
                             margin='normal'
-                            placeholder='Enter Username'
-                            value={userName}
-                            onChange={handleUserNameChange} />
+                            placeholder='Enter email'
+                            value={email}
+                            onChange={handleemailChange} />
                         <TextField
                             fullWidth
                             label='Password'
