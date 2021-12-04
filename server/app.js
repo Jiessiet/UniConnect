@@ -10,7 +10,8 @@ const session = require("express-session");
 const MongoStore = require('connect-mongo') 
 
 const app = express();
-if (process.env.NODE_ENV !== 'production') { app.use(cors()) }
+// if (process.env.NODE_ENV !== 'production') { app.use(cors()) }
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));

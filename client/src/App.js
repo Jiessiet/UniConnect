@@ -5,8 +5,8 @@ import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 import Home from './views/Home/Home';
 import Navbar from './components/Navbar/Navbar';
-import Timeline from './views/Timeline/Timeline';
-import Event from './views/Event/Event';
+import Timeline from './views/Timeline/Events';
+import Events from './views/Timeline/Events';
 
 import ClimateChange from './views/Event/ClimateChange'
 import GameEvent from './views/Event/GameEvent'
@@ -16,7 +16,7 @@ import BloodEvent from './views/Event/BloodEvent'
 import FightEvent from './views/Event/FightEvent'
 import CatsEvent from './views/Event/CatsEvent'
 
-import EventDetails from './views/Event/EventDetails'
+// import EventDetails from './views/Event/EventDetails'
 import ClimateChangeDetails from './views/Event/ClimateChangeDetails'
 import GameEventDetails from './views/Event/GameEventDetails'
 import PoetryDetails from './views/Event/PoetryDetails'
@@ -78,7 +78,7 @@ function App() {
               <Navbar />
               <Route path="/timeline" exact> <Timeline eventId={eventId} setEventId={setEventId} /> </Route>
 
-              <Route exact path="/Event" exact element> <Event eventId={eventId} setEventId={setEventId} /> </Route>
+              <Route exact path="/Events" exact element> <Events/> </Route>
               <Route exact path="/ClimateChange" exact element> <ClimateChange eventId={eventId} setEventId={setEventId} /> </Route>
               <Route exact path="/BloodEvent" exact element> <BloodEvent eventId={eventId} setEventId={setEventId} /> </Route>
               <Route exact path="/CatsEvent" exact element> <CatsEvent eventId={eventId} setEventId={setEventId} /> </Route>
@@ -87,7 +87,7 @@ function App() {
               <Route exact path="/Moon" exact element> <Moon eventId={eventId} setEventId={setEventId} /> </Route>
               <Route exact path="/Poetry" exact element> <Poetry eventId={eventId} setEventId={setEventId} /> </Route>
 
-              <Route exact path="/EventDetails" exact component={EventDetails} />
+              {/* <Route exact path="/EventDetails" exact component={EventDetails} /> */}
               <Route path="/BloodEventDetails" exact component={BloodEventDetails} />
               <Route path="/CatsEventDetails" exact component={CatsEventDetails} />
               <Route path="/ClimateChangeDetails" exact component={ClimateChangeDetails} />
@@ -98,10 +98,10 @@ function App() {
 
               <Route path="/login" exact component={LoginRouter} />
               <Route path="/signup" exact component={SignupRouter} />
-              <Route path="/Event" exact element> <Event eventId={eventId} setEventId={setEventId} /> </Route>
+              {/* <Route path="/Event" exact element> <Event eventId={eventId} setEventId={setEventId} /> </Route> */}
               <Route path="/past-events" exact component={PastEvents} />
               <Route path="/upcoming-events" exact component={UpcomingEvents} />
-              <Route path="/EventDetails" exact component={EventDetails} />
+              {/* <Route path="/EventDetails" exact component={EventDetails} /> */}
               <Route path="/AccountSetup" exact component={AccountSetup} />
               <Route path="/dashboard" exact component={DashboardRouter} />
               <Route path="/AddFriend" exact component={AddFriend} />

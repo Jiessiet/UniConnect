@@ -39,7 +39,7 @@ router.patch('/api/events/:id', authenticate, async (req, res) => {
 
   if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No event with that id');
   
-  const updatedEvent = await Event.findByIdAndUpdate(_id, { ...post, _id }, { new: true });
+  const updatedEvent = await Event.findByIdAndUpdate(_id, { ...req.body});
 
   res.json(updatedEvent);
 });
@@ -55,16 +55,13 @@ router.delete('/api/events/:id', authenticate, async (req, res) => {
     res.json({ message: 'Event deleted successfully' })
 });
 
-// get events by uid
+// get events by user
 router.get('/api/events/user', authenticate, async (req, res) => {
-    if (!req.user) return res.json({ message: 'Unauthenticated' });
-
     try {
-        const eventByUid = Event.find({ creator: req.user })
+        const eventByUser = await Event.find({ creator : req.user });
+        res.status(200).json(eventByUser);
 
-        res.status(200).json(eventByUid);
-
-    } catch {
+    } catch (error) {
         res.status(404).json({ message: error.message });
     }
 });
