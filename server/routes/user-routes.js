@@ -141,15 +141,15 @@ router.get("/api/users/username/:username", authenticate, (req, res) => {
 
 
 // put user
-// router.put('/api/users/:id', authenticate, (req, res) => {
-//     const id = req.params.id
 
-//     User.findOneAndReplace({_id: id}, req.body, {new: true, useFindAndModify: false}).then((updatedUser) => {
-//         res.send(updatedUser)
-//     }).catch((error) => {
-//         res.status(404).send("User does not exist and/or cannot be updated")
-//     })
-// })
+router.put('/api/users/:id', authenticate, (req, res) => {
+
+    User.findByIdAndUpdate({_id: req.params.id}, { ...req.body}, {new: true}).then((updatedUser) => {
+        res.send(updatedUser)
+    }).catch((error) => {
+        res.status(404).send("User does not exist and/or cannot be updated")
+    })
+})
 
 // delete user
 router.delete('/api/users/:id', authenticate, (req, res) => {
