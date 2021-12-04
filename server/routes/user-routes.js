@@ -88,11 +88,11 @@ router.get("/api/users", authenticate, (req, res) => {
         User.find().then((users) => {
             res.send(users)
         }).catch((error) => {
-            res.status(500).send("Users cannot be found")
+            res.status(404).send("Bad Request: Users cannot be found")
         })
     } 
     else {
-        res.status(401).send("Not Authorized")
+        res.status(401).send("Unauthorized")
     }
 })
 
@@ -101,7 +101,17 @@ router.get("/api/users/:id", authenticate, (req, res) => {
     User.findOne({_id: req.params.id}).then((user) => {
         res.send(user)
     }).catch((error) => {
-        res.status(500).send("User does not exist")
+        res.status(404).send("Bad Request: User does not exist")
+    })
+})
+
+// get by username
+router.get("/api/users/username/:username", authenticate, (req, res) => {
+    User.findOne({username: req.params.username}).then((user) => {
+        res.send(user)
+    }).catch((error) => {
+        console.log(error)
+        res.status(404).send("Bad Request: User does not exist")
     })
 })
 
@@ -135,7 +145,7 @@ router.patch('/api/users/:id', authenticate, (req, res) => {
     User.findByIdAndUpdate({_id: req.params.id}, {...post, _id}, {new:true}).then((updatedUser) => {
         res.send(updatedUser)
     }).catch((error) => {
-        res.status(500).send("User does not exist and/or cannot be updated")
+        res.status(500).send("Bad Request: User does not exist and/or cannot be updated") // fix later
     })
 })
 
@@ -153,7 +163,7 @@ router.delete('/api/users/:id', authenticate, (req, res) => {
         res.status(401).send('Unauthorized Request')
     }
     }).catch((error) => { 
-        res.status(500).send("User does not exist")
+        res.status(404).send("Bad Request: User does not exist")
     })
    
 })
