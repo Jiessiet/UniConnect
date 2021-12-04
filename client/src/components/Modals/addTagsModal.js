@@ -5,9 +5,20 @@ import { green } from '@mui/material/colors';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
-
+import { useUser } from "../../Contexts/UserContext";
+import axios from '../../api';
 
 function Modal({ handleClose }) {
+    const { setCurrentUser } = useUser()
+
+    const [tag, setTag] = useState('')
+    // const [category, setCategory] = useState('')
+
+    const handleTagChange = event => {
+        const value = event.target.value;
+        setTag(value)
+    };
+
     const [open, setOpen] = React.useState(false);
     const handleClick = () => {
         if (true) {
@@ -26,9 +37,15 @@ function Modal({ handleClose }) {
     });
 
     function addTag() {
-        let databody = {
-
-        }
+        axios({
+            method: 'post',
+            url: '/api/tag',
+            data: {
+                tag: tag
+                // category: category
+            }
+          }).then(
+          ).catch(error)
         return null
     }
 
@@ -89,7 +106,9 @@ function Modal({ handleClose }) {
                     </Grid>
                 </Grid>
                 <Grid item align='center' xs={12}>
-                    <TextField fullWidth margin='normal' label="New Tag Name" placeholder='ex. gaming, movies' type="search" />
+                    <form>
+                        <TextField fullWidth margin='normal' label="New Tag Name" placeholder='ex. gaming, movies' type="search" value={tag} onChange={handleTagChange} />
+                    </form>
                 </Grid>
                 <Grid item padding='0'>
                     <Button
