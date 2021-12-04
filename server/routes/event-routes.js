@@ -56,7 +56,7 @@ router.delete('/api/events/:id', authenticate, async (req, res) => {
 });
 
 // get events by uid
-router.get('/api/events', authenticate, async (req, res) => {
+router.get('/api/events/user', authenticate, async (req, res) => {
     if (!req.user) return res.json({ message: 'Unauthenticated' });
 
     try {
