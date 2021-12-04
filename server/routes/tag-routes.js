@@ -62,7 +62,7 @@ router.delete('/api/tag/:id', (req, res) => {
 
 	Tag.findOne({_id:req.params.id}).then((rest) => {
 		
-		const deletedTag = rest
+		res.send(rest)
 		rest.remove(req.params.id)
 		rest.save().then((result) => {
 			res.send({tag: deletedTag})
