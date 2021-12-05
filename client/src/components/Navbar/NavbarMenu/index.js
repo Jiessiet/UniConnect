@@ -7,18 +7,26 @@ import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { IconButton } from "@mui/material";
 import { useHistory } from "react-router";
+import axios from "../../../api";
 
 const NavbarMenu = () => {
   const { currentUser, setCurrentUser } = useUser();
   const history = useHistory();
 
   function logouthandler() {
-    window.localStorage.setItem('userType', 'unauthorized')
-    setCurrentUser((currentUser) => { return { ...currentUser, type: 'unauthorized' } })
+    axios({
+      method: 'get',
+      url: '/api/users/logout'
+    }).then(response => {
+        console.log(response)
+        setCurrentUser(response.data)
+    }).catch(function (error) {
+      console.log(error);
+    }).then(() => {setCurrentUser(null)})
   }
 
   function navbarMenuRender(logouthandler) {
-    if (currentUser.type == "unauthorized") {
+    if (!currentUser) {
       return (
         <Toolbar>
           <Button component={Link} to="/login"

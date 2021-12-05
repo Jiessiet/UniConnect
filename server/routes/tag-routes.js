@@ -1,11 +1,13 @@
 const express = require("express");
 const { Tag } = require("../mongodb/models/tagModel");
+const { Event } = require("../mongodb/models/eventModel");
 const mongoChecker = require("../middleware/mongoChecker")
+const authenticate = require('../middleware/authmiddleware');
 
 const router = express.Router();
 
 // post tag and save
-router.post("/api/tag", (req, res) => {
+router.post("/api/tag", authenticate, (req, res) => {
 
 	const tag = new Tag({
 		name: req.body.name,
@@ -18,19 +20,22 @@ router.post("/api/tag", (req, res) => {
 	})
 })
 
-// //get all tags - only done by admin
-router.get('/api/tag', (req, res) => {
-
+//get all tags - only done by admin
+router.get('/api/tag', authenticate, (req, res) => {
+	if (req.user.userType){
 	Tag.find().then((tag) => {
 		res.send(tag)
 	}).catch((error) => {
 		res.status(500).send(error)
 	})
+}else{
+	res.status(401).send('unauthorized')
+}
 
 })
 
 //get tags by id
-router.get('/api/tag/:id', (req, res) => {
+router.get('/api/tag/:id', authenticate, (req, res) => {
 	
 	Tag.findOne({_id:req.params.id}).then((tag) => {
 		res.send(tag)
@@ -40,9 +45,10 @@ router.get('/api/tag/:id', (req, res) => {
 })
 
 // put updated tag
-router.put('/api/tag/:id', (req, res) => {
+router.put('/api/tag/:id', authenticate, (req, res) => {
 	const id = req.params.id
 
+	if (req.user.userType){
 	Tag.findOneAndReplace({_id: id}, req.body, {new: true, useFindAndModify: false})
 	.then((tag) => {
 		if (!tag) {
@@ -54,12 +60,13 @@ router.put('/api/tag/:id', (req, res) => {
 	.catch((error) => {
 		res.status(500).send(error)
 	})
+}
 })
 
+// delete tag only done by admins
+router.delete('/api/tag/:id', authenticate, (req, res) => {
 
-// // delete tag only done by admins
-router.delete('/api/tag/:id', (req, res) => {
-
+	if (req.user.userType){
 	Tag.findOne({_id:req.params.id}).then((rest) => {
 		
 		res.send(rest)
@@ -72,6 +79,7 @@ router.delete('/api/tag/:id', (req, res) => {
 	}).catch((error) => {
 			res.status(500).send(error)
 	})
+}
 
 })
 

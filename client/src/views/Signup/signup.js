@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from "react";
 import background from "./greenbg.jpg"
 import { Button, Grid, Paper, Tooltip, Typography, Box, Icon, TextField, Link } from '@mui/material';
 import { green } from '@mui/material/colors';
@@ -8,16 +8,36 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { IconButton } from "@material-ui/core";
 import { styled } from '@mui/material/styles';
 import { useUser } from '../../Contexts/UserContext';
+import axios from '../../api'
+import { signup } from "../../api/functions"
+
 
 
 
 
 function Signup() {
-    const { setCurrentUser } = useUser
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [passwordAgain, setPasswordAgain] = useState('')
+    const [university, setUniversity] = useState('')
+    const [username, setUsername] = useState('')
 
-    function handleRegister() {
-        window.localStorage.setItem('userType', 'user')
-        setCurrentUser((currentUser) => { return { ...currentUser, type: 'user' } })
+    const handleValueChange = (event, setter) => {
+        const value = event.target.value;
+
+        setter(value)
+    };
+
+    const { setCurrentUser } = useUser()
+
+    function handleRegister(event) {
+        event.preventDefault()
+
+        if(password !== passwordAgain) {
+            //TODO: not matching indicator
+            return;
+        }
+        signup(email, password, university, username, setCurrentUser)
     }
 
     const Input = styled('input')({
@@ -84,7 +104,7 @@ function Signup() {
                         <form>
                             <Grid container direction='row' alignItems='center' justifyItems='center'>
                                 <Grid item xs={10.25}>
-                                    <TextField fullWidth label='Username' right-padding='5px' margin='normal' required='true' placeholder='Create your own unique username' />
+                                    <TextField fullWidth label='Username' right-padding='5px' margin='normal' required='true' placeholder='Create your own unique username' value={username} onChange={(event) => {handleValueChange(event, setUsername)}} />
                                 </Grid>
                                 <Grid item><label htmlFor="icon-button-file" xs={1}>
                                     <Input accept="image/*" id="icon-button-file" type="file" />
@@ -96,14 +116,14 @@ function Signup() {
                                 </label>
                                 </Grid>
                             </Grid>
-                            <TextField fullWidth label='Email' margin='normal' required='true' placeholder='Type your email' />
-                            <TextField fullWidth label='University' required='true' margin='normal' placeholder='Enter your University' />
-                            <TextField fullWidth label='Password' required='true' margin='normal' placeholder='Create a secure password' />
-                            <TextField fullWidth label='Password' required='true' margin='normal' placeholder='Retype your password' />
+                            <TextField fullWidth label='Email' margin='normal' required='true' placeholder='Type your email' value={email} onChange={(event) => {handleValueChange(event, setEmail)}}/>
+                            <TextField fullWidth label='University' required='true' margin='normal' placeholder='Enter your University' value={university} onChange={(event) => {handleValueChange(event, setUniversity)}}  />
+                            <TextField fullWidth label='Password' required='true' margin='normal' placeholder='Create a secure password' value={password} onChange={(event) => {handleValueChange(event, setPassword)}} />
+                            <TextField fullWidth label='Password' required='true' margin='normal' placeholder='Retype your password' value={passwordAgain} onChange={(event) => {handleValueChange(event, setPasswordAgain)}} />
                         </form>
                     </Grid>
                     <Grid item padding='0'>
-                        <Button href='/AccountSetup' type='submit'
+                        <Button type='submit'
                             variant="outline"
                             sx={{ mt: 1, color: 'white', background: 'green' }}
                             onClick={handleRegister}>

@@ -21,9 +21,9 @@ router.post("/api/users/login", (req, res) => {
         .then(user => {
             // Add the user's id to the session.
             // We can check later if this exists to ensure we are logged in.
-            req.session.user = user._id;
-            req.session.email = user.email; // we will later send the email to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
-            res.send({ currentUser: user.email });
+            req.session.user = user._doc;
+             // we will later send the email to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
+            res.send({ ...user._doc });
         })
         .catch(error => {
             res.status(400).send()
@@ -76,7 +76,7 @@ router.get("/users/check-session", (req, res) => {
     // }
 
     if (req.session.user) {
-        res.send({ currentUser: req.session.email });
+        res.send(req.session.user);
     } else {
         res.status(401).send();
     }
@@ -142,10 +142,19 @@ router.get("/api/users/username/:username", authenticate, (req, res) => {
 
 // patch user
 router.patch('/api/users/:id', authenticate, (req, res) => {
-    User.findByIdAndUpdate({_id: req.params.id}, {...post, _id}, {new:true}).then((updatedUser) => {
-        res.send(updatedUser)
+    User.findById({_id: req.params.id}).then((oldUserDetails) => {
+        if (req.user.userType || (req.user._id == req.params.id)) {
+            User.findByIdAndUpdate({_id: req.params.id}, { ...req.body}, {new: true}).then((updatedUser) => {
+                res.send(updatedUser)
+            }).catch((error) => {
+                res.status(404).send("User cannot be updated")
+            })
+        }
+        else {
+            res.status(401).send('Unauthorized Request')
+        }
     }).catch((error) => {
-        res.status(500).send("Bad Request: User does not exist and/or cannot be updated") // fix later
+        res.status(404).send("User does not exist")
     })
 })
 
