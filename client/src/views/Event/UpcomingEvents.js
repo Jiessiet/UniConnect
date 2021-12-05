@@ -1,5 +1,5 @@
 import React from 'react'
-import TimelineEventCard from '../../components/TimelineEventCard/TimelineEventCard'
+import TimelineEventCard from '../Timeline/Events'
 import { events } from '../../constant/Events'
 import { Grid, Container, Typography } from '@mui/material'
 
