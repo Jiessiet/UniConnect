@@ -7,10 +7,12 @@ import { Grid, createTheme, Stack, Button } from '@mui/material';
 import LocationOnSharpIcon from '@mui/icons-material/LocationOnSharp';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { useUser } from '../../Contexts/UserContext';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import EventDetails from '../Event/EventDetails';
 
 const Event = ({ event }) => {
   const { currentUser } = useUser();
+  const history = useHistory();
 
   return (
     <Card style={{ height: '100%' }}>
@@ -22,7 +24,7 @@ const Event = ({ event }) => {
           <CardContent style={{ paddingBottom: 16 }}>
             <Typography gutterBottom variant='h5' component='div'>
               {event.name}
-              {console.log("event: ", event)}
+              {console.log('event: ', event)}
             </Typography>
             <Typography variant='body2' color='textSecondary' gutterBottom>
               {event.description}
@@ -38,13 +40,16 @@ const Event = ({ event }) => {
                 {event.attendees.length} / {event.attendeeLimit}
               </Typography>
               <PeopleAltIcon />
+              <Typography>attendees</Typography>
             </Stack>
             <Typography variant='body1' display='block' color='textSecondary'>
               <Button
-                // to={
-
-                // }
-                component={Link}
+                onClick={() => {
+                  history.push({
+                    pathname: '/eventdetails',
+                    state: { event: { event } }
+                  });
+                }}
               >
                 Learn More
               </Button>

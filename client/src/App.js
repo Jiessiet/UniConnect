@@ -8,22 +8,7 @@ import Navbar from './components/Navbar/Navbar';
 import Timeline from './views/Timeline/Events';
 import Events from './views/Timeline/Events';
 
-import ClimateChange from './views/Event/ClimateChange'
-import GameEvent from './views/Event/GameEvent'
-import Poetry from './views/Event/Poetry'
-import Moon from './views/Event/Moon'
-import BloodEvent from './views/Event/BloodEvent'
-import FightEvent from './views/Event/FightEvent'
-import CatsEvent from './views/Event/CatsEvent'
-
-// import EventDetails from './views/Event/EventDetails'
-import ClimateChangeDetails from './views/Event/ClimateChangeDetails'
-import GameEventDetails from './views/Event/GameEventDetails'
-import PoetryDetails from './views/Event/PoetryDetails'
-import MoonDetails from './views/Event/MoonDetails'
-import BloodEventDetails from './views/Event/BloodEventDetails'
-import FightEventDetails from './views/Event/FightEventDetails'
-import CatsEventDetails from './views/Event/CatsEventDetails'
+import EventDetails from './views/Event/EventDetails'
 
 import AccountSetup from './views/AccountSetup/AccountSetup';
 import AddFriend from './views/AddFriend/AddFriend';
@@ -78,30 +63,13 @@ function App() {
               <Navbar />
               <Route path="/timeline" exact> <Timeline eventId={eventId} setEventId={setEventId} /> </Route>
 
-              <Route exact path="/Events" exact element> <Events/> </Route>
-              <Route exact path="/ClimateChange" exact element> <ClimateChange eventId={eventId} setEventId={setEventId} /> </Route>
-              <Route exact path="/BloodEvent" exact element> <BloodEvent eventId={eventId} setEventId={setEventId} /> </Route>
-              <Route exact path="/CatsEvent" exact element> <CatsEvent eventId={eventId} setEventId={setEventId} /> </Route>
-              <Route exact path="/FightEvent" exact element> <FightEvent eventId={eventId} setEventId={setEventId} /> </Route>
-              <Route exact path="/GameEvent" exact element> <GameEvent eventId={eventId} setEventId={setEventId} /> </Route>
-              <Route exact path="/Moon" exact element> <Moon eventId={eventId} setEventId={setEventId} /> </Route>
-              <Route exact path="/Poetry" exact element> <Poetry eventId={eventId} setEventId={setEventId} /> </Route>
-
-              {/* <Route exact path="/EventDetails" exact component={EventDetails} /> */}
-              <Route path="/BloodEventDetails" exact component={BloodEventDetails} />
-              <Route path="/CatsEventDetails" exact component={CatsEventDetails} />
-              <Route path="/ClimateChangeDetails" exact component={ClimateChangeDetails} />
-              <Route path="/FightEventDetails" exact component={FightEventDetails} />
-              <Route path="/GameEventDetails" exact component={GameEventDetails} />
-              <Route path="/MoonDetails" exact component={MoonDetails} />
-              <Route path="/PoetryDetails" exact component={PoetryDetails} />
+              <Route exact path="/EventDetails" exact component={EventDetails} />
 
               <Route path="/login" exact component={LoginRouter} />
               <Route path="/signup" exact component={SignupRouter} />
               {/* <Route path="/Event" exact element> <Event eventId={eventId} setEventId={setEventId} /> </Route> */}
               <Route path="/past-events" exact component={PastEvents} />
               <Route path="/upcoming-events" exact component={UpcomingEvents} />
-              {/* <Route path="/EventDetails" exact component={EventDetails} /> */}
               <Route path="/AccountSetup" exact component={AccountSetup} />
               <Route path="/dashboard" exact component={DashboardRouter} />
               <Route path="/AddFriend" exact component={AddFriend} />
