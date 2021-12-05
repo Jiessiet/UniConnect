@@ -27,7 +27,7 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            expires: 600000, // 10 mins
+            expires: 6000000, // 10 mins
             httpOnly: true
         },
         // store the sessions on the database in production

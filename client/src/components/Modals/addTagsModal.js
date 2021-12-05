@@ -13,7 +13,6 @@ function Modal({ handleClose }) {
     const { setCurrentUser } = useUser()
 
     const [tag, setTag] = useState('')
-    // const [category, setCategory] = useState('')
 
     const handleTagChange = event => {
         const value = event.target.value;
@@ -21,15 +20,19 @@ function Modal({ handleClose }) {
     };
 
     const [open, setOpen] = React.useState(false);
+    const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
     const handleCloseSnackbar = (event, reason) => {
         if (reason === 'clickaway') {
           return;
         }
         setOpen(false);
+        setOpenSnackbar(false)
       };
 
-    const handleClick = () => {
+    const handleClick = (event) => {
+        event.preventDefault()
+        if(tag != '') {
             axios({
                 method: 'post',
                 url: '/api/tag',
@@ -38,11 +41,14 @@ function Modal({ handleClose }) {
                 }
               }).then(response => {
                 console.log(response)
+                setTag('')
                 setOpen(true);
             }).catch(function (error) {
               console.log(error);
-
             })
+        } else {
+            setOpenSnackbar(true)
+        }
     };
 
     const Input = styled('input')({
@@ -106,8 +112,8 @@ function Modal({ handleClose }) {
                     </Grid>
                 </Grid>
                 <Grid item align='center' xs={12}>
-                    <form>
-                        <TextField fullWidth margin='normal' label="New Tag Name" placeholder='ex. gaming, movies' type="search" value={tag} onChange={handleTagChange} />
+                    <form onSubmit={handleClick}>
+                        <TextField fullWidth margin='normal' label="New Tag Name" placeholder='ex. gaming, movies' type="search" value={tag} onChange={handleTagChange}/>
                     </form>
                 </Grid>
                 <Grid item padding='0'>
@@ -130,7 +136,15 @@ function Modal({ handleClose }) {
                     <Alert severity='success'> Tag Created </Alert>
                 </Snackbar>
             </div>
-            {/* </Grid> */}
+            <div>
+                    <Snackbar
+                        open={openSnackbar}
+                        autoHideDuration={2000}
+                        onClose={handleCloseSnackbar}
+                    >
+                        <Alert severity='error'> Tag Not Created </Alert>
+                    </Snackbar>
+                </div>
         </Grid>)
 }
 export default Modal
