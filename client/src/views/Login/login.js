@@ -4,7 +4,7 @@ import background from "./greenbg.jpg"
 import { Button, Grid, Paper, Avatar, Typography, Box, TextField, Link } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import { useUser } from "../../Contexts/UserContext";
-import axios from '../../api';
+import { login } from "../../api/functions"
 
 const Login = () => {
     const { setCurrentUser } = useUser()
@@ -26,20 +26,7 @@ const Login = () => {
 
     const submitHandler = (event) => {
         event.preventDefault()
-
-        axios({
-            method: 'post',
-            url: '/api/users/login',
-            data: {
-                email: email,
-                password: password
-            }
-          }).then(response => {
-              console.log(response)
-              setCurrentUser(response.data)
-          }).catch(function (error) {
-            console.log(error);
-          });
+        login(email, password, setCurrentUser)
     }
 
     return (
