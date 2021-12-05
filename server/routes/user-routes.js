@@ -1,5 +1,6 @@
 const express = require("express");
 const { User } = require("../mongodb/models/userModel");
+const {Event} = require("../mongodb/models/eventModel")
 const mongoChecker = require("../middleware/mongoChecker");
 const authenticate = require("../middleware/authmiddleware");
 const multer = require('multer');
@@ -133,6 +134,19 @@ router.get("/api/users/username/:username", authenticate, (req, res) => {
 //         res.status(500).send('cant find')
 //     })
 // })
+
+router.patch("/api/users/addEvent/:id", authenticate, (req, res) => {
+        Event.findOne({_id: req.params.id}).then((event) => {
+            req.user.attendingEvents.push(event)
+            req.user.save().then((user) => {
+                res.send(req.user.attendingEvents)
+            }).catch((error) => {
+    			res.status(500).send('Save failed')
+    		})
+        }).catch((error) => {
+            res.status(500).send('Cannot find event')
+        })
+    })
 
 // get user's friends
 // router.get("/api/users/:id", (req, res) => {
