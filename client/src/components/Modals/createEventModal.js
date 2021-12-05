@@ -9,7 +9,9 @@ import { styled } from '@mui/material/styles';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useState } from "react";
-import AddTagModal from '../../components/Modals/addTagsModal'
+import { useUser } from "../../Contexts/UserContext";
+import axios from '../../api';
+
 
 
 
@@ -17,10 +19,13 @@ function Modal({ handleClose }) {
     const [open, setOpen] = React.useState(false);
     const [openTagModal, setOpenTagModal] = React.useState(false);
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
+    const { currentUser, setCurrentUser } = useUser()
+
 
     const handleTagModal = () => setOpenTagModal(true);
     const handleTagClose = () => setOpenTagModal(false);
 
+    
     const [eventName, setEventName] = useState('')
     const [eventDesc, setEventDesc] = useState('')
     const [eventDate, setEventDate] = useState('')
@@ -29,57 +34,66 @@ function Modal({ handleClose }) {
     const [eventTags, setEventTags] = useState('')
     const [eventAttendees, setEventAttendees] = useState('')
 
+    const handleChange = (event, setter) => {
+        const value = event.target.value;
 
-    const handleClick = () => {
-        if (eventName !== '' && eventDesc !== '') {
-            addEventToDatabase(); //database function below
+        setter(value)
+    };
+
+    const addTagtoEvent = () => {
+        return axios({
+            method: 'post',
+            url: '/api/users/login',
+            data: {
+
+            }
+          }).then(response => {
+              console.log(response)
+              setCurrentUser(response.data)
+          }).catch(function (error) {
+            console.log(error);
+          });
+    }
+    const handleClick = (event) => {
+        event.preventDefault()
+        if (eventName !== '' && eventDesc !== '' && eventDate !== '' && eventStart !== '') {
+
+            axios({
+                method: 'post',
+                url: '/api/events',
+                data: {
+                    eventId: 5,
+                    name: eventName,
+                    description: eventDesc,
+                    attendeeLimit: eventAttendees,
+                    creator: {
+                        email: currentUser.email,
+                        password:  currentUser.password
+                    }
+                }
+                }).then(response => {
+                    console.log(response)
+                    setEventName('')
+                    setEventDesc('')
+                    setEventDate('')
+                    setEventStart('')
+                    setEventEnd('')
+                    setEventTags('')
+                    setEventAttendees('')
+                    setOpen(true);
+            }).catch(function (error) {
+                console.log(error);
+            })
+
             setOpen(true);
-            window.setTimeout(function () {
-                window.location.reload()
-            }, 2000)
         } else {
             setOpenSnackbar(true)
         }
     };
 
-    const handleEventNameChange = event => {
-        const value = event.target.value;
-        setEventName(value)
-    };
-
-    const handleEventDescChange = event => {
-        const value = event.target.value;
-        setEventDesc(value)
-    };
-
-    const handleEventDateChange = event => {
-        const value = event.target.value;
-        setEventDate(value)
-    };
-
-    const handleEventStartChange = event => {
-        const value = event.target.value;
-        setEventStart(value)
-    };
-
-    const handleEventEndChange = event => {
-        const value = event.target.value;
-        setEventEnd(value)
-    };
-
-    const handleEventTagsChange = event => {
-        const value = event.target.value;
-        setEventTags(value)
-    };
-
-    const handleEventAttendeesChange = event => {
-        const value = event.target.value;
-        setEventAttendees(value)
-    };
-
     function addEventToDatabase() {
-        //adding to the events database with the new event's information
-        return null
+        // event.preventDefault()
+        
     }
 
     const Input = styled('input')({
@@ -140,7 +154,7 @@ function Modal({ handleClose }) {
                     </Grid>
                 </Grid>
                 <Grid item align='center'>
-                    <Box component="form">
+                    <Box component="form" onSubmit={handleClick}>
                         <TextField
                             fullWidth
                             label='Event Title'
@@ -149,7 +163,7 @@ function Modal({ handleClose }) {
                             required='true'
                             placeholder='Name your event'
                             value={eventName}
-                            onChange={handleEventNameChange}
+                            onChange={(event)=>handleChange(event, setEventName)}
                         />
                         <TextField
                             fullWidth
@@ -160,18 +174,19 @@ function Modal({ handleClose }) {
                             rows={2}
                             placeholder="Let other's know what your event is about!"
                             value={eventDesc}
-                            onChange={handleEventDescChange}
+                            onChange={(event)=>handleChange(event, setEventDesc)}
                         />
                         <TextField
                             fullWidth
                             label='Date'
                             type='date'
                             margin='normal'
+                            required='true'
                             InputLabelProps=
                             {{ shrink: true }}
                             placeholder='What day will you event happen?'
                             value={eventDate}
-                            onChange={handleEventDateChange}
+                            onChange={(event)=>handleChange(event, setEventDate)}
 
                         />
                         <Grid container direction='row' alignItems='center'>
@@ -181,12 +196,13 @@ function Modal({ handleClose }) {
                                     label='Start Time'
                                     type='time'
                                     margin='normal'
+                                    required='true'
                                     // sx={{marginRight:'2vw'}}
                                     InputLabelProps=
                                     {{ shrink: true }}
                                     placeholder='What time will you event start?'
                                     value={eventStart}
-                                    onChange={handleEventStartChange}
+                                    onChange={(event)=>handleChange(event, setEventStart)}
                                 />
                             </Grid>
                             <Grid item xs paddingLeft='1vh'>
@@ -199,8 +215,8 @@ function Modal({ handleClose }) {
                                     InputLabelProps=
                                     {{ shrink: true }}
                                     placeholder='What time will your event end?'
-                                    event={eventEnd}
-                                    onChange={handleEventEndChange}
+                                    value={eventEnd}
+                                    onChange={(event)=>handleChange(event, setEventEnd)}
                                 />
                             </Grid>
                         </Grid>
@@ -221,7 +237,7 @@ function Modal({ handleClose }) {
                                             label="Tags"
                                             placeholder="Add all related tags"
                                             value={eventTags}
-                                            onChange={handleEventTagsChange}
+                                            onChange={(event)=>handleChange(event, setEventTags)}
                                         />
                                     )}
                                 />
@@ -235,7 +251,7 @@ function Modal({ handleClose }) {
                             margin='normal'
                             placeholder='How many people are allowed to sign up?'
                             value={eventAttendees}
-                            onChange={handleEventAttendeesChange}
+                            onChange={(event)=>handleChange(event, setEventAttendees)}
                         />
                     </Box>
                 </Grid>
@@ -271,7 +287,7 @@ function Modal({ handleClose }) {
                 <div>
                     <Snackbar
                         open={openSnackbar}
-                        autoHideDuration={1000}
+                        autoHideDuration={2000}
                     >
                         <Alert severity='error'> Event Not Created </Alert>
                     </Snackbar>
@@ -279,7 +295,7 @@ function Modal({ handleClose }) {
                 <div>
                     <Snackbar
                         open={open}
-                        autoHideDuration={1000}
+                        autoHideDuration={2000}
                     >
                         <Alert severity='success'> Event Created </Alert>
                     </Snackbar>
