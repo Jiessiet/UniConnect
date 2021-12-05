@@ -66,4 +66,32 @@ router.get('/api/events/user', authenticate, async (req, res) => {
     }
 });
 
+// post tag to event
+router.post('/api/:id/:tag_id', authenticate, (req, res) => {
+	const event_id = req.params.id
+	const tag_id = req.params.tag_id
+
+	Event.findOne({_id:event_id}).then((chosenEvent) => {
+    if (req.user._id.equals(chosenEvent.creator._id)){
+
+		chosenEvent.tags.push(tag_id)
+		chosenEvent.save().then((rest) => {
+			res.send({tag: rest.tag, event: rest})
+		}).catch((error) => {
+      console.log(error)
+			res.status(500).send(error)
+		})
+  }else{
+    res.status(404).send('Unauthorized')
+  }
+    
+	}).catch((error) => {
+    console.log(error)
+		res.status(500).send(error)
+  })
+
+
+})
+
+
 module.exports = router;
