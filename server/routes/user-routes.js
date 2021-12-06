@@ -1,7 +1,13 @@
 const express = require("express");
 const { User } = require("../mongodb/models/userModel");
+const {Event} = require("../mongodb/models/eventModel")
 const mongoChecker = require("../middleware/mongoChecker");
 const authenticate = require("../middleware/authmiddleware");
+const { Tag } = require("../mongodb/models/tagModel");
+const multer = require('multer');
+const upload = multer({ dest: '../tmp/img/' });
+const fs = require('fs');
+const cloudinary = require('../cloudinary')
 
 
 const router = express.Router();
@@ -115,20 +121,51 @@ router.get("/api/users/username/:username", authenticate, (req, res) => {
     })
 })
 
-//add friend
-// router.patch("/api/users/:id", authenticate, (req, res) => {
-//     User.findOne({_id: req.params.id}).then((friend) => {
-//         // const friend = User.findOne({_id: req.params.friendId})
-//         req.user.friends.push(friend)
-//         req.user.save().then((user) => {
-//             res.send(user.friends)
-//         }).catch((error) => {
-// 			res.status(500).send('save failed')
-// 		})
-//     }).catch((error) => {
-//         res.status(500).send('cant find')
-//     })
-// })
+// add friend
+router.patch("/api/users/addFriend/:id", authenticate, (req, res) => {
+    User.findOne({_id: req.params.id}).then((friend) => {
+        if(req.user._id != req.params.id) {
+        req.user.friends.push(friend)
+        req.user.save().then((user) => {
+            res.send(user.friends)
+        }).catch((error) => {
+			res.status(500).send('Save failed')
+		})
+    } else {
+        res.status(404).send('Bad Request: User cannot friend themselves')
+    }
+    }).catch((error) => {
+        res.status(500).send('Cannot find User')
+    })
+})
+
+// add event to user
+router.patch("/api/users/addEvent/:id", authenticate, (req, res) => {
+        Event.findOne({_id: req.params.id}).then((event) => {
+            req.user.attendingEvents.push(event)
+            req.user.save().then((user) => {
+                res.send(req.user.attendingEvents)
+            }).catch((error) => {
+    			res.status(500).send('Save failed')
+    		})
+        }).catch((error) => {
+            res.status(500).send('Cannot find event')
+        })
+    })
+
+
+router.patch("/api/users/addTag/:id", authenticate, (req, res) => {
+    Tag.findOne({_id: req.params.id}).then((event) => {
+        req.user.tags.push(event)
+        req.user.save().then((user) => {
+            res.send(req.user.tags)
+        }).catch((error) => {
+            res.status(500).send('Save failed')
+        })
+    }).catch((error) => {
+        res.status(500).send('Cannot Find Tag')
+    })
+})
 
 // get user's friends
 // router.get("/api/users/:id", (req, res) => {
@@ -175,6 +212,41 @@ router.delete('/api/users/:id', authenticate, (req, res) => {
         res.status(404).send("Bad Request: User does not exist")
     })
    
+})
+
+router.post('/api/user-photo/:userId', authenticate, upload.single('file'), async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId).exec()
+        if(!user) { 
+            fs.unlinkSync(req.file.path)
+            return res.status(404).send('no such user')
+        }
+        if(user._id.str !== req.user._id.str) {
+            fs.unlinkSync(req.file.path)
+            return res.status(401).send('not the creator') 
+        }
+        try {
+            const image = await cloudinary.uploader.upload(req.file.path, { 
+                public_id: req.params.userId,
+                folder: 'profilePhotos',
+                eager: [ { width: 400, height: 400, crop: "fill" } ]
+            })
+            fs.unlinkSync(req.file.path)
+            await User.findByIdAndUpdate(req.params.userId, {profilePhoto: image.eager[0].secure_url})
+            //console.log(image)
+            res.status(200).send('image uploaded')
+        } 
+        catch(e){
+            console.log(e)
+            fs.unlinkSync(req.file.path)
+            res.status(500).send("Cloudinary Error")
+        }
+    } 
+    catch(e){
+        console.log(e)
+        fs.unlinkSync(req.file.path)
+        res.status(400).send("Bad Input")
+    }
 })
 
 

@@ -27,6 +27,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { Link } from 'react-router-dom';
 import AnimatedBg from "./AnimatedBg";
+import Tooltip from '@mui/material/Tooltip';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -59,8 +60,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '4.5rem',
   },
   goDown: {
-    color: '#C9D991',
-    fontSize: '4rem',
+    color: '#A9BF5A',
+    fontSize: '6rem',
   },
   button: {
     backgroundColor: '#C9D991',
@@ -133,6 +134,7 @@ export default function Header() {
               {...(checked ? { timeout: 1000 } : {})}
               collapsedHeight={50}
             >
+             
               <div className={classes.container}>
                 <Stack
                   direction="column"
@@ -140,9 +142,11 @@ export default function Header() {
                   alignItems="center"
                   spacing={20}
                 >
+                  
                   <Avatar alt="Logo" src="/images/Connected-pana.png"
                     sx={{ width: 400, height: 400, bgcolor: '#C9D991' }}
                   />
+                  
                 </Stack>
                 <Stack
                   direction="column"
@@ -159,12 +163,12 @@ export default function Header() {
                       justifyContent: "center",
                       alignItems: 'center',
                       margin: 2,
-                      width: 1 / 2
+                      width: 1 / 3
                     }}
                   >
                     <InputBase
                       sx={{ ml: 1, flex: 1 }}
-                      placeholder="Find buddies :)"
+                      placeholder="Search for Events :)"
                       margin='none'
                       inputProps={{ 'aria-label': 'search' }}
                       value={userSearch}
@@ -183,8 +187,10 @@ export default function Header() {
                 <Grid
                   container
                   direction="row"
-                  justifyContent="space-evenly"
+                  maxWidth="20vw"
+                  marginLeft="40vw"
                   alignItems="center"
+                  justifyContent="space-evenly"
                 >
 
                   <Button variant="contained"

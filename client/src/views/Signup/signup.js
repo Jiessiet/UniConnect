@@ -21,6 +21,7 @@ function Signup() {
     const [passwordAgain, setPasswordAgain] = useState('')
     const [university, setUniversity] = useState('')
     const [username, setUsername] = useState('')
+    const [image, setImage] = useState(null)
 
     const handleValueChange = (event, setter) => {
         const value = event.target.value;
@@ -37,12 +38,16 @@ function Signup() {
             //TODO: not matching indicator
             return;
         }
-        signup(email, password, university, username, setCurrentUser)
+        signup(email, password, university, username, setCurrentUser, image)
     }
 
     const Input = styled('input')({
         display: 'none',
     });
+
+    function photoHandler(event) {
+        setImage(event.target.files[0])
+    }
 
     return (
         <Grid
@@ -107,7 +112,7 @@ function Signup() {
                                     <TextField fullWidth label='Username' right-padding='5px' margin='normal' required='true' placeholder='Create your own unique username' value={username} onChange={(event) => {handleValueChange(event, setUsername)}} />
                                 </Grid>
                                 <Grid item><label htmlFor="icon-button-file" xs={1}>
-                                    <Input accept="image/*" id="icon-button-file" type="file" />
+                                    <Input accept="image/*" id="icon-button-file" type="file" onChange={photoHandler}/>
                                     <Tooltip title='Upload your profile picture'>
                                         <IconButton color="green" component="span">
                                             <PhotoCamera background='green' />
