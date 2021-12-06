@@ -192,6 +192,8 @@ const UserProfile = () => {
 
             <Box 
             display='flex'
+            justifyContent='space-between'
+            sx={{pt:2}}
             >
               <Button
                 variant='contained'
