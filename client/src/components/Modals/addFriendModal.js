@@ -1,23 +1,56 @@
-import React from 'react'
+import * as React from 'react';
+import { useState } from 'react';
 import { Icon, InputBase, Button, Alert, IconButton, Tooltip, Snackbar, Grid, Paper, Autocomplete, Avatar, Typography, Box, TextField, Link, SliderValueLabel } from '@mui/material';
 import { green } from '@mui/material/colors';
 import CloseIcon from '@mui/icons-material/Close';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { styled } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
-import { HowToVoteRounded } from '@material-ui/icons';
+import { ControlCameraOutlined, HowToVoteRounded } from '@material-ui/icons';
+import { useUser } from '../../Contexts/UserContext';
+import { useHistory } from 'react-router-dom';
+import axios from '../../api';
 
 
 function Modal({ handleClose }) {
-    const handleClick = () => {
-        if (true) {
-            // check if input is a user who exists in the database
-            // then redirect to that user's profile page using their id from the database
-            window.location.href = "/AddFriend";
+    const [friend, setFriend] = useState('');
+    const [username, setUsername] = useState('');
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const { currentUser } = useUser();
+    const history = useHistory();
+
+    const handleUserChange = (event) => {
+        const value = event.target.value;
+        setUsername(value)
+    }
+
+    const handleClick = (event) => {
+        event.preventDefault()
+        console.log('ahhhh')
+        if (username != '') {
+        axios({
+            method: 'get',
+            url: '/api/users/username',
+            data: {
+                username: username
+            }
+          }).then(response => {
+                setFriend(response)
+                history.push({
+                    pathname: '/userDetails',
+                    state: { user: { friend } }
+            })
+          })
         } else {
-            // if does not exist display failed snackbar component
+            setOpenSnackbar(true)
         }
-    };
+    }
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpenSnackbar(false)
+      };
 
     const Input = styled('input')({
         display: 'none',
@@ -77,32 +110,47 @@ function Modal({ handleClose }) {
                         <Typography component="h1" variant='h3' align='center' fontFamily='revert'> Add Friend</Typography>
                     </Grid>
                 </Grid>
-
-                <Grid item align='center' marginTop='20' marginBottom='2' xs={12}>
-                    <Paper
-                        component="form"
+               
+                <form>
+                {/* <Grid item align='center' marginTop='20' marginBottom='2' xs={12}> */}
+                        {/* component="form"
                         sx={{
                             p: '2px 3px',
                             display: 'flex',
                             justifyContent: "center",
                             alignItems: 'center',
                             margin: 2,
-                        }}
-                    >
-                        <InputBase
-                            sx={{ ml: 1, flex: 1, border: '2px' }}
-                            placeholder="Find buddies :)"
-                            margin='none'
-                            inputProps={{ 'aria-label': 'search' }}
+                        }} */}
+                        <TextField
+                            // sx={{ ml: 1, flex: 1, border: '2px' }}
+                            placeholder="Input your friend's username"
+                            // in
+                            // margin='none'
+                            // inputProps={{ 'aria-label': 'search' }}
+                            value={username}
+                            onChange={handleUserChange}
                         />
-                    </Paper>
-                </Grid>
-                <Grid item padding='0'>
-                    <IconButton type="submit">
-                        <SearchIcon onClick={handleClick} />
+                {/* </Grid> */}
+                {/* <Grid item padding='0'> */}
+                    <IconButton type="submit" 
+                    // onSubmit={handleClick}
+                    >
+                        <SearchIcon 
+                            onClick={handleClick} 
+                        />
                     </IconButton>
-                </Grid>
+                {/* </Grid> */}
+                </form>
             </Grid>
+            <div>
+                    <Snackbar
+                        open={openSnackbar}
+                        autoHideDuration={2000}
+                        onClose={handleCloseSnackbar}
+                    >
+                        <Alert severity='error'> Friend Not Found </Alert>
+                    </Snackbar>
+                </div>
         </Grid>)
 }
 export default Modal
