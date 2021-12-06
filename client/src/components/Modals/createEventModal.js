@@ -35,9 +35,6 @@ function Modal({ handleClose, tags}) {
     
     const handleTagChange = (event, value) => {
         setEventTags(value)
-        //   setEventTags(values)
-        //   console.log(values)
-        //   console.log(eventTags);
       }
 
     const handleCloseSnackbar = (event, reason) => {
@@ -71,7 +68,6 @@ function Modal({ handleClose, tags}) {
     }
 
     const handleClick = (event) => {
-        // event.preventDefault()
         if (eventName !== '' && eventDesc !== '' && eventDate !== '' && eventStart !== '') {
             axios({
                 method: 'post',
@@ -80,11 +76,6 @@ function Modal({ handleClose, tags}) {
                     name: eventName,
                     description: eventDesc,
                     attendeeLimit: eventAttendees
-                    // date: eventDate
-                    // creator: {
-                    //     email: currentUser.email,
-                    //     password:  currentUser.password
-                    // }
                 }
                 }).then(response => {
                     console.log(response)
@@ -104,7 +95,7 @@ function Modal({ handleClose, tags}) {
                         setOpen(true);
                     
                 }).catch(function (error) {
-                    console.log(error + 'a')
+                    console.log(error)
                     setOpenSnackbar(true)
                 })
         } else {
@@ -241,21 +232,12 @@ function Modal({ handleClose, tags}) {
                             </Grid>
                         </Grid>
                         <Grid container direction='row-reverse' alignItems='center' justifyItems='center'>
-                            {/* <Grid item xs={2}>
-                                <IconButton>
-                                    <AddCircleOutlineIcon fontSize='medium'/>
-                                </IconButton>
-                            </Grid> */}
                             <Grid item xs={12}>
                                 <Autocomplete
                                     multiple
                                     options={tags}
                                     getOptionLabel={(option) => option.name}
-                                    // value={eventTags}
                                     onChange={handleTagChange}
-                                    //     (event, newInputValue) => {
-                                    //     setEventTags(newInputValue);
-                                    // }}
                                     renderInput={(params) => (
                                         <TextField
                                             {...params}
