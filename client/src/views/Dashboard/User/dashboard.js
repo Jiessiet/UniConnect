@@ -25,7 +25,13 @@ import FavoriteOutlined from '@material-ui/icons/FavoriteOutlined';
 import PersonIcon from '@material-ui/icons/Person';
 import { Link } from 'react-router-dom';
 
+import { useUser } from './../../../Contexts/UserContext'
+import axios from '../../../api';
+import { useState, useEffect } from 'react';
+
 const Dashboard = () => {
+  const { currentUser } = useUser()
+
   const [openEvent, setOpenEvent] = React.useState(false);
   const handleOpenEvent = () => setOpenEvent(true);
 
@@ -53,23 +59,24 @@ const Dashboard = () => {
               <CardMedia
                 component='img'
                 height='150'
-                image='https://cdn.allthings.how/wp-content/uploads/2020/10/allthings.how-how-to-change-your-profile-picture-on-google-meet-profile-photo-759x427.png'
+                image={currentUser.profilePhoto}
               />
               <CardContent style={{ padding: 0, marginTop: 5 }}>
                 <Typography variant='h5' component='div'>
-                  Mona Lisa
+                  {currentUser.username}
                 </Typography>
                 <Grid className={classes.icons}>
                   <Grid container direction='row' alignItems='center' style={{ marginRight: 10 }}>
-                    <FavoriteOutlined fontSize='large' />
-                    <Typography>10</Typography>
+                    <Typography>Friends: </Typography>
                   </Grid>
                   <Grid container direction='row' alignItems='center'>
                     <Grid item>
                       <PersonIcon fontSize='large' />
                     </Grid>
                     <Grid item>
-                      <Typography>10</Typography>
+                      <Typography>
+                        {currentUser.friends.length}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </Grid>
