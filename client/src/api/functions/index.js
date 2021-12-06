@@ -18,7 +18,7 @@ export const login = (email, password, setCurrentUser) => {
       });
 }
 
-export const signup = (email, password, university, username, setCurrentUser) => {
+export const signup = (email, password, university, username, setCurrentUser, image) => {
     return axios({
         method: 'post',
         url: '/api/users',
@@ -30,8 +30,19 @@ export const signup = (email, password, university, username, setCurrentUser) =>
         }
       }).then(response => {
           console.log(response)
-          login(email, password, setCurrentUser)
+          const url = `/api/user-photo/${response.data._id}`
+          login(email, password, setCurrentUser).then(response => {
+            console.log(response)
+            uploadPicture(url, image).then(response => {
+              console.log(response)})
+            })
       }).catch(function (error) {
         console.log(error);
       });
+}
+
+export const uploadPicture = (url, image) => {
+  const data = new FormData()
+  data.append('file', image) 
+  return axios.post(url, data)
 }
