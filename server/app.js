@@ -9,6 +9,7 @@ const userRouter = require("./routes/user-routes");
 const tagRouter = require("./routes/tag-routes");
 const session = require("express-session");
 const MongoStore = require('connect-mongo') 
+const path = require('path')
 
 const app = express();
 // if (process.env.NODE_ENV !== 'production') { app.use(cors()) }
@@ -40,5 +41,21 @@ app.use(
 app.use("/", userRouter)
 app.use("/", eventRouter)
 app.use("/", tagRouter)
+
+app.use(express.static(path.join(__dirname, "../client/build")));
+
+app.get("*", (req, res) => {
+    // check for page routes that we expect in the frontend to provide correct status code.
+    const goodPageRoutes = ["/", "/login", "/dashboard", "/timeline", "/EventDetails",
+    "/signup", "/past-events", "/upcoming-events", "/AccountSetup", "/dashboard", "/AddFriend",
+    "/AnimatedBg", "/interestFinder", "/ResetPassword", "/Profile", "/UserProfile"];
+    if (!goodPageRoutes.includes(req.url)) {
+        // if url not in expected page routes, set status to 404.
+        res.status(404);
+    }
+
+    // send index.html
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
 
 module.exports = app;
