@@ -74,7 +74,7 @@ router.get('/api/events/user', authenticate, async (req, res) => {
 // post tag to event
 router.post('/api/events/addTag', authenticate, (req, res) => {
 	const event_id = req.body.id
-	const tag_name = req.body.tag_id
+	const tag_name = req.body.tag_name
 
 	Event.findOne({_id:event_id}).then((chosenEvent) => {
     

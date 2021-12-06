@@ -11,6 +11,8 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useState } from "react";
 import { useUser } from "../../Contexts/UserContext";
 import axios from '../../api';
+import { uploadPicture } from "../../api/functions"
+
 
 
 
@@ -33,19 +35,28 @@ function Modal({ handleClose }) {
     const [eventEnd, setEventEnd] = useState('')
     const [eventTags, setEventTags] = useState('')
     const [eventAttendees, setEventAttendees] = useState('')
+    const [image, setImage] = useState(null)
+
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpen(false);
+        setOpenSnackbar(false)
+      };
 
     const handleChange = (event, setter) => {
         const value = event.target.value;
-
         setter(value)
     };
 
-    const addTagtoEvent = () => {
+    const addTagtoEvent = (eventId) => {
         return axios({
             method: 'post',
-            url: '/api/users/login',
+            url: '/api/events/addTag',
             data: {
-
+                id: eventId,
+                tag_name: eventTags
             }
           }).then(response => {
               console.log(response)
@@ -55,45 +66,56 @@ function Modal({ handleClose }) {
           });
     }
     const handleClick = (event) => {
-        event.preventDefault()
+        // event.preventDefault()
         if (eventName !== '' && eventDesc !== '' && eventDate !== '' && eventStart !== '') {
-
             axios({
                 method: 'post',
                 url: '/api/events',
                 data: {
-                    eventId: 5,
                     name: eventName,
                     description: eventDesc,
-                    attendeeLimit: eventAttendees,
-                    creator: {
-                        email: currentUser.email,
-                        password:  currentUser.password
-                    }
+                    attendeeLimit: eventAttendees
+                    // date: eventDate
+                    // creator: {
+                    //     email: currentUser.email,
+                    //     password:  currentUser.password
+                    // }
                 }
                 }).then(response => {
                     console.log(response)
-                    setEventName('')
-                    setEventDesc('')
-                    setEventDate('')
-                    setEventStart('')
-                    setEventEnd('')
-                    setEventTags('')
-                    setEventAttendees('')
-                    setOpen(true);
-            }).catch(function (error) {
-                console.log(error);
-            })
-
-            setOpen(true);
+                    const url = `/api/event-photo/${response.data._id}`
+                    addTagtoEvent(response.data._id)
+                    .then(response => {
+                        uploadPicture(url, image)
+                        .then(res => {
+                            setEventName('')
+                            setEventDesc('')
+                            setEventDate('')
+                            setEventStart('')
+                            setEventEnd('')
+                            setEventTags('')
+                            setEventAttendees('')
+                            setOpen(true);
+                        }).catch(function (error) {
+                            console.log(error + 'a');
+                            setOpenSnackbar(true)
+                        })
+                        // setOpen(true)
+                    }).catch(function (error) {
+                        console.log(error + ' b');
+                        setOpenSnackbar(true)
+                    })
+                }).catch(function (error) {
+                    console.log(error + ' c');
+                    setOpenSnackbar(true)
+                })
         } else {
             setOpenSnackbar(true)
         }
     };
 
-    function addEventToDatabase() {
-        // event.preventDefault()
-        
+    function photoHandler(event) {
+        setImage(event.target.files[0])
     }
 
     const Input = styled('input')({
@@ -184,7 +206,7 @@ function Modal({ handleClose }) {
                             required='true'
                             InputLabelProps=
                             {{ shrink: true }}
-                            placeholder='What day will you event happen?'
+                            placeholder='What day will your event happen?'
                             value={eventDate}
                             onChange={(event)=>handleChange(event, setEventDate)}
 
@@ -262,7 +284,7 @@ function Modal({ handleClose }) {
                             type='submit'
                             variant="outline"
                             paddingRight='30vh'
-                            onClick={() => { handleClick(); addEventToDatabase() }}
+                            onClick={() => { handleClick()}}
                             sx={{
                                 color: 'white',
                                 background: 'green',
@@ -275,7 +297,7 @@ function Modal({ handleClose }) {
                             Create
                         </Button>
                         <label htmlFor="icon-button-file">
-                            <Input accept="image/*" id="icon-button-file" type="file" />
+                            <Input accept="image/*" id="icon-button-file" type="file" onChange={photoHandler} />
                             <Tooltip title="Upload an photo for your event">
                                 <IconButton color="green" component="span">
                                     <PhotoCamera background='green' />
@@ -288,7 +310,9 @@ function Modal({ handleClose }) {
                     <Snackbar
                         open={openSnackbar}
                         autoHideDuration={2000}
-                    >
+                        onClose={handleCloseSnackbar}
+
+>
                         <Alert severity='error'> Event Not Created </Alert>
                     </Snackbar>
                 </div>
@@ -296,6 +320,7 @@ function Modal({ handleClose }) {
                     <Snackbar
                         open={open}
                         autoHideDuration={2000}
+                        onClose={handleCloseSnackbar}
                     >
                         <Alert severity='success'> Event Created </Alert>
                     </Snackbar>
