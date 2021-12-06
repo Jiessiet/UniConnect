@@ -26,7 +26,7 @@ const EventDetails = () => {
   const { currentUser } = useUser();
   const event = location.state.event.event;
   const creatorId = event.creator;
-  const attendeeNames = [];
+  const attendees = [];
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -45,20 +45,20 @@ const EventDetails = () => {
           console.log(error);
         });
     };
-    const getAttendees = (attendeeId) => {
+    const getAttendee = (attendeeId) => {
       const getAttendeeUrl = `/api/users/${attendeeId}`;
       return axios
         .get(getAttendeeUrl)
         .then((res) => {
-          attendeeNames.push(res.data.name);
+          attendees.push({ name: res.data.name, photo: res.data.photo });
         })
         .catch((error) => {
           console.log(error);
         });
     };
-    getCreator(url);
+    getCreator(getCreatorUrl);
     event.attendees.map((attendee) => {
-        getAttendees(attendee)
+      getAttendee(attendee);
     });
   }, []);
 
@@ -146,16 +146,20 @@ const EventDetails = () => {
               <Typography mb={2} variant='h6' component='h2'>
                 Attendees
               </Typography>
-              <Grid container spacing={3}>
-                {/* {event.attendees.map((attendees) => {
-                <Avatar>
-                  <PersonIcon />
-                </Avatar>;
-              })} */}
-                <Grid item>
+              <Grid container spacing={3} style={{width:"400px"}}>
+                {event.attendees.map((attendee) => {
+                  <Grid item>
+                    <Avatar {...(attendee.photo && `src=${attendee.photo}`)}>
+                      {attendee.photo === '' && <PersonIcon />}
+                    </Avatar>
+                    <Typography>avatar</Typography>
+                  </Grid>;
+                })}
+                <Grid item alignItems='center'>
                   <Avatar size='large'>
                     <PersonIcon />
                   </Avatar>
+                  <Typography mb={2}>dsadasas dsdsadad</Typography>
                 </Grid>
                 <Grid item>
                   <Avatar>
@@ -167,6 +171,48 @@ const EventDetails = () => {
                     <PersonIcon />
                   </Avatar>
                 </Grid>
+                <Grid item>
+                  <Avatar>
+                    <PersonIcon />
+                  </Avatar>
+                </Grid>
+                <Grid item>
+                  <Avatar>
+                    <PersonIcon />
+                  </Avatar>
+                </Grid>
+                <Grid item>
+                  <Avatar>
+                    <PersonIcon />
+                  </Avatar>
+                </Grid>
+                <Grid item>
+                  <Avatar>
+                    <PersonIcon />
+                  </Avatar>
+                </Grid>
+                <Grid item>
+                  <Avatar>
+                    <PersonIcon />
+                  </Avatar>
+                </Grid>
+
+                <Grid item>
+                  <Avatar>
+                    <PersonIcon />
+                  </Avatar>
+                </Grid>
+                <Grid item>
+                  <Avatar>
+                    <PersonIcon />
+                  </Avatar>
+                </Grid>
+                <Grid item>
+                  <Avatar>
+                    <PersonIcon />
+                  </Avatar>
+                </Grid>
+
               </Grid>
             </Box>
           </Modal>
