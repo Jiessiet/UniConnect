@@ -9,14 +9,17 @@ import { styled } from '@mui/material/styles';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useState } from "react";
-import AddTagModal from '../../components/Modals/addTagsModal'
+import { useUser } from "../../Contexts/UserContext";
+import axios from '../../api';
+import { uploadPicture } from "../../api/functions"
+import { ControlCameraOutlined } from "@material-ui/icons";
 
 
-
-function Modal({ handleClose }) {
+function Modal({ handleClose, tags}) {
     const [open, setOpen] = React.useState(false);
     const [openTagModal, setOpenTagModal] = React.useState(false);
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
+    const { currentUser, setCurrentUser } = useUser()
 
     const handleTagModal = () => setOpenTagModal(true);
     const handleTagClose = () => setOpenTagModal(false);
@@ -26,60 +29,82 @@ function Modal({ handleClose }) {
     const [eventDate, setEventDate] = useState('')
     const [eventStart, setEventStart] = useState('')
     const [eventEnd, setEventEnd] = useState('')
-    const [eventTags, setEventTags] = useState('')
+    const [eventTags, setEventTags] = useState()
     const [eventAttendees, setEventAttendees] = useState('')
+    const [image, setImage] = useState(null)
+    
+    const handleTagChange = (event, value) => {
+        setEventTags(value)
+      }
 
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpen(false);
+        setOpenSnackbar(false)
+      };
 
-    const handleClick = () => {
-        if (eventName !== '' && eventDesc !== '') {
-            addEventToDatabase(); //database function below
-            setOpen(true);
-            window.setTimeout(function () {
-                window.location.reload()
-            }, 2000)
+    const handleChange = (event, setter) => {
+        const value = event.target.value;
+        setter(value)
+    };
+
+    const addTagtoEvent = (eventId) => {
+        eventTags.forEach(element => {        
+         axios({
+            method: 'post',
+            url: '/api/events/addTag',
+            data: {
+                id: eventId,
+                tag_name: element.name
+            }
+          }).then(response => {
+              console.log(response)
+          }).catch(function (error) {
+            console.log(error);
+          });
+        })
+    }
+
+    const handleClick = (event) => {
+        if (eventName !== '' && eventDesc !== '' && eventDate !== '' && eventStart !== '') {
+            axios({
+                method: 'post',
+                url: '/api/events',
+                data: {
+                    name: eventName,
+                    description: eventDesc,
+                    attendeeLimit: eventAttendees
+                }
+                }).then(response => {
+                    console.log(response)
+                    const url = `/api/event-photo/${response.data._id}`
+                    if(image != null) {
+                        uploadPicture(url, image)
+                    }
+                    console.log(eventTags)
+                    addTagtoEvent(response.data._id)
+                        setEventName('')
+                        setEventDesc('')
+                        setEventDate('')
+                        setEventStart('')
+                        setEventEnd('')
+                        setEventTags([])
+                        setEventAttendees('')
+                        setOpen(true);
+                    
+                }).catch(function (error) {
+                    console.log(error)
+                    setOpenSnackbar(true)
+                })
         } else {
             setOpenSnackbar(true)
         }
     };
 
-    const handleEventNameChange = event => {
-        const value = event.target.value;
-        setEventName(value)
-    };
-
-    const handleEventDescChange = event => {
-        const value = event.target.value;
-        setEventDesc(value)
-    };
-
-    const handleEventDateChange = event => {
-        const value = event.target.value;
-        setEventDate(value)
-    };
-
-    const handleEventStartChange = event => {
-        const value = event.target.value;
-        setEventStart(value)
-    };
-
-    const handleEventEndChange = event => {
-        const value = event.target.value;
-        setEventEnd(value)
-    };
-
-    const handleEventTagsChange = event => {
-        const value = event.target.value;
-        setEventTags(value)
-    };
-
-    const handleEventAttendeesChange = event => {
-        const value = event.target.value;
-        setEventAttendees(value)
-    };
-
-    function addEventToDatabase() {
-        //adding to the events database with the new event's information
-        return null
+    function photoHandler(event) {
+        setImage(event.target.files[0])
     }
 
     const Input = styled('input')({
@@ -140,7 +165,7 @@ function Modal({ handleClose }) {
                     </Grid>
                 </Grid>
                 <Grid item align='center'>
-                    <Box component="form">
+                    <Box component="form" onSubmit={handleClick}>
                         <TextField
                             fullWidth
                             label='Event Title'
@@ -149,7 +174,7 @@ function Modal({ handleClose }) {
                             required='true'
                             placeholder='Name your event'
                             value={eventName}
-                            onChange={handleEventNameChange}
+                            onChange={(event)=>handleChange(event, setEventName)}
                         />
                         <TextField
                             fullWidth
@@ -160,18 +185,19 @@ function Modal({ handleClose }) {
                             rows={2}
                             placeholder="Let other's know what your event is about!"
                             value={eventDesc}
-                            onChange={handleEventDescChange}
+                            onChange={(event)=>handleChange(event, setEventDesc)}
                         />
                         <TextField
                             fullWidth
                             label='Date'
                             type='date'
                             margin='normal'
+                            required='true'
                             InputLabelProps=
                             {{ shrink: true }}
-                            placeholder='What day will you event happen?'
+                            placeholder='What day will your event happen?'
                             value={eventDate}
-                            onChange={handleEventDateChange}
+                            onChange={(event)=>handleChange(event, setEventDate)}
 
                         />
                         <Grid container direction='row' alignItems='center'>
@@ -181,12 +207,13 @@ function Modal({ handleClose }) {
                                     label='Start Time'
                                     type='time'
                                     margin='normal'
+                                    required='true'
                                     // sx={{marginRight:'2vw'}}
                                     InputLabelProps=
                                     {{ shrink: true }}
                                     placeholder='What time will you event start?'
                                     value={eventStart}
-                                    onChange={handleEventStartChange}
+                                    onChange={(event)=>handleChange(event, setEventStart)}
                                 />
                             </Grid>
                             <Grid item xs paddingLeft='1vh'>
@@ -199,29 +226,23 @@ function Modal({ handleClose }) {
                                     InputLabelProps=
                                     {{ shrink: true }}
                                     placeholder='What time will your event end?'
-                                    event={eventEnd}
-                                    onChange={handleEventEndChange}
+                                    value={eventEnd}
+                                    onChange={(event)=>handleChange(event, setEventEnd)}
                                 />
                             </Grid>
                         </Grid>
                         <Grid container direction='row-reverse' alignItems='center' justifyItems='center'>
-                            {/* <Grid item xs={2}>
-                                <IconButton>
-                                    <AddCircleOutlineIcon fontSize='medium'/>
-                                </IconButton>
-                            </Grid> */}
                             <Grid item xs={12}>
                                 <Autocomplete
                                     multiple
                                     options={tags}
-                                    getOptionLabel={(option) => option.tag}
+                                    getOptionLabel={(option) => option.name}
+                                    onChange={handleTagChange}
                                     renderInput={(params) => (
                                         <TextField
                                             {...params}
                                             label="Tags"
                                             placeholder="Add all related tags"
-                                            value={eventTags}
-                                            onChange={handleEventTagsChange}
                                         />
                                     )}
                                 />
@@ -235,7 +256,7 @@ function Modal({ handleClose }) {
                             margin='normal'
                             placeholder='How many people are allowed to sign up?'
                             value={eventAttendees}
-                            onChange={handleEventAttendeesChange}
+                            onChange={(event)=>handleChange(event, setEventAttendees)}
                         />
                     </Box>
                 </Grid>
@@ -246,7 +267,7 @@ function Modal({ handleClose }) {
                             type='submit'
                             variant="outline"
                             paddingRight='30vh'
-                            onClick={() => { handleClick(); addEventToDatabase() }}
+                            onClick={() => { handleClick()}}
                             sx={{
                                 color: 'white',
                                 background: 'green',
@@ -259,7 +280,7 @@ function Modal({ handleClose }) {
                             Create
                         </Button>
                         <label htmlFor="icon-button-file">
-                            <Input accept="image/*" id="icon-button-file" type="file" />
+                            <Input accept="image/*" id="icon-button-file" type="file" onChange={photoHandler} />
                             <Tooltip title="Upload an photo for your event">
                                 <IconButton color="green" component="span">
                                     <PhotoCamera background='green' />
@@ -271,15 +292,18 @@ function Modal({ handleClose }) {
                 <div>
                     <Snackbar
                         open={openSnackbar}
-                        autoHideDuration={1000}
-                    >
+                        autoHideDuration={2000}
+                        onClose={handleCloseSnackbar}
+
+>
                         <Alert severity='error'> Event Not Created </Alert>
                     </Snackbar>
                 </div>
                 <div>
                     <Snackbar
                         open={open}
-                        autoHideDuration={1000}
+                        autoHideDuration={2000}
+                        onClose={handleCloseSnackbar}
                     >
                         <Alert severity='success'> Event Created </Alert>
                     </Snackbar>
@@ -290,9 +314,3 @@ function Modal({ handleClose }) {
 }
 
 export default Modal;
-
-
-const tags = [
-    { tag: 'Gaming' },
-    { tag: 'Movies' },
-    { tag: 'Friends' }];
