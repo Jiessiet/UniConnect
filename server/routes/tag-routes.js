@@ -22,15 +22,11 @@ router.post("/api/tag", authenticate, (req, res) => {
 
 //get all tags - only done by admin
 router.get('/api/tag', authenticate, (req, res) => {
-	if (req.user.userType){
 	Tag.find().then((tag) => {
 		res.send(tag)
 	}).catch((error) => {
 		res.status(500).send(error)
 	})
-}else{
-	res.status(401).send('unauthorized')
-}
 
 })
 

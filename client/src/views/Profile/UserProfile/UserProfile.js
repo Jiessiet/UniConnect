@@ -45,35 +45,39 @@ const theme = createTheme({
 const commonStyles = {
   bgcolor: 'background.paper',
   m: 1,
-  borderColor: 'text.primary',
+  // borderColor: 'text.primary',
   width: '20vw',
   height: '20vh',
-  border: 1
+  // border: 1,
 };
 
 const UserProfile = () => {
   const { currentUser } = useUser()
-  // const tagId = currentUser.tags
-
-  // const [tags, setTags] = useState([]);
-
-  // useEffect(async () => {
-  //   const url = `/api/tag/${tag_id}`;
-  //    const getTag = () => {
-  //      return axios
-  //        .get(url)
-  //        .then((res) => {
-  //          console.log('res.data: ', res.data);
-  //          setTags(res.data);
-  //          console.log('tags: ', tags)
-  //        })
-  //        .catch((error) => {
-  //          console.log(error);
-  //        });
-  //    };
-  //    getTag(url);
-  //  }, []);
+  const [tags, setTags] = React.useState([])
+  // const arr = []
   
+  useEffect(() => {
+  axios({
+      method: 'get',
+      url: '/api/tag',
+    }).then(response => {
+        setTags(response.data)
+    }).catch(function (error) {
+      console.log(error)
+    });
+  },[]);
+
+  const getUserTags = () =>{
+    const arr = []
+    tags.forEach( tag=> {
+      if(currentUser.tags.includes(tag._id)){
+        arr.push(tag.name)
+      }
+    })
+    console.log(arr+'help')
+    return arr;
+  }  
+   
   return (
 
     <Grid
@@ -117,7 +121,7 @@ const UserProfile = () => {
           alignItems="center"
           >
             <ButtonBase item sx={{ width: 200, height: 200 }}>
-              <Avatar alt='Friend' sx={{ width: 150, height: 150 }}
+              <Avatar alt='Friend' sx={{ width: 200, height: 200 }}
               src = {currentUser.profilePhoto}>
               </Avatar>
             </ButtonBase>
@@ -148,8 +152,33 @@ const UserProfile = () => {
           <Grid
           item
           >
+            <Grid
+          container
+          direction='row'
+          columns={{ xs: 4, sm: 8, md: 12 }}
+          spacing={2}
+          pb={1}
+          pl={1}
+          >
+            <Typography>
+              Tags:
+            </Typography>
+            {getUserTags().map((tag) => (
+              <Grid 
+                item key={tag._id}
+                >
+                <Button variant='outlined'>
+                  
+                  <Typography sx={{ cursor: 'pointer' }}>
+                    {tag}
+                  </Typography>
+                </Button>
+              </Grid>
+              ))}
+            </Grid>
+
           <Box 
-          sx={{ ...commonStyles, border: 1, borderRadius: '16px', flexGrow: 1}}
+          sx={{ ...commonStyles, border: 0, flexGrow: 1}}
           >
             <Typography
               paragraph
@@ -160,35 +189,6 @@ const UserProfile = () => {
               {currentUser.description}
             </Typography>
           </Box>
-
-          <Grid
-          container
-          direction='row'
-          columns={{ xs: 4, sm: 8, md: 12 }}
-          spacing={2}
-          pb={1}
-          pl={1}
-          >
-            {currentUser.tags.map((tag) => (
-              <Grid 
-                item key={tag._id}
-                >
-                <Button variant='outlined'>
-                  
-                  <Typography sx={{ cursor: 'pointer' }}>
-                    {/* {currentUser.tags.name} */}
-                    {tag}
-
-                    {tag.name}
-                  </Typography>
-                </Button>
-              </Grid>
-              ))}
-            </Grid>
-
-            {/* <Grid
-          container
-          direction='row'> */}
 
             <Box 
             display='flex'
