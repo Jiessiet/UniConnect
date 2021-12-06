@@ -12,30 +12,33 @@ import { useState } from "react";
 import { useUser } from "../../Contexts/UserContext";
 import axios from '../../api';
 import { uploadPicture } from "../../api/functions"
+import { ControlCameraOutlined } from "@material-ui/icons";
 
 
-
-
-
-function Modal({ handleClose }) {
+function Modal({ handleClose, tags}) {
     const [open, setOpen] = React.useState(false);
     const [openTagModal, setOpenTagModal] = React.useState(false);
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
     const { currentUser, setCurrentUser } = useUser()
 
-
     const handleTagModal = () => setOpenTagModal(true);
     const handleTagClose = () => setOpenTagModal(false);
 
-    
     const [eventName, setEventName] = useState('')
     const [eventDesc, setEventDesc] = useState('')
     const [eventDate, setEventDate] = useState('')
     const [eventStart, setEventStart] = useState('')
     const [eventEnd, setEventEnd] = useState('')
-    const [eventTags, setEventTags] = useState('')
+    const [eventTags, setEventTags] = useState()
     const [eventAttendees, setEventAttendees] = useState('')
     const [image, setImage] = useState(null)
+    
+    const handleTagChange = (event, value) => {
+        setEventTags(value)
+        //   setEventTags(values)
+        //   console.log(values)
+        //   console.log(eventTags);
+      }
 
     const handleCloseSnackbar = (event, reason) => {
         if (reason === 'clickaway') {
@@ -51,20 +54,22 @@ function Modal({ handleClose }) {
     };
 
     const addTagtoEvent = (eventId) => {
-        return axios({
+        eventTags.forEach(element => {        
+         axios({
             method: 'post',
             url: '/api/events/addTag',
             data: {
                 id: eventId,
-                tag_name: eventTags
+                tag_name: element.name
             }
           }).then(response => {
               console.log(response)
-              setCurrentUser(response.data)
           }).catch(function (error) {
             console.log(error);
           });
+        })
     }
+
     const handleClick = (event) => {
         // event.preventDefault()
         if (eventName !== '' && eventDesc !== '' && eventDate !== '' && eventStart !== '') {
@@ -84,29 +89,22 @@ function Modal({ handleClose }) {
                 }).then(response => {
                     console.log(response)
                     const url = `/api/event-photo/${response.data._id}`
-                    addTagtoEvent(response.data._id)
-                    .then(response => {
+                    if(image != null) {
                         uploadPicture(url, image)
-                        .then(res => {
-                            setEventName('')
-                            setEventDesc('')
-                            setEventDate('')
-                            setEventStart('')
-                            setEventEnd('')
-                            setEventTags('')
-                            setEventAttendees('')
-                            setOpen(true);
-                        }).catch(function (error) {
-                            console.log(error + 'a');
-                            setOpenSnackbar(true)
-                        })
-                        // setOpen(true)
-                    }).catch(function (error) {
-                        console.log(error + ' b');
-                        setOpenSnackbar(true)
-                    })
+                    }
+                    console.log(eventTags)
+                    addTagtoEvent(response.data._id)
+                        setEventName('')
+                        setEventDesc('')
+                        setEventDate('')
+                        setEventStart('')
+                        setEventEnd('')
+                        setEventTags([])
+                        setEventAttendees('')
+                        setOpen(true);
+                    
                 }).catch(function (error) {
-                    console.log(error + ' c');
+                    console.log(error + 'a')
                     setOpenSnackbar(true)
                 })
         } else {
@@ -252,14 +250,17 @@ function Modal({ handleClose }) {
                                 <Autocomplete
                                     multiple
                                     options={tags}
-                                    getOptionLabel={(option) => option.tag}
+                                    getOptionLabel={(option) => option.name}
+                                    // value={eventTags}
+                                    onChange={handleTagChange}
+                                    //     (event, newInputValue) => {
+                                    //     setEventTags(newInputValue);
+                                    // }}
                                     renderInput={(params) => (
                                         <TextField
                                             {...params}
                                             label="Tags"
                                             placeholder="Add all related tags"
-                                            value={eventTags}
-                                            onChange={(event)=>handleChange(event, setEventTags)}
                                         />
                                     )}
                                 />
@@ -331,9 +332,3 @@ function Modal({ handleClose }) {
 }
 
 export default Modal;
-
-
-const tags = [
-    { tag: 'Gaming' },
-    { tag: 'Movies' },
-    { tag: 'Friends' }];

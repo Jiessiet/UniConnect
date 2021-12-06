@@ -34,6 +34,7 @@ router.post('/api/events', authenticate, async (req, res) => {
 
     res.status(201).json(newEvent);
   } catch (error) {
+    console.log(error)
     res.status(409).json({ message: error.message });
   }
 });
