@@ -6,7 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { styled } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
-import { ControlCameraOutlined, HowToVoteRounded } from '@material-ui/icons';
+import { ContactSupport, ControlCameraOutlined, HowToVoteRounded } from '@material-ui/icons';
 import { useUser } from '../../Contexts/UserContext';
 import { useHistory } from 'react-router-dom';
 import axios from '../../api';
@@ -35,16 +35,21 @@ function Modal({ handleClose }) {
                 username: username
             }
           }).then(response => {
-                setFriend(response)
+                setFriend(response.data)
                 history.push({
                     pathname: '/userDetails',
                     state: { user: { friend } }
             })
+          }).catch(function (error) {
+                console.log(username)
+                console.log(error)
+                setOpenSnackbar(true)
           })
         } else {
             setOpenSnackbar(true)
         }
     }
+
     const handleCloseSnackbar = (event, reason) => {
         if (reason === 'clickaway') {
           return;
@@ -111,37 +116,56 @@ function Modal({ handleClose }) {
                     </Grid>
                 </Grid>
                
-                <form>
-                {/* <Grid item align='center' marginTop='20' marginBottom='2' xs={12}> */}
-                        {/* component="form"
-                        sx={{
-                            p: '2px 3px',
-                            display: 'flex',
-                            justifyContent: "center",
-                            alignItems: 'center',
-                            margin: 2,
-                        }} */}
-                        <TextField
-                            // sx={{ ml: 1, flex: 1, border: '2px' }}
+               
+
+
+
+            <Grid>
+                <Box>
+                    <TextField
+                        fullWidth
                             placeholder="Input your friend's username"
-                            // in
-                            // margin='none'
-                            // inputProps={{ 'aria-label': 'search' }}
+                            onSubmit={(e) => {handleClick(e)}}
+                            inputProps={{ 'aria-label': 'search' }}
                             value={username}
                             onChange={handleUserChange}
                         />
-                {/* </Grid> */}
-                {/* <Grid item padding='0'> */}
-                    <IconButton type="submit" 
-                    // onSubmit={handleClick}
-                    >
-                        <SearchIcon 
-                            onClick={handleClick} 
+
+
+                    <TextField
+                            fullWidth
+                            label='Attendee Limit'
+                            type="number"
+                            defaultValue='1'
+                            margin='normal'
+                            placeholder='How many people are allowed to sign up?'
+                            // value={}
+                            // onChange={}
                         />
-                    </IconButton>
-                {/* </Grid> */}
-                </form>
+                    </Box>
             </Grid>
+                <Grid container direction='row' justifyItems='center' justifyContent='center'>
+                    {/* <Grid xs={}></Grid> */}
+                    <Grid item justifySelf='center'>
+                        <Button
+                            startIcon={<SearchIcon/>}
+                            type='submit'
+                            variant='outlined'
+                            paddingRight='30vh'
+                            onClick={(e) => {handleClick(e)}}
+                            sx={{
+                                color: 'white',
+                                background: 'green',
+                                "&:hover": {
+                                    variant: 'outlined',
+                                    color: "green",
+                                },
+                            }}
+                        >
+                            Find Friend
+                        </Button>
+                    </Grid>
+                </Grid>
             <div>
                     <Snackbar
                         open={openSnackbar}
@@ -151,6 +175,7 @@ function Modal({ handleClose }) {
                         <Alert severity='error'> Friend Not Found </Alert>
                     </Snackbar>
                 </div>
-        </Grid>)
-}
+        </Grid>
+    </Grid>)}
+
 export default Modal
