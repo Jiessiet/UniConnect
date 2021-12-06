@@ -3,6 +3,7 @@ const { User } = require("../mongodb/models/userModel");
 const {Event} = require("../mongodb/models/eventModel")
 const mongoChecker = require("../middleware/mongoChecker");
 const authenticate = require("../middleware/authmiddleware");
+const { Tag } = require("../mongodb/models/tagModel");
 
 
 const router = express.Router();
@@ -116,21 +117,25 @@ router.get("/api/users/username/:username", authenticate, (req, res) => {
     })
 })
 
-//add friend
-// router.patch("/api/users/:id", authenticate, (req, res) => {
-//     User.findOne({_id: req.params.id}).then((friend) => {
-//         // const friend = User.findOne({_id: req.params.friendId})
-//         req.user.friends.push(friend)
-//         req.user.save().then((user) => {
-//             res.send(user.friends)
-//         }).catch((error) => {
-// 			res.status(500).send('save failed')
-// 		})
-//     }).catch((error) => {
-//         res.status(500).send('cant find')
-//     })
-// })
+// add friend
+router.patch("/api/users/addFriend/:id", authenticate, (req, res) => {
+    User.findOne({_id: req.params.id}).then((friend) => {
+        if(req.user._id != req.params.id) {
+        req.user.friends.push(friend)
+        req.user.save().then((user) => {
+            res.send(user.friends)
+        }).catch((error) => {
+			res.status(500).send('Save failed')
+		})
+    } else {
+        res.status(404).send('Bad Request: User cannot friend themselves')
+    }
+    }).catch((error) => {
+        res.status(500).send('Cannot find User')
+    })
+})
 
+// add event to user
 router.patch("/api/users/addEvent/:id", authenticate, (req, res) => {
         Event.findOne({_id: req.params.id}).then((event) => {
             req.user.attendingEvents.push(event)
@@ -143,6 +148,20 @@ router.patch("/api/users/addEvent/:id", authenticate, (req, res) => {
             res.status(500).send('Cannot find event')
         })
     })
+
+
+router.patch("/api/users/addTag/:id", authenticate, (req, res) => {
+    Tag.findOne({_id: req.params.id}).then((event) => {
+        req.user.tags.push(event)
+        req.user.save().then((user) => {
+            res.send(req.user.tags)
+        }).catch((error) => {
+            res.status(500).send('Save failed')
+        })
+    }).catch((error) => {
+        res.status(500).send('Cannot Find Tag')
+    })
+})
 
 // get user's friends
 // router.get("/api/users/:id", (req, res) => {

@@ -68,7 +68,7 @@ router.get('/api/events/user', authenticate, async (req, res) => {
 });
 
 // post tag to event
-router.post('/api/:id/:tag_id', authenticate, (req, res) => {
+router.post('/api/events/addTagToEvent', authenticate, (req, res) => {
 	const event_id = req.body.id
 	const tag_name = req.body.tag_id
 
