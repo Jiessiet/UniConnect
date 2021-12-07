@@ -112,7 +112,7 @@ function Modal({ handleClose }) {
                         </IconButton>
                     </Grid>
                     <Grid item xs={9}>
-                        <Typography component="h1" variant='h3' align='center' fontFamily='revert'> Add Friend</Typography>
+                        <Typography component="h1" variant='h3' align='center' fontFamily='revert' marginBottom='2vh'> Add Friend</Typography>
                     </Grid>
                 </Grid>
                
@@ -130,18 +130,6 @@ function Modal({ handleClose }) {
                             value={username}
                             onChange={handleUserChange}
                         />
-
-
-                    <TextField
-                            fullWidth
-                            label='Attendee Limit'
-                            type="number"
-                            defaultValue='1'
-                            margin='normal'
-                            placeholder='How many people are allowed to sign up?'
-                            // value={}
-                            // onChange={}
-                        />
                     </Box>
             </Grid>
                 <Grid container direction='row' justifyItems='center' justifyContent='center'>
@@ -156,6 +144,7 @@ function Modal({ handleClose }) {
                             sx={{
                                 color: 'white',
                                 background: 'green',
+                                marginTop: '2vh',
                                 "&:hover": {
                                     variant: 'outlined',
                                     color: "green",
