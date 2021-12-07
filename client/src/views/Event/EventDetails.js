@@ -9,7 +9,8 @@ import {
   Box,
   Avatar,
   AvatarGroup,
-  Modal
+  Modal,
+  Alert
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import { useHistory } from 'react-router';
@@ -29,6 +30,7 @@ const EventDetails = () => {
   const [tags, setTags] = useState([]);
   const [attend, setAttend] = useState(false);
   const [complete, setComplete] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -86,6 +88,9 @@ const EventDetails = () => {
   }, [event]);
 
   const handleAttend = () => {
+    if (event.attendeeLimit === event.attendees.length) {
+        return setShowAlert(true)
+    }
     const attendUrl = `/api/events/attend/${event._id}`;
     axios({
       method: 'patch',
@@ -164,6 +169,7 @@ const EventDetails = () => {
 
   useEffect(async () => {
     checkAttending();
+    console.log(attend)
   });
 
   return (
@@ -202,21 +208,21 @@ const EventDetails = () => {
         </Grid>
         <Grid item>
           <Paper
-            {...(currentUser.userType && 'component={Button}')}
+            component={currentUser && (currentUser.userType || currentUser._id) === creatorId && Button}
             fullWidth
             textAlign='center'
             style={{
               padding: 20,
               alignItems: 'flex-start',
               display: 'flex',
-              flexDirection: 'column'
+              flexDirection: 'column',
+              textTransform: 'none'
             }}
-            onClick={handleOpen}
+            onClick={currentUser && (currentUser.userType || currentUser._id) === creatorId && handleOpen}
           >
             <Typography variant='h6' mb={1}>
               Attendees
             </Typography>
-            {console.log(attendees)}
             <AvatarGroup total={event.attendees.length} max={5}>
               {event.attendees.length == 0 ? (
                 <Typography>No attendees yet. Be the first one!</Typography>
@@ -275,6 +281,9 @@ const EventDetails = () => {
               Attend
             </Button>
           )}
+        </Grid>
+        <Grid item>
+            {showAlert && (<Alert onClose={() => setShowAlert(false)} severity="error">Sorry, this event is full</Alert>)}
         </Grid>
       </Grid>
     </Grid>
