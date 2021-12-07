@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useStyles from './styles';
 import CreateEventModal from '../../../components/Modals/createEventModal';
-import FriendListModal from '../../../components/Modals/friendListModal';
+import AddCourse from '../../../components/Modals/addCourseModal';
 import AddFriend from '../../../components/Modals/addFriendModal';
 import AddTags from '../../../components/Modals/addTagsModal';
 import { Modal } from '@mui/material';
@@ -19,46 +19,32 @@ import {
   Box,
   Button
 } from '@material-ui/core';
+import Avatar from '@mui/material/Avatar';
+import Event from './Event';
+import { events } from '../../../constant/Events';
 
 import FavoriteOutlined from '@material-ui/icons/FavoriteOutlined';
 import PersonIcon from '@material-ui/icons/Person';
 import { Link } from 'react-router-dom';
-import Event from '../../Timeline/Event';
 import { useUser } from '../../../Contexts/UserContext';
 
 const Dashboard = () => {
+  const { currentUser } = useUser()
+
   const [openEvent, setOpenEvent] = React.useState(false);
   const [tags, setTags] = React.useState([]);
   const [categoryList, setCategories] = React.useState([]);
   const [events, setEvents] = useState([]);
-  const { currentUser } = useUser();
-  const [friends, setFriends] = useState([]);
-
-  const [openFriendsList, setOpenFriendsList] = React.useState(false);
-
-  const [openTags, setOpenTags] = React.useState(false);
-
-  const [openFriend, setOpenFriend] = React.useState(false);
-  const handleOpenFriend = () => setOpenFriend(true);
-
-  const handleCloseEvent = () => setOpenEvent(false);
-  const handleCloseFriendsList = () => setOpenFriendsList(false);
-  const handleCloseTags = () => setOpenTags(false);
-  const handleCloseFriend = () => setOpenFriend(false);
 
   useEffect(async () => {
-    const eventList = []
+    setEvents([]);
     const getEvent = (eventId) => {
       axios
         .get(`/api/events/${eventId}`)
         .then((res) => {
           console.log('res.data: ', res.data);
-          eventList.push(res.data);
-          console.log(res.data)
-          if(res.data) {
           events.push(res.data);
           setEvents(events);
-          }
         })
         .catch((error) => {
           console.log(error);
@@ -67,25 +53,6 @@ const Dashboard = () => {
     currentUser.attendingEvents.map((event) => {
       getEvent(event);
     });
-    setEvents(eventList)
-
-    const friendsList = [];
-    const getFriend = (friendId) => {
-      axios
-        .get(`/api/users/${friendId}`)
-        .then((res) => {
-          console.log('res.data: ', res.data);
-          friendsList.push(res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    currentUser.friends.map((friend) => {
-      getFriend(friend);
-    });
-    setFriends(friendsList)
-
   }, []);
 
   const handleOpenEvent = () => {
@@ -125,13 +92,18 @@ const Dashboard = () => {
       });
   };
 
-  const handleOpenFriendsList = () => {
-    setOpenFriendsList(true)
-  };
+  const [openCourse, setOpenCourse] = React.useState(false);
+  const handleOpenCourse = () => setOpenCourse(true);
 
+  const [openTags, setOpenTags] = React.useState(false);
 
+  const [openFriend, setOpenFriend] = React.useState(false);
+  const handleOpenFriend = () => setOpenFriend(true);
 
-  
+  const handleCloseEvent = () => setOpenEvent(false);
+  const handleCloseCourse = () => setOpenCourse(false);
+  const handleCloseTags = () => setOpenTags(false);
+  const handleCloseFriend = () => setOpenFriend(false);
 
   const classes = useStyles();
   return (
@@ -140,37 +112,38 @@ const Dashboard = () => {
         <Grid container justify='space-between' alignItems='stretch' spacing={0}>
           <Grid item xs={12} sm={3}>
             <Card className={classes.card}>
-              <CardMedia
+
+            <Avatar alt='Friend' sx={{ width: 150, height: 150 }}
+            src = {currentUser.profilePhoto}>
+            </Avatar>
+              {/* <CardMedia
                 component='img'
                 height='150'
-                image='https://cdn.allthings.how/wp-content/uploads/2020/10/allthings.how-how-to-change-your-profile-picture-on-google-meet-profile-photo-759x427.png'
-              />
+                image=
+              /> */}
               <CardContent style={{ padding: 0, marginTop: 5 }}>
                 <Typography variant='h5' component='div'>
-                  Mona Lisa
+                  {currentUser.username}
                 </Typography>
                 <Grid className={classes.icons}>
                   <Grid container direction='row' alignItems='center' style={{ marginRight: 10 }}>
-                    <FavoriteOutlined fontSize='large' />
-                    <Typography>10</Typography>
+                    <Typography>Friends: </Typography>
                   </Grid>
                   <Grid container direction='row' alignItems='center'>
                     <Grid item>
                       <PersonIcon fontSize='large' />
                     </Grid>
                     <Grid item>
-                      <Typography>10</Typography>
+                      <Typography>
+                        {currentUser.friends.length}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </Grid>
               </CardContent>
               <CardActions justifyContent='center' className={classes.action}>
-                <Button
-                  size='large'
-                  variant='contained'
-                  style={{ backgroundColor: '#099441', color: 'white' }}
-                  href='/Profile'
-                >
+                <Button size='large' variant='contained' style={{ backgroundColor: '#099441', color: 'white' }}
+                href='/EditUserProfile'>
                   Edit Profile
                 </Button>
               </CardActions>
@@ -253,15 +226,15 @@ const Dashboard = () => {
               </Grid>
               <Grid item xs={12} sm={4}>
                 <Button
-                  onClick={handleOpenFriendsList}
+                  onClick={handleOpenCourse}
                   variant='outlined'
                   className={classes.button}
                   fullWidth
                 >
-                  <Typography>Friends List</Typography>
+                  <Typography>Add a Course</Typography>
                 </Button>
-                <Modal open={openFriendsList} onClose={handleCloseFriendsList}>
-                  <FriendListModal handleClose={handleCloseFriendsList} friends={friends} />
+                <Modal open={openCourse} onClose={handleCloseCourse}>
+                  <AddCourse handleClose={handleCloseCourse} />
                 </Modal>
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -279,31 +252,28 @@ const Dashboard = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid container direction='column'>
-          <Grid item>
           <Box mt={3}>
-          {events.length === 0 ? (<Typography variant='h6'>No Upcoming Events</Typography>) : (
-            <Typography variant='h6'>Upcoming Events...</Typography>)}
+            <Typography variant='h6'>Upcoming Events...</Typography>
+            {/* These events will be taken from the user's event list from the database. 
+          Currently these are hardcoded in */}
           </Box>
-          </Grid>
-          <Grid item
-              justifyContent='center'
-              sx={{
-                paddingBottom: 5,
-              }}
-            >
+          <Grid
+            justifyContent='center'
+            sx={{
+              paddingBottom: 5,
+            }}
+          >
               <Grid container spacing={3} mt={12}>
-                  {events.length !== 0 && (events.map((event) => {
-                    event.description = ''
-                    if (!event.completed)
-                      return (
-                        <Grid item xs={12} sm={6} style={{marginBottom: 20, marginTop: 10}}>
-                          <Event event={event} />
-                        </Grid>
-                      );
-                }))}
+                {events.map((event) => {
+                  event.description = ''
+                  if (!event.completed)
+                    return (
+                      <Grid item xs={12} sm={6} style={{marginBottom: 20, marginTop: 10}}>
+                        <Event event={event} />
+                      </Grid>
+                    );
+                })}
               </Grid>
-           </Grid>
           </Grid>
         </Grid>
       </Container>
