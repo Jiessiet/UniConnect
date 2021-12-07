@@ -18,7 +18,7 @@ export const login = (email, password, setCurrentUser) => {
       });
 }
 
-export const signup = (email, password, university, username, setCurrentUser, image) => {
+export const signup = (email, password, university, username, setCurrentUser, image, setOpenSnackbar) => {
     return axios({
         method: 'post',
         url: '/api/users',
@@ -38,6 +38,7 @@ export const signup = (email, password, university, username, setCurrentUser, im
             })
       }).catch(function (error) {
         console.log(error);
+        setOpenSnackbar(true)
       });
 }
 
