@@ -27,10 +27,11 @@ function Modal({ handleClose }) {
     const handleClick = (event) => {
         event.preventDefault()
         console.log('ahhhh')
+        console.log(username)
         if (username != '') {
         axios({
             method: 'get',
-            url: '/api/users/username',
+            url: '/api/users/find/by/username',
             data: {
                 username: username
             }

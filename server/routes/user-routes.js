@@ -112,8 +112,9 @@ router.get("/api/users/:id", authenticate, (req, res) => {
 })
 
 // get by username
-router.get("/api/users/username", authenticate, (req, res) => {
+router.get("/api/users/find/by/username", authenticate, (req, res) => {
     const username = req.body.username
+    console.log(username)
     User.findOne({username: username}).then((user) => {
         res.send(user)
     }).catch((error) => {
