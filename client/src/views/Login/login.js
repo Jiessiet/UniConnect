@@ -124,7 +124,7 @@ const Login = () => {
                     <form spacing={2}>
                         <TextField
                             fullWidth
-                            label='email'
+                            label='Email'
                             type='email'
                             margin='normal'
                             placeholder='Enter email'
