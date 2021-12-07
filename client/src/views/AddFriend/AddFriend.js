@@ -65,24 +65,24 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 const AddFriend = () => {
-  const location = useLocation();
-  const friend = location.state.user;
+  // const location = useLocation();
+  // const friend = location.state.user;
   const [currentUser, setCurrentUser] = useState({});
 
-  useEffect(async () => {
-    axios
-      .get('/api/users', {
-        params: {
-          id: creatorId
-        }
-      })
-      .then((res) => {
-        setCurrentUser(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(async () => {
+  //   axios
+  //     .get('/api/users', {
+  //       params: {
+  //         id: creatorId
+  //       }
+  //     })
+  //     .then((res) => {
+  //       setCurrentUser(res.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   const handleFindFriend = event => {
     // finds friend from database and adds it to user's friend list
