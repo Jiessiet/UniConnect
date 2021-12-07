@@ -42,6 +42,7 @@ function Modal({ handleClose, tags}) {
                }
              }).then(response => {
                  console.log(response)
+                 tagsChosen([])
              }).catch(function (error) {
                console.log(error);
                setOpenSnackbar(true)
@@ -111,6 +112,7 @@ function Modal({ handleClose, tags}) {
                         multiple
                         options={tags}
                         getOptionLabel={(option) => option.name}
+                        value={tagsChosen}
                         onChange={handleTagSelectChange}
                         renderInput={(params) => (
                             <TextField
