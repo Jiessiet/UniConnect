@@ -7,7 +7,6 @@ import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import { useUser } from "../../Contexts/UserContext";
 import axios from '../../api';
-import { SettingsApplicationsRounded } from '@material-ui/icons';
 
 function Modal({ handleClose }) {
     const { setCurrentUser } = useUser()
