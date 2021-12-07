@@ -1,16 +1,34 @@
 import React, { useState } from "react";
 import loginImage from "./loginImage.svg";
 import background from "./greenbg.jpg"
-import { Button, Grid, Paper, Avatar, Typography, Box, TextField, Link } from '@mui/material';
+import { Button, Grid, Paper, Avatar, Typography, Box, TextField, Link, Tooltip } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import { useUser } from "../../Contexts/UserContext";
 import { login } from "../../api/functions"
+import { Snackbar } from "@mui/material";
+import { Alert } from "@mui/material";
+import axios from "../../api";
+import { InputAdornment } from "@mui/material";
+import { IconButton } from "@mui/material";
+import { Visibility } from "@material-ui/icons";
+import { VisibilityOff } from "@material-ui/icons";
 
 const Login = () => {
     const { setCurrentUser } = useUser()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [openSnackbar, setOpenSnackbar] = React.useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const handleClickShowPassword = () => setShowPassword(!showPassword);
+    const handleMouseDownPassword = () => setShowPassword(!showPassword);
+
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpenSnackbar(false)
+      };
 
     const handleemailChange = event => {
         const value = event.target.value;
@@ -26,8 +44,37 @@ const Login = () => {
 
     const submitHandler = (event) => {
         event.preventDefault()
-        login(email, password, setCurrentUser)
+        validate()
+        if(!isFormInvalid) {
+            axios({
+                method: 'post',
+                url: '/api/users/login',
+                data: {
+                    email: email,
+                    password: password
+                }
+              }).then(response => {
+                  console.log(response)
+                  setCurrentUser(response.data)
+              }).catch(function (error) {
+                console.log(error);
+                setOpenSnackbar(true)
+              });
+        }
+        else {
+            setOpenSnackbar()
+        }
     }
+
+    const [isFormInvalid, setIsFormInvalid] = useState(false);
+
+    const validate = () => {
+        if (email === "" || password === '') {
+            setIsFormInvalid(false);
+        } else {
+            setIsFormInvalid(true);
+        }
+    };
 
     return (
         <Grid
@@ -77,18 +124,37 @@ const Login = () => {
                     <form spacing={2}>
                         <TextField
                             fullWidth
-                            label='email'
+                            label='Email'
+                            type='email'
                             margin='normal'
                             placeholder='Enter email'
+                            error={isFormInvalid}
+                            helperText={isFormInvalid && 'Incorrect Email or Does Not Match Password'}
                             value={email}
                             onChange={handleemailChange} />
                         <TextField
                             fullWidth
                             label='Password'
+                            type={showPassword ? "text" : "password"}
                             marginBottom='normal'
                             placeholder='Enter Password'
+                            error={isFormInvalid}
+                            helperText={isFormInvalid && 'Incorrect Password or Does Not Match Email'}
                             value={password}
-                            onChange={handlePasswordChange} />
+                            onChange={handlePasswordChange}
+                            InputProps={{ 
+                                endAdornment: (
+                                  <InputAdornment position="end">
+                                    <IconButton
+                                      aria-label="toggle password visibility"
+                                      onClick={handleClickShowPassword}
+                                      onMouseDown={handleMouseDownPassword}
+                                    >
+                                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                  </InputAdornment>
+                                )
+                              }} />
                     </form>
                     <Grid
                         alignItems='center'
@@ -112,15 +178,8 @@ const Login = () => {
                         direction='row'
                         alignItems='center'
                         justifyContent='center'
-                        marginTop='4vh'>
+                        marginTop='2vh'>
                         <Grid item xs>
-                            <Link
-                                href="/ResetPassword"
-                                variant="body2"
-                                color="#1fc449"
-                                fontSize='12px'>
-                                Forgot password?
-                            </Link>
                         </Grid>
                         <Grid item>
                             <Link
@@ -134,6 +193,15 @@ const Login = () => {
                     </Grid>
                 </Grid>
             </Grid>
+            <div>
+                <Snackbar
+                    open={openSnackbar}
+                    autoHideDuration={1000}
+                    onClose={handleCloseSnackbar}
+                >
+                    <Alert severity='error'> Login Failed</Alert>
+                </Snackbar>
+            </div>
         </Grid>)
 }
 
