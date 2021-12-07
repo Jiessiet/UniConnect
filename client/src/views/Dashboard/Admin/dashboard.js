@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from '../../../api';
 
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -23,14 +24,43 @@ const Dashboard = () => {
   const [open, setOpen] = React.useState(false);
   const [openTags, setOpenTags] = React.useState(false);
   const [openUser, setOpenUser] = React.useState(false);
+  
   const handleOpen = () => setOpen(true);
+  
   const handleClose = () => setOpen(false);
 
-  const handleOpenTags = () => setOpenTags(true);
   const handleCloseTags = () => setOpenTags(false);
 
-  const handleOpenUser = () => setOpenUser(true);
+  // const handleOpenUser = () => setOpenUser(true);
   const handleCloseUser = () => setOpenUser(false);
+
+  const [tags, setTags] = React.useState([])
+  const [users, setUsers] = React.useState([])
+
+
+  const handleOpenTags = () => {
+    axios({
+      method: 'get',
+      url: '/api/tag',
+    }).then(response => {
+        setTags(response.data)
+        setOpenTags(true);
+    }).catch(function (error) {
+      console.log(error)
+    })}
+
+  const handleOpenUser = () => {
+    axios({
+      method: 'get',
+      url: '/api/users',
+    }).then(response => {
+        setUsers(response.data)
+        setOpenUser(true);
+    }).catch(function (error) {
+      console.log(error)
+    })}
+
+
   return (
     <Container maxWidth='md' sx={{ mt: 12 }}>
       <Grid container justify='space-between' spacing={3} mt={0}>
@@ -75,7 +105,7 @@ const Dashboard = () => {
               open={open}
               onClose={handleClose}
             >
-              <AddTags handleClose={handleClose} />
+              <AddTags handleClose={handleClose}/>
             </Modal>
 
 
@@ -91,7 +121,7 @@ const Dashboard = () => {
               open={openTags}
               onClose={handleCloseTags}
             >
-              <DeleteTags handleClose={handleCloseTags} />
+              <DeleteTags handleClose={handleCloseTags} tags={tags}/>
             </Modal>
 
 
@@ -102,13 +132,13 @@ const Dashboard = () => {
               style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }}
               variant='contained'
             >
-              Delete User
+              Find User
             </Button>
             <Modal
               open={openUser}
               onClose={handleCloseUser}
             >
-              <DeleteUser handleClose={handleCloseUser} />
+              <DeleteUser handleClose={handleCloseUser} users={users}/>
             </Modal>
 
 

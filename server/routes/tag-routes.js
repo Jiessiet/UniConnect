@@ -61,21 +61,16 @@ router.put('/api/tag/:id', authenticate, (req, res) => {
 })
 
 // delete tag only done by admins
-router.delete('/api/tag/:id', authenticate, (req, res) => {
+router.delete('/api/tag', authenticate, (req, res) => {
 
 	if (req.user.userType){
-	Tag.findOne({_id:req.params.id}).then((rest) => {
-		
-		res.send(rest)
-		rest.remove(req.params.id)
-		rest.save().then((result) => {
-			res.send({tag: deletedTag})
-		}).catch((error) => {
-			res.status(500).send(error)
-		})
-	}).catch((error) => {
-			res.status(500).send(error)
-	})
+		Tag.findOneAndDelete({name: req.query.name}).then(() => {
+			}).catch((error) => {
+				res.status(500).send(error)
+			})
+
+} else {
+	res.status(401).send('Unautorized')
 }
 
 })

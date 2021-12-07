@@ -26,7 +26,6 @@ function Modal({ handleClose }) {
 
     const handleClick = (event) => {
         event.preventDefault()
-        console.log('ahhhh')
         console.log(username)
         if (username != '') {
         axios({
