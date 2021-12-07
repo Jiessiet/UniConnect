@@ -5,27 +5,41 @@ import { green } from '@mui/material/colors';
 import LabelOffIcon from '@mui/icons-material/LabelOff';
 import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
+import axios from '../../api'
 
 
-function Modal({ handleClose }) {
+function Modal({ handleClose, tags}) {
     const [open, setOpen] = React.useState(false);
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
-    const [tagsChosen, setTagChosen] = useState('')
+    const [tagsChosen, setTagChosen] = useState([])
 
-    const handleTagSelectChange = event => {
-        const value = event.target.value;
+    const handleTagSelectChange = (event, value) => {
         setTagChosen(value)
-    };
+    }
 
     const handleClick = () => {
-        if (true) {  //check if the tag exists in the database, right now we are assuming it is
-            deleteTag();
+        if (tagsChosen != '') { 
+            deleteTags()
+            setTagChosen([])
             setOpen(true);
-            window.setTimeout(function () {
-                window.location.reload()
-            }, 2000)
-        } else { // if not deleted then
+            // tagsChosen.forEach(element => {        
+            //     axios({
+            //        method: 'delete',
+            //        url: '/api/tag',
+            //        params: {
+            //            name: element.name
+            //        }
+            //      }).then(response => {
+            //         setOpen(true);
+            //          console.log(response)
+            //          tagsChosen([])
+            //      }).catch(function (error) {
+            //        console.log(error);
+            //        setOpenSnackbar(true)
+            //      });
+            //    })
+        } else {
             setOpenSnackbar(true)
         }
     };
@@ -34,9 +48,21 @@ function Modal({ handleClose }) {
         display: 'none',
     });
 
-    function deleteTag() {
-        //here we will be deleting from the database with the given tag's information
-        return null
+    function deleteTags() {
+        tagsChosen.forEach(element => {        
+            axios({
+               method: 'delete',
+               url: '/api/tag',
+               params: {
+                   name: element.name
+               }
+             }).then(response => {
+                 console.log(response)
+             }).catch(function (error) {
+               console.log(error);
+               setOpenSnackbar(true)
+             });
+           })
     }
 
 
@@ -86,46 +112,49 @@ function Modal({ handleClose }) {
                             </IconButton>
                         </Grid>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item >
                         <IconButton>
                             <LabelOffIcon sx={{ fontSize: 60, color: green[300], mb: '2' }} />
                         </IconButton>
                     </Grid>
-                    <Grid item xs={9}>
-                        <Typography component="h1" variant='h3' align='center' fontFamily='revert'> Delete Tag</Typography>
+                    <Grid item >
+                        <Typography component="h1" variant='h3' align='center' fontFamily='revert' marginBottom = '1vh'> Delete Tags</Typography>
                     </Grid>
                 </Grid>
-                <Grid item align='center' xs={12}>
+                <Grid container direction='row'justifyItems='center' justifyContent='center' align='center'>
+                <Grid item align='center' xs={10}>
                     <Autocomplete
                         multiple
                         options={tags}
-                        inputValue = {tagsChosen}
-                        getOptionLabel={(option) => option.tag}
+                        getOptionLabel={(option) => option.name}
+                        value={tagsChosen}
+                        onChange={handleTagSelectChange}
                         renderInput={(params) => (
                             <TextField
                                 {...params}
                                 label="Tags"
-                                placeholder="All tags to delete"
-                                onChange={handleTagSelectChange}
+                                placeholder="Select tags to Delete"
+                                fullWidth
                             />
                         )}
                     />
+                </Grid>
                 </Grid>
                 <Grid item padding='0'>
                     <Button
                         type='submit'
                         variant="outline"
-                        onClick={handleClick}
+                        onClick={() => { handleClick()}}
                         sx=
                         {{ mt: 2, background: 'green' }}>
-                        Create Tag
+                        Delete Tags
                     </Button>
                 </Grid>
             </Grid>
             <div>
                 <Snackbar
                     open={open}
-                    autoHideDuration={1000}
+                    autoHideDuration={2000}
                 >
                     <Alert severity='success'> Tag Deleted </Alert>
                 </Snackbar>
@@ -133,7 +162,7 @@ function Modal({ handleClose }) {
             <div>
                 <Snackbar
                     open={openSnackbar}
-                    autoHideDuration={1000}
+                    autoHideDuration={2000}
                 >
                     <Alert severity='error'> Tag Not Deleted </Alert>
                 </Snackbar>
@@ -141,8 +170,3 @@ function Modal({ handleClose }) {
         </Grid>)
 }
 export default Modal
-
-const tags = [
-    { tag: 'Gaming' },
-    { tag: 'Movies' },
-    { tag: 'Friends' }];
