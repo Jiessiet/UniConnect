@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useStyles from './styles';
 import CreateEventModal from '../../../components/Modals/createEventModal';
-import FriendListModal from '../../../components/Modals/FriendListModal';
+import FriendListModal from '../../../components/Modals/friendListModal';
 import AddFriend from '../../../components/Modals/addFriendModal';
 import AddTags from '../../../components/Modals/addTagsModal';
 import { Modal } from '@mui/material';
