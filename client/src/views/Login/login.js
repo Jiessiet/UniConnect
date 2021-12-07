@@ -44,8 +44,7 @@ const Login = () => {
 
     const submitHandler = (event) => {
         event.preventDefault()
-        validate()
-        if(!isFormInvalid) {
+        // if(isFormInvalid) {
             axios({
                 method: 'post',
                 url: '/api/users/login',
@@ -59,12 +58,13 @@ const Login = () => {
               }).catch(function (error) {
                 console.log(error);
                 setOpenSnackbar(true)
+                validate()
               });
         }
-        else {
-            setOpenSnackbar()
-        }
-    }
+        // else {
+        //     setOpenSnackbar(true)
+        // }
+    // }
 
     const [isFormInvalid, setIsFormInvalid] = useState(false);
 
