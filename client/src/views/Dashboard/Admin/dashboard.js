@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
 import Modal from '@mui/material/Modal'
 import CardContent from '@mui/material/CardContent';
-
+import Avatar from '@mui/material/Avatar';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
@@ -19,8 +19,12 @@ import AddTags from '../../../components/Modals/addTagsModal'
 import DeleteTags from '../../../components/Modals/deleteTagModal'
 import DeleteUser from '../../../components/Modals/deleteUserModal'
 
+import { useUser } from '../../../Contexts/UserContext';
+
 const Dashboard = () => {
   //   classes = useStyles();
+  const { currentUser } = useUser()
+
   const [open, setOpen] = React.useState(false);
   const [openTags, setOpenTags] = React.useState(false);
   const [openUser, setOpenUser] = React.useState(false);
@@ -79,14 +83,22 @@ const Dashboard = () => {
           <Grid item container spacing={3} textAlign='center'>
             <Grid item xs={12} sm={5}>
               <Paper style={{ padding: '15' }}>
-                <CardMedia
+                <Avatar alt='Friend' sx={{ width: 190, height: 190 }}
+                src = {currentUser.profilePhoto}>
+                </Avatar>
+                {/* <CardMedia
                   component='img'
                   height='200'
                   image='https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg'
                   style={{ marginBottom: 20 }}
-                />
+                /> */}
+
+                <Typography variant='h5' component='div'>
+                  {currentUser.username}
+                </Typography>
+
                 <Button fullWidth variant='contained' style={{ backgroundColor: '#099441' }} size='medium'
-                  href='/Profile'>
+                  href='/editUserProfile'>
                   Edit Profile
                 </Button>
               </Paper>
