@@ -39,6 +39,7 @@ const Event = ({ event }) => {
       .catch((error) => {
         console.log(error);
       });
+    handleClose()
   };
 
   return (

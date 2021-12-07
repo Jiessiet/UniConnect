@@ -23,7 +23,7 @@ const Events = ({selectedTags, setSelectedTags}) => {
       })
       .catch((error) => {
         console.log(error);
-    });
+    }, [events]);
 
     const res = await getAllTags()
     const obj1 = {}

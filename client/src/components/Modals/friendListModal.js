@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import {Modal, Box, Typography, Grid, Avatar} from '@mui/material'
+import {Modal, Box, Typography, Grid, Avatar, Button} from '@mui/material'
+import PersonIcon from '@mui/icons-material/Person';
 
-const friendListModal = ({ handleClose, friends }) => {
-  const [open, setOpen] = useState(false);
+const FriendListModal = ({ handleClose, friends }) => {
+   const handleClick = () => {
+
+   }
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal open={true} onClose={handleClose}>
       <Box
         position='absolute'
         top='50%'
@@ -18,6 +21,7 @@ const friendListModal = ({ handleClose, friends }) => {
           Friends
         </Typography>
         <Grid container spacing={3} style={{ width: '400px' }}>
+            {console.log("print this", friends)}
           {friends.map((friend) => (
             <Grid item display='flex' flexDirection='column' alignItems='center'>
               <Avatar {...(friend.photo && `src=${friend.photo}`)}>
@@ -32,4 +36,4 @@ const friendListModal = ({ handleClose, friends }) => {
   );
 };
 
-export default friendListModal;
+export default FriendListModal;
