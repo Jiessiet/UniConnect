@@ -28,7 +28,8 @@ import InputBase from '@mui/material/InputBase';
 import { Link } from 'react-router-dom';
 import AnimatedBg from "./AnimatedBg";
 import Tooltip from '@mui/material/Tooltip';
-
+import { useUser } from '../../../Contexts/UserContext'
+import axios from '../../../api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
   const classes = useStyles();
   const [checked, setChecked] = useState(false);
+  const { currentUser, setCurrentUser } = useUser()
   useEffect(() => {
     setChecked(true);
   }, []);
@@ -91,6 +93,29 @@ export default function Header() {
   function checkDatabaseSearch() {
     //serach database for user's search value
   }
+
+  function logouthandler() {
+    axios({
+      method: 'get',
+      url: '/api/users/logout'
+    }).then(response => {
+        console.log(response)
+        setCurrentUser(response.data)
+    }).catch(function (error) {
+      console.log(error);
+    }).then(() => {setCurrentUser(null)})
+  }
+
+  // useEffect(() => {
+  //   const listener = event => {
+  //     event.preventDefault();
+  //     if (event.code === "Enter" || event.code === "NumpadEnter") {
+  //       console.log("Enter key was pressed.");
+  //       //search events();
+  //     }
+  //   };
+  //   },[]);
+
   return (
     <Fragment>
       <Grid
@@ -173,6 +198,7 @@ export default function Header() {
                       inputProps={{ 'aria-label': 'search' }}
                       value={userSearch}
                       onChange={handleSearch}
+                      onKeyPress={(e) => e.key === 'Enter' && handleSearch}
                     />
                     <IconButton type="submit" sx={{ p: '10px', pb: '20px' }} aria-label="search"
                     // onClick={handleSearch}
@@ -192,7 +218,8 @@ export default function Header() {
                   alignItems="center"
                   justifyContent="space-evenly"
                 >
-
+                   {(currentUser === null) && 
+                  <>
                   <Button variant="contained"
                     className={classes.button}
                     href="/login">
@@ -211,6 +238,34 @@ export default function Header() {
                     </Typography>
 
                   </Button>
+                  </>
+                  }
+
+                  {(currentUser !== null) && 
+                  <>
+
+                  <Button variant="contained"
+                    className={classes.button}
+                    onClick={logouthandler}
+                    >
+                    <Typography variant="button" component="div" gutterBottom
+                      sx={{ cursor: 'pointer' }}>
+                      Logout
+                    </Typography>
+                  </Button>
+
+                  <Button variant="contained"
+                    className={classes.button}
+                    href='/dashboard'
+                    >
+                    <Typography variant="button" component="div" gutterBottom
+                      sx={{ cursor: 'pointer' }}>
+                      Dashboard
+                    </Typography>
+                  </Button>
+
+                  </>
+                  }
 
                 </Grid>
                 <Scroll to="description" smooth={true}>

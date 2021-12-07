@@ -69,8 +69,7 @@ const AddFriend = () => {
 
 function setText(friendly) {
 
-  if(currentUser != null){
-
+  if(currentUser !== null){
     if(currentUser.friends.includes(friend._id)){
       friendly = 'delete friend'
     }
@@ -208,18 +207,22 @@ function handleFindFriend() {
         <Grid
         item
         >
-        <Box 
-        sx={{ ...commonStyles, border: 0, borderRadius: '16px', flexGrow: 1}}
-        >
-          <Typography
-            paragraph
-            variant='body2'
-            color='text.secondary'
-            sx={{ p: 2, marginleft: '1', flexGrow: 1 }}
+          
+          {(setText() != 'add friend') &&
+          <>
+          <Box 
+          sx={{ ...commonStyles, border: 0, borderRadius: '16px', flexGrow: 1}}
           >
-            {friend.description}
-          </Typography>
-        </Box>
+            <Typography
+              paragraph
+              variant='body2'
+              color='text.secondary'
+              sx={{ p: 2, marginleft: '1', flexGrow: 1 }}
+            >
+              {friend.description}
+            </Typography>
+          </Box>
+          </>}
 
         <Grid
         container
@@ -270,10 +273,11 @@ function handleFindFriend() {
               </Item>
             </Button>
             
-            <Button 
+            {(currentUser !== null) && !(currentUser.type) && (
+              <>
+              <Button 
             color="secondary"
             id='friendly'
-            // onClick={ () => {handleFindFriend();}}
             >
               <Item>
                 <Typography variant="button" component="div" gutterBottom
@@ -284,6 +288,8 @@ function handleFindFriend() {
                 </Typography>
               </Item>
             </Button>
+            </>
+            )}
 
             </Box>
             </Grid>

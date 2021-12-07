@@ -19,6 +19,7 @@ import {
   Box,
   Button
 } from '@material-ui/core';
+import Avatar from '@mui/material/Avatar';
 import Event from './Event';
 import { events } from '../../../constant/Events';
 
@@ -73,11 +74,15 @@ const Dashboard = () => {
         <Grid container justify='space-between' alignItems='stretch' spacing={0}>
           <Grid item xs={12} sm={3} >
             <Card className={classes.card}>
-              <CardMedia
+
+            <Avatar alt='Friend' sx={{ width: 150, height: 150 }}
+            src = {currentUser.profilePhoto}>
+            </Avatar>
+              {/* <CardMedia
                 component='img'
                 height='150'
-                image={currentUser.profilePhoto}
-              />
+                image=
+              /> */}
               <CardContent style={{ padding: 0, marginTop: 5 }}>
                 <Typography variant='h5' component='div'>
                   {currentUser.username}
