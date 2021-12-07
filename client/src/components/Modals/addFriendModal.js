@@ -1,23 +1,62 @@
-import React from 'react'
+import * as React from 'react';
+import { useState } from 'react';
 import { Icon, InputBase, Button, Alert, IconButton, Tooltip, Snackbar, Grid, Paper, Autocomplete, Avatar, Typography, Box, TextField, Link, SliderValueLabel } from '@mui/material';
 import { green } from '@mui/material/colors';
 import CloseIcon from '@mui/icons-material/Close';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { styled } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
-import { HowToVoteRounded } from '@material-ui/icons';
+import { ContactSupport, ControlCameraOutlined, HowToVoteRounded } from '@material-ui/icons';
+import { useUser } from '../../Contexts/UserContext';
+import { useHistory } from 'react-router-dom';
+import axios from '../../api';
 
 
 function Modal({ handleClose }) {
-    const handleClick = () => {
-        if (true) {
-            // check if input is a user who exists in the database
-            // then redirect to that user's profile page using their id from the database
-            window.location.href = "/AddFriend";
+    const [friend, setFriend] = useState('');
+    const [username, setUsername] = useState('');
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const { currentUser } = useUser();
+    const history = useHistory();
+
+    const handleUserChange = (event) => {
+        const value = event.target.value;
+        setUsername(value)
+    }
+
+    const handleClick = (event) => {
+        event.preventDefault()
+        console.log('ahhhh')
+        console.log(username)
+        if (username != '') {
+        axios({
+            method: 'get',
+            url: '/api/users/find/by/username',
+            data: {
+                username: username
+            }
+          }).then(response => {
+                setFriend(response.data)
+                history.push({
+                    pathname: '/userDetails',
+                    state: { user: { friend } }
+            })
+          }).catch(function (error) {
+                console.log(username)
+                console.log(error)
+                setOpenSnackbar(true)
+          })
         } else {
-            // if does not exist display failed snackbar component
+            setOpenSnackbar(true)
         }
-    };
+    }
+
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpenSnackbar(false)
+      };
 
     const Input = styled('input')({
         display: 'none',
@@ -74,35 +113,59 @@ function Modal({ handleClose }) {
                         </IconButton>
                     </Grid>
                     <Grid item xs={9}>
-                        <Typography component="h1" variant='h3' align='center' fontFamily='revert'> Add Friend</Typography>
+                        <Typography component="h1" variant='h3' align='center' fontFamily='revert' marginBottom='2vh'> Add Friend</Typography>
                     </Grid>
                 </Grid>
+               
+               
 
-                <Grid item align='center' marginTop='20' marginBottom='2' xs={12}>
-                    <Paper
-                        component="form"
-                        sx={{
-                            p: '2px 3px',
-                            display: 'flex',
-                            justifyContent: "center",
-                            alignItems: 'center',
-                            margin: 2,
-                        }}
-                    >
-                        <InputBase
-                            sx={{ ml: 1, flex: 1, border: '2px' }}
-                            placeholder="Find buddies :)"
-                            margin='none'
+
+
+            <Grid>
+                <Box>
+                    <TextField
+                        fullWidth
+                            placeholder="Input your friend's username"
+                            onSubmit={(e) => {handleClick(e)}}
                             inputProps={{ 'aria-label': 'search' }}
+                            value={username}
+                            onChange={handleUserChange}
                         />
-                    </Paper>
-                </Grid>
-                <Grid item padding='0'>
-                    <IconButton type="submit">
-                        <SearchIcon onClick={handleClick} />
-                    </IconButton>
-                </Grid>
+                    </Box>
             </Grid>
-        </Grid>)
-}
+                <Grid container direction='row' justifyItems='center' justifyContent='center'>
+                    {/* <Grid xs={}></Grid> */}
+                    <Grid item justifySelf='center'>
+                        <Button
+                            startIcon={<SearchIcon/>}
+                            type='submit'
+                            variant='outlined'
+                            paddingRight='30vh'
+                            onClick={(e) => {handleClick(e)}}
+                            sx={{
+                                color: 'white',
+                                background: 'green',
+                                marginTop: '2vh',
+                                "&:hover": {
+                                    variant: 'outlined',
+                                    color: "green",
+                                },
+                            }}
+                        >
+                            Find Friend
+                        </Button>
+                    </Grid>
+                </Grid>
+            <div>
+                    <Snackbar
+                        open={openSnackbar}
+                        autoHideDuration={2000}
+                        onClose={handleCloseSnackbar}
+                    >
+                        <Alert severity='error'> Friend Not Found </Alert>
+                    </Snackbar>
+                </div>
+        </Grid>
+    </Grid>)}
+
 export default Modal
