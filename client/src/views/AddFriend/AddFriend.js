@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useState, React } from 'react';
 import { styled } from '@mui/material/styles';
 import { Link, useLocation } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
@@ -62,14 +62,14 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const AddFriend = () => {
   const location = useLocation();
-  const friend = location.state.user.friend;
-  const [currentUser, setCurrentUser] = useState({});
-
+  const friend = location.state.user.newFriend;
+  // const [currentUser, setCurrentUser] = useState({});
+  // const friendID = friend
   // useEffect(async () => {
   //   axios
   //     .get('/api/users', {
   //       params: {
-  //         id: creatorId
+  //         id: Id
   //       }
   //     })
   //     .then((res) => {
@@ -129,8 +129,10 @@ const AddFriend = () => {
 
               <Grid item xs>
                 <Typography variant="h3" component="div" gutterBottom>
-                  Friend Name
+                  {friend.username}
+                  
                 </Typography>
+                {console.log(friend)}
 
                 <Grid item xs
                   container

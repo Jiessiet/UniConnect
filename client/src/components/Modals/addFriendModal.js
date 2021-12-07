@@ -32,14 +32,16 @@ function Modal({ handleClose }) {
         axios({
             method: 'get',
             url: '/api/users/find/by/username',
-            data: {
-                username: username
+            params: {
+                username: username,
             }
           }).then(response => {
                 setFriend(response.data)
+                const newFriend = response.data
+                console.log(response)
                 history.push({
                     pathname: '/userDetails',
-                    state: { user: { friend } }
+                    state: { user: { newFriend } }
             })
           }).catch(function (error) {
                 console.log(username)
