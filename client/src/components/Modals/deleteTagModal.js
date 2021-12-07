@@ -12,17 +12,33 @@ function Modal({ handleClose, tags}) {
     const [open, setOpen] = React.useState(false);
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
-    const [tagsChosen, setTagChosen] = useState()
+    const [tagsChosen, setTagChosen] = useState([])
 
     const handleTagSelectChange = (event, value) => {
         setTagChosen(value)
     }
 
     const handleClick = () => {
-        if (tagsChosen != null) { 
-            deleteTags();
+        if (tagsChosen != '') { 
+            deleteTags()
+            setTagChosen([])
             setOpen(true);
-            handleClose(false)
+            // tagsChosen.forEach(element => {        
+            //     axios({
+            //        method: 'delete',
+            //        url: '/api/tag',
+            //        params: {
+            //            name: element.name
+            //        }
+            //      }).then(response => {
+            //         setOpen(true);
+            //          console.log(response)
+            //          tagsChosen([])
+            //      }).catch(function (error) {
+            //        console.log(error);
+            //        setOpenSnackbar(true)
+            //      });
+            //    })
         } else {
             setOpenSnackbar(true)
         }
@@ -42,7 +58,6 @@ function Modal({ handleClose, tags}) {
                }
              }).then(response => {
                  console.log(response)
-                 tagsChosen([])
              }).catch(function (error) {
                console.log(error);
                setOpenSnackbar(true)

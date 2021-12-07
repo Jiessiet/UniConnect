@@ -25,26 +25,37 @@ const Dashboard = () => {
   const [openTags, setOpenTags] = React.useState(false);
   const [openUser, setOpenUser] = React.useState(false);
   
-  const handleOpen = () => setOpen(true);
-  
   const handleClose = () => setOpen(false);
-
   const handleCloseTags = () => setOpenTags(false);
-
-  // const handleOpenUser = () => setOpenUser(true);
   const handleCloseUser = () => setOpenUser(false);
 
   const [tags, setTags] = React.useState([])
   const [users, setUsers] = React.useState([])
+  const [categoryList, setCategories] = React.useState([])
 
-
-  const handleOpenTags = () => {
+  const handleOpen = () => {
     axios({
       method: 'get',
       url: '/api/tag',
     }).then(response => {
         setTags(response.data)
-        setOpenTags(true);
+        setOpen(true)
+    }).catch(function (error) {
+      console.log(error)
+    })}
+
+
+  const handleOpenTags = () => {
+    axios({
+      method: 'get',
+      url: '/api/categories',
+    }).then(response => {
+        const arr = []
+        response.data.forEach(element => {
+          arr.push(element.name) 
+        })
+        setCategories(arr)
+        setOpenTags(true)
     }).catch(function (error) {
       console.log(error)
     })}
@@ -105,7 +116,7 @@ const Dashboard = () => {
               open={open}
               onClose={handleClose}
             >
-              <AddTags handleClose={handleClose}/>
+              <AddTags handleClose={handleClose} categories={categoryList}/>
             </Modal>
 
 
