@@ -74,7 +74,7 @@ const UserProfile = () => {
         arr.push(tag.name)
       }
     })
-    console.log(arr+'help')
+    console.log(arr)
     return arr;
   }  
    
@@ -156,9 +156,9 @@ const UserProfile = () => {
           container
           direction='row'
           columns={{ xs: 4, sm: 8, md: 12 }}
-          spacing={2}
-          pb={1}
-          pl={1}
+          spacing={1}
+          pb={0.5}
+          pl={0.5}
           >
             <Typography>
               Tags:

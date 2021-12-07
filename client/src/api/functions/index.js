@@ -46,7 +46,7 @@ export const uploadPicture = (url, image) => {
   data.append('file', image) 
   return axios.post(url, data)
 }
-
+    
 export const getAllTags = async () => {
   return (await axios({
     method: 'get',
