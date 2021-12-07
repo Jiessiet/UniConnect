@@ -64,18 +64,11 @@ router.put('/api/tag/:id', authenticate, (req, res) => {
 router.delete('/api/tag', authenticate, (req, res) => {
 
 	if (req.user.userType){
-		Tag.findOneAndDelete({name: req.body.name}).then(() => {
-			
-			// res.send(rest)
-			// rest.remove(req.body.id)
-			// rest.save().then((result) => {
-			// 	res.send({tag: deletedTag})
+		Tag.findOneAndDelete({name: req.query.name}).then(() => {
 			}).catch((error) => {
 				res.status(500).send(error)
 			})
-		// }).catch((error) => {
-		// 		res.status(404).send('Tag Not Found')
-		// })
+
 } else {
 	res.status(401).send('Unautorized')
 }

@@ -37,7 +37,7 @@ function Modal({ handleClose, tags}) {
             axios({
                method: 'delete',
                url: '/api/tag',
-               data: {
+               params: {
                    name: element.name
                }
              }).then(response => {
@@ -102,10 +102,11 @@ function Modal({ handleClose, tags}) {
                         </IconButton>
                     </Grid>
                     <Grid item >
-                        <Typography component="h1" variant='h3' align='center' fontFamily='revert'> Delete Tag</Typography>
+                        <Typography component="h1" variant='h3' align='center' fontFamily='revert' marginBottom = '1vh'> Delete Tags</Typography>
                     </Grid>
                 </Grid>
-                <Grid item align='center' xs={12}>
+                <Grid container direction='row'justifyItems='center' justifyContent='center' align='center'>
+                <Grid item align='center' xs={10}>
                     <Autocomplete
                         multiple
                         options={tags}
@@ -115,10 +116,12 @@ function Modal({ handleClose, tags}) {
                             <TextField
                                 {...params}
                                 label="Tags"
-                                placeholder="All tags to delete"
+                                placeholder="Select tags to Delete"
+                                fullWidth
                             />
                         )}
                     />
+                </Grid>
                 </Grid>
                 <Grid item padding='0'>
                     <Button
@@ -127,7 +130,7 @@ function Modal({ handleClose, tags}) {
                         onClick={() => { handleClick()}}
                         sx=
                         {{ mt: 2, background: 'green' }}>
-                        Delete Tag
+                        Delete Tags
                     </Button>
                 </Grid>
             </Grid>

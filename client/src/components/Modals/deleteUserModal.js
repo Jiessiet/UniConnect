@@ -5,26 +5,42 @@ import { green } from '@mui/material/colors';
 import PersonAddDisabledIcon from '@mui/icons-material/PersonAddDisabled';
 import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
+import { useUser } from '../../Contexts/UserContext';
+import { useHistory } from 'react-router-dom';
+import axios from '../../api';
 
 
-function Modal({ handleClose }) {
+function Modal({ handleClose, users}) {
+    const history = useHistory();
     const [open, setOpen] = React.useState(false);
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
     const [userChosen, setUserChosen] = useState('')
 
-    const handleUserSelectChange = event => {
-        const value = event.target.value;
+    const handleUserSelectChange = (event, value) => {
         setUserChosen(value)
     };
 
     const handleClick = () => {
-        if (true) {  //check if the user exists in the database
-            deleteUser();
-            setOpen(true);
-            window.setTimeout(function () {
-                window.location.reload()
-            }, 2000)
+        if (userChosen != '') { 
+            axios({
+                method: 'get',
+                url: '/api/users/find/by/username',
+                params: {
+                    username: userChosen,
+                }
+            }).then(response => {
+                    const newFriend = response.data
+                    console.log(response)
+                    history.push({
+                        pathname: '/userDetails',
+                        state: { user: { newFriend } }
+                })
+            }).catch(function (error) {
+                    console.log(userChosen)
+                    console.log(error)
+                    setOpenSnackbar(true)
+            })
         } else {
             setOpenSnackbar(true)
         }
@@ -34,10 +50,6 @@ function Modal({ handleClose }) {
         display: 'none',
     });
 
-    function deleteUser() {
-        //here we will be deleting from the database with the given users information
-        return null
-    }
 
 
     return (
@@ -86,63 +98,52 @@ function Modal({ handleClose }) {
                             </IconButton>
                         </Grid>
                     </Grid>
+                    
                     <Grid item xs={3}>
                         <IconButton>
                             <PersonAddDisabledIcon sx={{ fontSize: 60, color: green[300], mb: '2' }} />
                         </IconButton>
                     </Grid>
                     <Grid item xs={9}>
-                        <Typography component="h1" variant='h3' align='center' fontFamily='revert'> Delete User</Typography>
+                        <Typography component="h1" variant='h3' align='center' fontFamily='revert' marginBottom = '1vh'> Find A User</Typography>
                     </Grid>
                 </Grid>
-                <Grid item align='center' xs={12}>
+                <Grid container direction='row' justifyItems='center' justifyContent='center' align='center'>
+                    <Grid item xs = {10} justifySelf='center'>
                     <Autocomplete
-                        multiple
+                        autoHighlight
                         options={users}
-                        getOptionLabel={(option) => option.user}
+                        getOptionLabel={(option) => option.username}
+                        onChange={handleUserSelectChange}
                         renderInput={(params) => (
                             <TextField
                                 {...params}
                                 label="Users"
-                                placeholder="All Users to delete"
-                                value={userChosen}
-                                onChange={handleUserSelectChange}
+                                placeholder="All Users"
                             />
                         )}
                     />
+                    </Grid>
                 </Grid>
                 <Grid item padding='0'>
                     <Button
                         type='submit'
-                        variant="outline"
+                        variant="outlined"
                         onClick={handleClick}
                         sx=
-                        {{ mt: 2, background: 'green' }}>
-                        Delete User
+                        {{ mt: 2, background: 'green', color: 'white' }}>
+                        Find User
                     </Button>
                 </Grid>
-            </Grid>
-            <div>
-                <Snackbar
-                    open={open}
-                    autoHideDuration={1000}
-                >
-                    <Alert severity='success'> User Deleted </Alert>
-                </Snackbar>
-            </div>
+            </Grid>               
             <div>
                 <Snackbar
                     open={openSnackbar}
                     autoHideDuration={1000}
                 >
-                    <Alert severity='error'> User Not Deleted</Alert>
+                    <Alert severity='error'> User Not Found</Alert>
                 </Snackbar>
             </div>
         </Grid>)
 }
 export default Modal
-
-const users = [
-    { user: 'student030' },
-    { user: 'u0ft3' },
-    { user: 'p3rs0n' }];

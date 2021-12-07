@@ -29,13 +29,14 @@ const Dashboard = () => {
   
   const handleClose = () => setOpen(false);
 
-
   const handleCloseTags = () => setOpenTags(false);
 
-  const handleOpenUser = () => setOpenUser(true);
+  // const handleOpenUser = () => setOpenUser(true);
   const handleCloseUser = () => setOpenUser(false);
 
   const [tags, setTags] = React.useState([])
+  const [users, setUsers] = React.useState([])
+
 
   const handleOpenTags = () => {
     axios({
@@ -44,6 +45,17 @@ const Dashboard = () => {
     }).then(response => {
         setTags(response.data)
         setOpenTags(true);
+    }).catch(function (error) {
+      console.log(error)
+    })}
+
+  const handleOpenUser = () => {
+    axios({
+      method: 'get',
+      url: '/api/users',
+    }).then(response => {
+        setUsers(response.data)
+        setOpenUser(true);
     }).catch(function (error) {
       console.log(error)
     })}
@@ -120,13 +132,13 @@ const Dashboard = () => {
               style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }}
               variant='contained'
             >
-              Delete User
+              Find User
             </Button>
             <Modal
               open={openUser}
               onClose={handleCloseUser}
             >
-              <DeleteUser handleClose={handleCloseUser} />
+              <DeleteUser handleClose={handleCloseUser} users={users}/>
             </Modal>
 
 
