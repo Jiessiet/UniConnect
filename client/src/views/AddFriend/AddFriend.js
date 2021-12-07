@@ -67,6 +67,9 @@ const AddFriend = () => {
   const friend = location.state.user.newFriend;
   const { currentUser } = useUser()
 
+  console.log(friend)
+  console.log('friend')
+
 function setText(friendly) {
 
   if(currentUser !== null){
@@ -188,7 +191,7 @@ function handleFindFriend() {
           <IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
             <PersonIcon sx={{ borderRadius: 2 }} />
             <Typography variant='subtitle1' component='div'>
-              {friend.friends.length}
+              {/* {friend.friends.length} */}
             </Typography>
           </IconButton>
         </Grid>
@@ -232,7 +235,7 @@ function handleFindFriend() {
         pb={1}
         pl={1}
         >
-          {getFriendTags().map((tag) => (
+          {/* {getFriendTags().map((tag) => (
             <Grid 
               item key={tag._id}
               >
@@ -243,7 +246,7 @@ function handleFindFriend() {
                 </Typography>
               </Button>
             </Grid>
-            ))}
+            ))} */}
           </Grid>
 
           <Grid
