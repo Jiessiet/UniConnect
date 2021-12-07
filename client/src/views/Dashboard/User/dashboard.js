@@ -251,16 +251,19 @@ const Dashboard = () => {
               </Grid>
             </Grid>
           </Grid>
+          <Grid container direction='column'>
+          <Grid item>
           <Box mt={3}>
           {events.length === 0 ? (<Typography variant='h6'>No Upcoming Events</Typography>) : (
             <Typography variant='h6'>Upcoming Events...</Typography>)}
           </Box>
-          <Grid
-            justifyContent='center'
-            sx={{
-              paddingBottom: 5,
-            }}
-          >
+          </Grid>
+          <Grid item
+              justifyContent='center'
+              sx={{
+                paddingBottom: 5,
+              }}
+            >
               <Grid container spacing={3} mt={12}>
                   {events.length !== 0 && (events.map((event) => {
                     event.description = ''
@@ -272,6 +275,7 @@ const Dashboard = () => {
                       );
                 }))}
               </Grid>
+           </Grid>
           </Grid>
         </Grid>
       </Container>
