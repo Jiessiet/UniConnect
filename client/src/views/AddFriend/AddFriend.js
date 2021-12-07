@@ -1,6 +1,6 @@
 import { useEffect, useState, React } from 'react';
 import { styled } from '@mui/material/styles';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -66,9 +66,7 @@ const AddFriend = () => {
   const location = useLocation();
   const friend = location.state.user.newFriend;
   const { currentUser } = useUser()
-
-  console.log(friend)
-  console.log('friend')
+  const history = useHistory();
 
 function setText(friendly) {
 
@@ -76,7 +74,7 @@ function setText(friendly) {
     if(currentUser.friends.includes(friend._id)){
       friendly = 'delete friend'
     }
-    else if (currentUser.type){
+    else if (currentUser.userType){
       friendly = 'delete user'
     }
     else{
@@ -89,8 +87,8 @@ function setText(friendly) {
 
 function handleFindFriend() {
   // event.preventDefault()
-  window.location.reload();
   if(currentUser.friends.includes(friend._id)){
+    window.location.reload();
     console.log('delete')
     const friendUrl = '/api/users/friend/'+friend._id
   axios({
@@ -102,7 +100,23 @@ function handleFindFriend() {
     console.log(error)
   });
   }
+  else if (currentUser.userType){
+    console.log('delete')
+    const friendUrl = '/api/users/'+friend._id
+  axios({
+    method: 'delete',
+    url: friendUrl
+  }).then(response => {
+      console.log(response.data)
+      history.push({
+        pathname: '/dashboard',
+})
+  }).catch(function (error) {
+    console.log(error)
+  });
+  }
   else{
+    window.location.reload();
   const friendUrl = '/api/users/addFriend/'+friend._id
   axios({
     method: 'patch',
@@ -191,7 +205,7 @@ function handleFindFriend() {
           <IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
             <PersonIcon sx={{ borderRadius: 2 }} />
             <Typography variant='subtitle1' component='div'>
-              {/* {friend.friends.length} */}
+              {friend.friends.length}
             </Typography>
           </IconButton>
         </Grid>
@@ -235,7 +249,7 @@ function handleFindFriend() {
         pb={1}
         pl={1}
         >
-          {/* {getFriendTags().map((tag) => (
+          {getFriendTags().map((tag) => (
             <Grid 
               item key={tag._id}
               >
@@ -246,7 +260,7 @@ function handleFindFriend() {
                 </Typography>
               </Button>
             </Grid>
-            ))} */}
+            ))}
           </Grid>
 
           <Grid
@@ -276,7 +290,7 @@ function handleFindFriend() {
               </Item>
             </Button>
             
-            {(currentUser !== null) && !(currentUser.type) && (
+            {(currentUser !== null) && !(currentUser.userType) && (
               <>
               <Button 
             color="secondary"

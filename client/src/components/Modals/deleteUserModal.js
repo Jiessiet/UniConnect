@@ -22,16 +22,19 @@ function Modal({ handleClose, users}) {
     };
 
     const handleClick = () => {
+        console.log(userChosen)
+        console.log('userchosen')
         if (userChosen != '') { 
             axios({
                 method: 'get',
                 url: '/api/users/find/by/username',
                 params: {
-                    username: userChosen,
+                    username: userChosen.username,
                 }
             }).then(response => {
                     const newFriend = response.data
-                    console.log(response)
+                    console.log(response.data)
+                    console.log('response')
                     history.push({
                         pathname: '/userDetails',
                         state: { user: { newFriend } }

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import background from "./greenbg.jpg"
 import { Button, Grid, Paper, Tooltip, Typography, Box, Icon, TextField, Link } from '@mui/material';
 import { green } from '@mui/material/colors';
-// import SignUpImg from './signupimg.svg'
 import SignUpImg from './signupanimate.svg'
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { IconButton } from "@material-ui/core";
@@ -10,9 +9,10 @@ import { styled } from '@mui/material/styles';
 import { useUser } from '../../Contexts/UserContext';
 import axios from '../../api'
 import { signup } from "../../api/functions"
-
-
-
+import { Snackbar } from "@mui/material";
+import { Alert } from "@mui/material";
+import LoadingButton from '@mui/lab/LoadingButton';
+import { Save } from "@material-ui/icons";
 
 
 function Signup() {
@@ -22,23 +22,82 @@ function Signup() {
     const [university, setUniversity] = useState('')
     const [username, setUsername] = useState('')
     const [image, setImage] = useState(null)
+    const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
-    const handleValueChange = (event, setter) => {
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpenSnackbar(false)
+      };
+
+    const handleValueChange = (event, setter, checker) => {
         const value = event.target.value;
 
         setter(value)
+        if(checker != null) {
+            checker()
+        }
     };
 
     const { setCurrentUser } = useUser()
 
+    const [isFormInvalid, setIsFormInvalid] = useState(true);
+    const [passwordValidate, setPasswordValidate] = useState(false);
+    const [emailValidate, setEmailValidate] = useState(false);
+    const [passwordMatchValidate, setPasswordMatchValidate] = useState(true);
+    const [usernameValidate, setUsernameValidate] = useState(false);
+
+    const validateForm = () => {
+        validateUsername()
+        validatePassword()
+        validateEmail()
+        validatePasswordMatch()
+    };
+
+    const validatePasswordMatch = () => {
+        if (password !== passwordAgain) {
+            setPasswordMatchValidate(false)}
+        else {
+            setPasswordMatchValidate(true)
+        }
+    };
+
+    const validateEmail = () => {
+        if (!email.includes('@') || !email.includes('.')) {
+            setEmailValidate(true)
+        } else {
+            setEmailValidate(false)
+        }
+    };
+
+    const validateUsername = () => {
+        if (username.length < 5) {
+            setUsernameValidate(true)
+        } else {
+        setUsernameValidate(false)
+        }
+    };
+
+    const validatePassword = () => {
+        if (password.length < 5) {
+            setPasswordValidate(true)
+        } else {
+        setPasswordValidate(false)
+        }
+    };
+
+
     function handleRegister(event) {
         event.preventDefault()
-
-        if(password !== passwordAgain) {
-            //TODO: not matching indicator
-            return;
+        validateForm()
+        if (isFormInvalid) {
+            signup(email, password, university, username, setCurrentUser, image, setOpenSnackbar)
         }
-        signup(email, password, university, username, setCurrentUser, image)
+        else {
+            setOpenSnackbar(true)
+
+        }
     }
 
     const Input = styled('input')({
@@ -72,7 +131,6 @@ function Signup() {
                 xs={7}
                 mt='6vh'
             >
-                {/* <Grid item xs={6} alignItems='flex-end' zIndex='800'> */}
                 <img src={SignUpImg}
                     style={{
                         position: 'abolsute',
@@ -109,7 +167,19 @@ function Signup() {
                         <form>
                             <Grid container direction='row' alignItems='center' justifyItems='center'>
                                 <Grid item xs={10.25}>
-                                    <TextField fullWidth label='Username' right-padding='5px' margin='normal' required='true' placeholder='Create your own unique username' value={username} onChange={(event) => {handleValueChange(event, setUsername)}} />
+                                <Tooltip title="Username must be unique and require more than 6 characters" placement='right' arrow>
+                                    <TextField 
+                                        fullWidth 
+                                        label='Username' 
+                                        right-padding='5px' 
+                                        margin='normal' 
+                                        required='true' 
+                                        placeholder='Create your own unique username' 
+                                        error={usernameValidate}
+                                        helperText={usernameValidate && 'Username is either too short or not unique'}
+                                        value={username} 
+                                        onChange={(event) => {handleValueChange(event, setUsername, null)}} />
+                                </Tooltip>
                                 </Grid>
                                 <Grid item><label htmlFor="icon-button-file" xs={1}>
                                     <Input accept="image/*" id="icon-button-file" type="file" onChange={photoHandler}/>
@@ -121,10 +191,54 @@ function Signup() {
                                 </label>
                                 </Grid>
                             </Grid>
-                            <TextField fullWidth label='Email' margin='normal' required='true' placeholder='Type your email' value={email} onChange={(event) => {handleValueChange(event, setEmail)}}/>
-                            <TextField fullWidth label='University' required='true' margin='normal' placeholder='Enter your University' value={university} onChange={(event) => {handleValueChange(event, setUniversity)}}  />
-                            <TextField fullWidth label='Password' required='true' margin='normal' placeholder='Create a secure password' value={password} onChange={(event) => {handleValueChange(event, setPassword)}} />
-                            <TextField fullWidth label='Password' required='true' margin='normal' placeholder='Retype your password' value={passwordAgain} onChange={(event) => {handleValueChange(event, setPasswordAgain)}} />
+                            <TextField 
+                                fullWidth 
+                                label='Email' 
+                                margin='normal' 
+                                required='true' 
+                                placeholder='Type your email' 
+                                error={emailValidate}
+                                helperText={emailValidate && 'Invalid Email Address'}
+                                value={email} 
+                                onChange={(event) => {handleValueChange(event, setEmail, null)}}
+                            />
+                            <TextField 
+                                fullWidth 
+                                label='University' 
+                                required='true' 
+                                margin='normal' 
+                                placeholder='Enter your University' 
+                                value={university} 
+                                onChange={(event) => {handleValueChange(event, setUniversity, null)}} 
+                            />
+                            <Tooltip 
+                                title="Password must have more than 6 characters" 
+                                placement='right' 
+                                arrow
+                            >
+                            <TextField 
+                                fullWidth 
+                                label='Password' 
+                                required='true' 
+                                margin='normal' 
+                                placeholder='Create a secure password' 
+                                error={passwordValidate}
+                                helperText={passwordValidate && 'Password is too short'}
+                                value={password} 
+                                onChange={(event) => {handleValueChange(event, setPassword, null)}} 
+                            />
+                            </Tooltip>
+                            <TextField 
+                                fullWidth 
+                                label='Password' 
+                                required='true' 
+                                margin='normal' 
+                                placeholder='Retype your password' 
+                                error={!passwordMatchValidate}
+                                helperText={!passwordMatchValidate && 'Passwords do not match'}
+                                value={passwordAgain} 
+                                onChange={(event) => {handleValueChange(event, setPasswordAgain, null)}} 
+                            />
                         </form>
                     </Grid>
                     <Grid item padding='0'>
@@ -142,6 +256,15 @@ function Signup() {
                     </Grid>
                 </Grid>
             </Grid>
+            <div>
+                <Snackbar
+                    open={openSnackbar}
+                    autoHideDuration={1000}
+                    onClose={handleCloseSnackbar}
+                >
+                    <Alert severity='error'> Registration Could Not Be Completed</Alert>
+                </Snackbar>
+            </div>
         </Grid>)
 }
 

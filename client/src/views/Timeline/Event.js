@@ -12,7 +12,6 @@ import {
   DialogTitle,
   DialogActions
 } from '@mui/material';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import LocationOnSharpIcon from '@mui/icons-material/LocationOnSharp';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { useUser } from '../../Contexts/UserContext';
@@ -39,6 +38,8 @@ const Event = ({ event }) => {
       .catch((error) => {
         console.log(error);
       });
+    handleClose()
+    window.location.reload();
   };
 
   return (

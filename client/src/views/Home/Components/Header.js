@@ -106,16 +106,6 @@ export default function Header() {
     }).then(() => {setCurrentUser(null)})
   }
 
-  // useEffect(() => {
-  //   const listener = event => {
-  //     event.preventDefault();
-  //     if (event.code === "Enter" || event.code === "NumpadEnter") {
-  //       console.log("Enter key was pressed.");
-  //       //search events();
-  //     }
-  //   };
-  //   },[]);
-
   return (
     <Fragment>
       <Grid

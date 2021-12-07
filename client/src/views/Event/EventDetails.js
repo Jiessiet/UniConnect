@@ -13,6 +13,7 @@ import {
   Alert
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
+import LocationOnSharpIcon from '@mui/icons-material/LocationOnSharp';
 import { useHistory } from 'react-router';
 import { Link, useLocation } from 'react-router-dom';
 import { useUser } from '../../Contexts/UserContext';
@@ -25,6 +26,7 @@ const EventDetails = () => {
   const location = useLocation();
   const { currentUser } = useUser();
   const [event, setEvent] = useState(location.state.event.event);
+  const d = new Date(event.date);
   const creatorId = event.creator;
   const [attendees, setAttendees] = useState([]);
   const [tags, setTags] = useState([]);
@@ -36,14 +38,13 @@ const EventDetails = () => {
   const handleClose = () => setOpen(false);
 
   useEffect(async () => {
-    setTags([]);
+    const tagList = [];
     const getTag = (tagId) => {
       const getTagUrl = `/api/tag/${tagId}`;
       return axios
         .get(getTagUrl)
         .then((res) => {
-          tags.push({ name: res.data.name });
-          setTags(tags);
+          tagList.push({ name: res.data.name });
         })
         .catch((error) => {
           console.log(error);
@@ -52,6 +53,7 @@ const EventDetails = () => {
     event.tags.map((tag) => {
       getTag(tag);
     });
+    setTags(tagList);
 
     const getCreatorUrl = `/api/users/${creatorId}`;
     const getCreator = () => {
@@ -69,14 +71,13 @@ const EventDetails = () => {
   }, []);
 
   useEffect(async () => {
-    setAttendees([]);
+    const attendeeList = [];
     const getAttendee = (attendeeId) => {
       const getAttendeeUrl = `/api/users/${attendeeId}`;
       return axios
         .get(getAttendeeUrl)
         .then((res) => {
-          attendees.push({ name: res.data.name, photo: res.data.photo });
-          setAttendees(attendees);
+          attendeeList.push({ name: res.data.name, photo: res.data.photo });
         })
         .catch((error) => {
           console.log(error);
@@ -85,6 +86,7 @@ const EventDetails = () => {
     event.attendees.map((attendee) => {
       getAttendee(attendee);
     });
+    setAttendees(attendeeList);
   }, [event]);
 
   const handleAttend = () => {
@@ -192,8 +194,10 @@ const EventDetails = () => {
               ))}
             </Grid>
             <Typography mt={1} variant='h5'>
+              <LocationOnSharpIcon />
               {event.location}
             </Typography>
+            <Typography mt={1}>{d.toDateString()} |</Typography>
             <Typography mt={1}>{event.description}</Typography>
           </CardContent>
         </Grid>
@@ -209,7 +213,7 @@ const EventDetails = () => {
         <Grid item>
           <Paper
             component={
-              currentUser && (currentUser.userType || currentUser._id) === creatorId && Button
+              currentUser && (currentUser.userType || currentUser._id === creatorId) && Button
             }
             fullWidth
             textAlign='center'
@@ -221,7 +225,7 @@ const EventDetails = () => {
               textTransform: 'none'
             }}
             onClick={
-              currentUser && (currentUser.userType || currentUser._id) === creatorId && handleOpen
+              currentUser && (currentUser.userType || currentUser._id === creatorId) && handleOpen
             }
           >
             <Typography variant='h6' mb={1}>

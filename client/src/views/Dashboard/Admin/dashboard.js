@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
 import Modal from '@mui/material/Modal'
 import CardContent from '@mui/material/CardContent';
-
+import Avatar from '@mui/material/Avatar';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
@@ -20,11 +20,14 @@ import DeleteTags from '../../../components/Modals/deleteTagModal'
 import DeleteUser from '../../../components/Modals/deleteUserModal'
 import { getStats } from "../../../api/functions"
 
+import { useUser } from '../../../Contexts/UserContext';
+
 const Dashboard = () => {
   //   classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openTags, setOpenTags] = useState(false);
   const [openUser, setOpenUser] = useState(false);
+  const { currentUser } = useUser()
   
   const handleClose = () => setOpen(false);
   const handleCloseTags = () => setOpenTags(false);
@@ -81,27 +84,43 @@ const Dashboard = () => {
 
 
   return (
-    <Container maxWidth='md' sx={{ mt: 12 }}>
+    <Container 
+    maxWidth='md' 
+    sx={{
+      mt:'120px', 
+      borderRadius: '16px',
+      minHeight: '50vh',
+      backgroundPosition: 'center',
+      background: 'linear-gradient(180deg, #C9D991 10%, #d0f0c0 51%, #F2F2F2 90%);'
+    }}>
       <Grid container justify='space-between' spacing={3} mt={0}>
         <Grid item container xs={12} sm={7} spacing={3}>
           <Grid item container spacing={3} textAlign='center'>
             <Grid item xs={12} sm={5}>
-              <Paper style={{ padding: '15' }}>
-                <CardMedia
+              {/* <Paper style={{ padding: '15' }}> */}
+                <Avatar alt='Friend' sx={{ width: 190, height: 190 }}
+                src = {currentUser.profilePhoto}>
+                </Avatar>
+                {/* <CardMedia
                   component='img'
                   height='200'
                   image='https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg'
                   style={{ marginBottom: 20 }}
-                />
-                <Button fullWidth variant='contained' style={{ backgroundColor: '#099441' }} size='medium'
-                  href='/Profile'>
+                /> */}
+
+                <Typography variant='h5' component='div'>
+                  {currentUser.username}
+                </Typography>
+
+                <Button fullWidth variant='contained' style={{ backgroundColor: '#C9D991' }} size='medium' sx={{mt:'15px'}}
+                  href='/editUserProfile'>
                   Edit Profile
                 </Button>
-              </Paper>
+              {/* </Paper> */}
             </Grid>
             <Grid item xs={12} sm={7}>
               <Paper style={{ height: '100%' }}>
-                <Typography variant='h5' pt={2} pb={2} color='#099441'>
+                <Typography variant='h5' pt={2} pb={2} color='#4B592D'>
                   {/* Statistics will be taken from the database and displayed. Currently, these are only placeholders. */}
                   STATS
                 </Typography>
@@ -131,11 +150,13 @@ const Dashboard = () => {
               </Paper>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={12} textAlign='center'>
+          <Grid item xs={20} sm={40} 
+          textAlign='center'
+          >
             {/* <Paper style={{ height: '100%' }}> */}
             <Button fullWidth
               onClick={handleOpenTags}
-              style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }}
+              style={{ color: '#4B592D', height: '60%', width: '25%', backgroundColor: '#C9D991', margin: '10px' }}
               // sx={{p:'10'}} 
               variant='contained'
             >
@@ -152,7 +173,7 @@ const Dashboard = () => {
 
             <Button fullWidth
               onClick={handleOpen}
-              style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }}
+              style={{ color: '#4B592D', height: '60%', width: '30%', backgroundColor: '#C9D991', margin: '10px' }}
               variant='contained'
             >
               Delete Tags
@@ -169,7 +190,7 @@ const Dashboard = () => {
 
             <Button fullWidth
               onClick={handleOpenUser}
-              style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }}
+              style={{ color: '#4B592D', height: '60%', width: '25%', backgroundColor: '#C9D991', margin: '10px' }}
               variant='contained'
             >
               Find User
@@ -188,7 +209,7 @@ const Dashboard = () => {
         </Grid>
         <Grid item xs={12} sm={5} style={{ textAlign: 'center', alignitems: 'center' }}>
           <Paper style={{ height: '400px' }}>
-            <Typography variant='h5' pt={2} color='#099441'>
+            <Typography variant='h5' pt={2} color='#4B592D'>
               REPORT FEED
             </Typography>
             {/* these reports will be taken from the database and displayed. Currently these are hardcoded in */}
