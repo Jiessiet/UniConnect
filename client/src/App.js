@@ -20,6 +20,7 @@ import LoginRouter from "./views/Login/LoginRouter";
 import SignupRouter from "./views/Signup/SignupRouter";
 import ResetPassword from "./views/ResetPassword/ResetPassword"
 import UserProfile from "./views/Profile/UserProfile/UserProfile";
+import EditUserProfile from "./views/Profile/UserProfile/editUserProfile";
 import AdminProfile from "./views/Profile/AdminProfile/AdminProfile";
 import PastEvents from './views/Event/PastEvents';
 import UpcomingEvents from './views/Event/UpcomingEvents';
@@ -79,6 +80,7 @@ function App() {
               <Route path="/Profile" exact component={ProfileRouter} />
 
               <Route path="/UserProfile" exact component={UserProfile} />
+              <Route path="/EditUserProfile" exact component={EditUserProfile} />
             </div>
           </Switch>
         </React.StrictMode>

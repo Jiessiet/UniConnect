@@ -46,3 +46,22 @@ export const uploadPicture = (url, image) => {
   data.append('file', image) 
   return axios.post(url, data)
 }
+
+export const edit = (email, password, university, username, currentUser, setCurrentUser, image, userID) => {
+  const linkurl = '/api/users/'+userID;
+  return axios({
+      method: 'patch',
+      url: linkurl,
+      data: {
+          email: email,
+          password: password,
+          username: username,
+          university: university
+      }
+    }).then(response => {
+        console.log(response)
+        const url = `/api/user-photo/${response.data._id}`
+    }).catch(function (error) {
+      console.log(error);
+    });
+}

@@ -83,7 +83,7 @@ const Dashboard = () => {
               </CardContent>
               <CardActions justifyContent='center' className={classes.action}>
                 <Button size='large' variant='contained' style={{ backgroundColor: '#099441', color: 'white' }}
-                href='/Profile'>
+                href='/EditUserProfile'>
                   Edit Profile
                 </Button>
               </CardActions>
