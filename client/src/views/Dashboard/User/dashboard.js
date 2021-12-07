@@ -54,6 +54,11 @@ const Dashboard = () => {
         .then((res) => {
           console.log('res.data: ', res.data);
           eventList.push(res.data);
+          console.log(res.data)
+          if(res.data) {
+          events.push(res.data);
+          setEvents(events);
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -274,28 +279,31 @@ const Dashboard = () => {
               </Grid>
             </Grid>
           </Grid>
+          <Grid container direction='column'>
+          <Grid item>
           <Box mt={3}>
-            <Typography variant='h6'>Upcoming Events...</Typography>
-            {/* These events will be taken from the user's event list from the database. 
-          Currently these are hardcoded in */}
+          {events.length === 0 ? (<Typography variant='h6'>No Upcoming Events</Typography>) : (
+            <Typography variant='h6'>Upcoming Events...</Typography>)}
           </Box>
-          <Grid
-            justifyContent='center'
-            sx={{
-              paddingBottom: 5,
-            }}
-          >
+          </Grid>
+          <Grid item
+              justifyContent='center'
+              sx={{
+                paddingBottom: 5,
+              }}
+            >
               <Grid container spacing={3} mt={12}>
-                {events.map((event) => {
-                  event.description = ''
-                  if (!event.completed)
-                    return (
-                      <Grid item xs={12} sm={6} style={{marginBottom: 20, marginTop: 10}}>
-                        <Event event={event} />
-                      </Grid>
-                    );
-                })}
+                  {events.length !== 0 && (events.map((event) => {
+                    event.description = ''
+                    if (!event.completed)
+                      return (
+                        <Grid item xs={12} sm={6} style={{marginBottom: 20, marginTop: 10}}>
+                          <Event event={event} />
+                        </Grid>
+                      );
+                }))}
               </Grid>
+           </Grid>
           </Grid>
         </Grid>
       </Container>
