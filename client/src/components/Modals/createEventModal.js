@@ -257,6 +257,7 @@ function Modal({ handleClose, tags}) {
                                     multiple
                                     options={tags}
                                     getOptionLabel={(option) => option.name}
+                                    value={eventTags}
                                     onChange={handleTagChange}
                                     renderInput={(params) => (
                                         <TextField
