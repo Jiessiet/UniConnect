@@ -20,7 +20,6 @@ import TextField from '@mui/material/TextField';
 import Fade from '@mui/material/Fade';
 import { useUser } from '../../Contexts/UserContext'
 import axios from '../../api';
-import { useState, useEffect } from 'react';
 
 const Img = styled('img')({
   margin: 'auto',
@@ -67,26 +66,50 @@ const Item = styled(Paper)(({ theme }) => ({
 const AddFriend = () => {
   const location = useLocation();
   const friend = location.state.user.newFriend;
-  // const [currentUser, setCurrentUser] = useState({});
-  // const friendID = friend
-  // useEffect(async () => {
-  //   axios
-  //     .get('/api/users', {
-  //       params: {
-  //         id: Id
-  //       }
-  //     })
-  //     .then((res) => {
-  //       setCurrentUser(res.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
+  const { currentUser } = useUser()
+  // const [friends, setFriends] = useState('')
 
-  const handleFindFriend = event => {
-    // finds friend from database and adds it to user's friend list
-  }
+  const handleValueChange = (event, setter) => {
+    const value = event.target.value;
+
+    setter(value)
+};
+
+function handleFindFriend(event) {
+  event.preventDefault()
+  const friendUrl = '/api/users/addFriend/'+friend._id
+  axios({
+    method: 'patch',
+    url: friendUrl
+  }).then(response => {
+      console.log(response.data)
+  }).catch(function (error) {
+    console.log(error)
+  });
+}
+
+  const [tags, setTags] = useState([])  
+  useEffect(() => {
+  axios({
+      method: 'get',
+      url: '/api/tag',
+    }).then(response => {
+        setTags(response.data)
+    }).catch(function (error) {
+      console.log(error)
+    });
+  },[]);
+
+  const getFriendTags = () =>{
+    const arr = []
+    tags.forEach( tag=> {
+      if(friend.tags.includes(tag._id)){
+        arr.push(tag.name)
+      }
+    })
+    console.log(arr+'help')
+    return arr;
+  }  
 
   return (
     <Grid
@@ -131,18 +154,18 @@ const AddFriend = () => {
         >
           <ButtonBase item sx={{ width: 200, height: 200 }}>
             <Avatar alt='Friend' sx={{ width: 150, height: 150 }}
-            src = {currentUser.profilePhoto}>
+            src = {friend.profilePhoto}>
             </Avatar>
           </ButtonBase>
 
           <Typography variant='h3' component='div'>
-            {currentUser.username}
+            {friend.username}
           </Typography>
 
           <IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
             <PersonIcon sx={{ borderRadius: 2 }} />
             <Typography variant='subtitle1' component='div'>
-              {currentUser.friends.length}
+              {friend.friends.length}
             </Typography>
           </IconButton>
         </Grid>
@@ -170,7 +193,7 @@ const AddFriend = () => {
             color='text.secondary'
             sx={{ p: 2, marginleft: '1', flexGrow: 1 }}
           >
-            {currentUser.description}
+            {friend.description}
           </Typography>
         </Box>
 
@@ -182,7 +205,7 @@ const AddFriend = () => {
         pb={1}
         pl={1}
         >
-          {currentUser.tags.map((tag) => (
+          {getFriendTags().map((tag) => (
             <Grid 
               item key={tag._id}
               >
@@ -210,7 +233,7 @@ const AddFriend = () => {
           sx={{pt:2}}
           >
             <Button component={Link} to='/Profile' color="secondary"
-              onChange={handleFindFriend}>
+              onClick={handleFindFriend}>
               <Item>
                 <Typography variant="button" component="div" gutterBottom
                   sx={{ cursor: 'pointer' }}>

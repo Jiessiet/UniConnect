@@ -74,7 +74,7 @@ const UserProfile = () => {
         arr.push(tag.name)
       }
     })
-    console.log(arr+'help')
+    console.log(arr)
     return arr;
   }  
    
