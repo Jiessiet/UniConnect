@@ -113,7 +113,7 @@ function Modal({ handleClose }) {
                         </IconButton>
                     </Grid>
                     <Grid item xs={9}>
-                        <Typography component="h1" variant='h3' align='center' fontFamily='revert' marginBottom='2vh'> Add Friend</Typography>
+                        <Typography component="h1" variant='h3' align='center' fontFamily='revert' marginBottom='2vh'> Find Friend</Typography>
                     </Grid>
                 </Grid>
                
@@ -162,7 +162,7 @@ function Modal({ handleClose }) {
                         autoHideDuration={2000}
                         onClose={handleCloseSnackbar}
                     >
-                        <Alert severity='error'> Friend Not Found </Alert>
+                        <Alert severity='error'> User Not Found </Alert>
                     </Snackbar>
                 </div>
         </Grid>
