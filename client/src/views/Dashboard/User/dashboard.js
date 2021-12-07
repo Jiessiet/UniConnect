@@ -53,10 +53,8 @@ const Dashboard = () => {
         .get(`/api/events/${eventId}`)
         .then((res) => {
           console.log('res.data: ', res.data);
-          eventList.push(res.data);
-          console.log(res.data)
           if(res.data) {
-          events.push(res.data);
+          eventList.push(res.data);
           setEvents(events);
           }
         })
@@ -277,6 +275,7 @@ const Dashboard = () => {
           <Grid container direction='column'>
           <Grid item>
           <Box mt={3}>
+            {console.log(events)}
           {events.length === 0 ? (<Typography variant='h6'>No Upcoming Events</Typography>) : (
             <Typography variant='h6'>Upcoming Events...</Typography>)}
           </Box>
