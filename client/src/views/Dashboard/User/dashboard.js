@@ -116,11 +116,6 @@ const Dashboard = () => {
             <Avatar alt='Friend' sx={{ width: 150, height: 150 }}
             src = {currentUser.profilePhoto}>
             </Avatar>
-              {/* <CardMedia
-                component='img'
-                height='150'
-                image=
-              /> */}
               <CardContent style={{ padding: 0, marginTop: 5 }}>
                 <Typography variant='h5' component='div'>
                   {currentUser.username}
