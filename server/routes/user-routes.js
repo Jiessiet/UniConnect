@@ -1,6 +1,7 @@
 const express = require("express");
 const { User } = require("../mongodb/models/userModel");
 const {Event} = require("../mongodb/models/eventModel")
+const { Report } = require("../mongodb/models/reportModel")
 const mongoChecker = require("../middleware/mongoChecker");
 const authenticate = require("../middleware/authmiddleware");
 const { Tag } = require("../mongodb/models/tagModel");
@@ -230,7 +231,7 @@ router.delete('/api/users/:id', authenticate, (req, res) => {
    
 })
 
-router.post('/api/user-photo/:userId', authenticate, upload.single('file'), async (req, res) => {
+router.post('/api/user-report/:userId', authenticate, upload.single('file'), async (req, res) => {
     try {
         const user = await User.findById(req.params.userId).exec()
         if(!user) { 
@@ -291,5 +292,25 @@ router.delete('/api/users/friend/:id', authenticate, (req, res) => {
    
 })
 
+router.post('/api/user-report', authenticate, async (req, res) => {
+    try {
+        const reported = await User.findById(req.body.id)
+        if (!reported) {
+            return res.status(404).send('no such user');
+        }
+        const report = new Report({
+            reporter: req.user,
+            reported: reported,
+            description: req.body.description
+        })
+
+        await report.save()
+        res.status(200).send("report saved")
+    } catch (e) {
+        console.log(e)
+        res.status(500).send('Report failed')
+    }
+
+})
 
 module.exports = router;
