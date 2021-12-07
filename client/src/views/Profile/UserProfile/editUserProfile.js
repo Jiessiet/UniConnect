@@ -1,153 +1,271 @@
-import React, { useState } from "react";
-import { Button, Grid, Paper, Tooltip, Typography, Box, Icon, TextField, Link } from '@mui/material';
-import { green } from '@mui/material/colors';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import { IconButton } from "@material-ui/core";
+import * as React from 'react';
+import Tooltip from '@mui/material/Tooltip';
+import { Button, Grid, Paper, Typography, TextField, Dialog, DialogActions, DialogContent,DialogContentText, DialogTitle } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useUser } from '../../../Contexts/UserContext';
-import axios from '../../../api'
-import { edit } from "../../../api/functions"
+import { Link } from 'react-router-dom';
+import ButtonBase from '@mui/material/ButtonBase';
+import Avatar from '@mui/material/Avatar';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import IconButton from '@mui/material/IconButton';
+import PersonIcon from '@mui/icons-material/Person';
+import { Box, ThemeProvider, createTheme, positions } from '@mui/system';
+import { useUser } from './../../../Contexts/UserContext'
+import axios from '../../../api';
+import { useState, useEffect } from 'react';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import { uploadPicture } from '../../../api/functions';
 
+const Img = styled('img')({
+  margin: 'auto',
+  display: 'block',
+  maxWidth: '100%',
+  maxHeight: '100%'
+});
 
-function EditUserProfile() {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [passwordAgain, setPasswordAgain] = useState('')
-    const [university, setUniversity] = useState('')
-    const [username, setUsername] = useState('')
-    const [image, setImage] = useState(null)
-
-    const handleValueChange = (event, setter) => {
-
-        if(typeof event == 'undefined'){
-            // event = currentUser
-        }
-        const value = event.target.value;
-
-        setter(value)
-    };
-
-    const { currentUser, setCurrentUser } = useUser()
-
-    function handleRegister(event) {
-        event.preventDefault()
-
-        if(password !== passwordAgain && typeof password !== 'undefined') {
-            //TODO: not matching indicator
-            return;
-        }
-        else if(typeof email == 'undefined'){
-            email = currentUser.email
-        }
-        else if(typeof password == 'undefined'){
-            password = currentUser.password
-        }
-        else if (typeof username == 'undefined'){
-            username = currentUser.username
-        }
-        else if (typeof university == 'undefined'){
-            university = currentUser.university            
-        }
-
-        edit(email, password, university, username, currentUser, setCurrentUser, image, currentUser._id)
-        console.log(email)
+const theme = createTheme({
+  palette: {
+    background: {
+      paper: '#ddbea9'
+    },
+    text: {
+      primary: '#173A5E',
+      secondary: '#46505A'
+    },
+    action: {
+      active: '#001E3C'
+    },
+    success: {
+      dark: '#009688'
     }
+  }
+});
 
-    const Input = styled('input')({
-        display: 'none',
+const commonStyles = {
+  bgcolor: 'background.paper',
+  m: 1,
+  borderColor: 'text.primary',
+  width: '20vw',
+  height: '20vh',
+  border: 1,
+//   borderRadius: 16
+};
+
+const EditUserProfile = () => {
+const { currentUser } = useUser()
+const [username, setUsername] = useState('')
+const [description, setDescription] = useState('')
+const [name, setName] = useState('')
+const [image, setImage] = useState(null)
+
+const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+const handleValueChange = (event, setter) => {
+    const value = event.target.value;
+
+    setter(value)
+};
+
+function photoHandler(event) {
+    setImage(event.target.files[0])
+}
+const Input = styled('input')({
+    display: 'none',
+});
+
+function handleSubmit(event) {
+    event.preventDefault()
+    const userUrl = '/api/users/'+currentUser._id
+    const passData = {};
+
+    if(name !== ''){
+        passData[name] = name
+    }
+    if(username !== ''){
+        passData['username'] = username
+        console.log(passData)
+    }
+    axios({
+      method: 'patch',
+      url: userUrl,
+      data: passData
+    }).then(response => {
+        if(image != null){
+            const url = `/api/user-photo/${response.data._id}`
+            uploadPicture(url, image)
+        }   
+        console.log(response.data)
+    }).catch(function (error) {
+      console.log(error)
     });
+}
+   
+  return (
 
-    function photoHandler(event) {
-        setImage(event.target.files[0])
-    }
+    <Grid
+      container
+      spacing={0}
+      direction='row'
+      alignItems='center'
+      justifyContent='center'
+      style={{ minHeight: '100vh' }}
+      padding='0px'
+      padding-left='0px'
+      style={{ minHeight: '100vh', minWidth: '100vw' }}
+      sx={{
+        borderRadius: '16px',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        background: 'linear-gradient(180deg, #C9D991 10%, #d0f0c0 51%, #F2F2F2 90%);'
+      }}
+    >
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-evenly"
+        alignItems="center"
+        component={Paper}
+        elevation={6}
+        borderRadius={16}
+        spacing={2}
+        sx={{p:5}}
+        maxWidth='55vw'
+      >
+        <Grid 
+        item
+        xs
+        >
+          <form>
+          <Grid container direction='column' alignItems='center' justifyItems='center'>
+            <TextField 
+            fullWidth
+            label='New Username'
+            variant="standard"
+            defaultValue="Default Value"
+            helperText="Enter new username above and click submit" 
+            right-padding='5px' 
+            margin='normal' 
+            placeholder='Write New Username' 
+            value={username} 
+            onChange={(event) => {handleValueChange(event, setUsername)}}
+            error={username !== "" && username.length < 5}
+            />
 
-    return (
-        <Grid
-            container
-            xs={4}
-            lg={4}
-            alignItems="center"
-            justifyContent="center"
-            style={{ minHeight: '100vh', minWidth: '100vw' }}>
-            <Grid container
-                direction="row"
-                alignItems="center"
-                component={Paper}
-                elevation={6}
-                borderRadius={16}
-                padding='0px'
-                xs={7}
-                mt='6vh'
-            >
-                {/* <Grid item xs={6} alignItems='flex-end' zIndex='800'> */}
-                {/* </Grid> */}
-                <Grid container
-                    direction="column"
-                    alignItems="center"
-                    justifyItems='center'
-                    justifyContent='center'
-                    component={Paper}
-                    elevation={6}
-                    variant='outlined'
-                    borderRadius={16}
-                    padding='0px'
-                    marginRight='1vw'
-                    // zIndex='1000'
-                    style={{
-                        maxHeight: '90vh', minWidth: '20vw', border: `3px solid ${green[200]}`,
-                        padding: '5vh'
-                    }}
-                    xs={7}>
-                    <Grid container direction='column' alignItems='center'>
-                        <Grid item xs={9}>
-                            <Typography component="h1" variant='h3' marginTop='2vh' fontFamily='revert' fontStyle='revert'>
-                                Edit Profile
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid item>
-                        <form>
-                            <Grid container direction='row' alignItems='center' justifyItems='center'>
-                                <Grid item xs={10.25}>
-                                    <TextField fullWidth label='Username' right-padding='5px' margin='normal' placeholder='Edit your username' value={username} onChange={(event) => {handleValueChange(event, setUsername)}} />
-                                </Grid>
-                                <Grid item><label htmlFor="icon-button-file" xs={1}>
-                                    <Input accept="image/*" id="icon-button-file" type="file" onChange={photoHandler}/>
-                                    <Tooltip title='Upload your profile picture'>
-                                        <IconButton color="green" component="span">
-                                            <PhotoCamera background='green' />
-                                        </IconButton>
-                                    </Tooltip>
-                                </label>
-                                </Grid>
-                            </Grid>
-                            <TextField fullWidth label='Email' margin='normal' placeholder='Type your new email' value={email} onChange={(event) => {
-                                if(typeof email !== 'undefined'){
-                                    handleValueChange(event, setEmail)
-                                }
-                               
-                                }}/>
-                            <TextField fullWidth label='University' margin='normal' placeholder='Edit your University' value={university} onChange={(event) => {handleValueChange(event, setUniversity)}}  />
-                            <TextField fullWidth label='Password' margin='normal' placeholder='Create a secure password' value={password} onChange={(event) => {handleValueChange(event, setPassword)}} />
-                            <TextField fullWidth label='Password' margin='normal' placeholder='Retype your password' value={passwordAgain} onChange={(event) => {handleValueChange(event, setPasswordAgain)}} />
-                        </form>
-                    </Grid>
-                    <Grid item padding='0'>
-                        <Button type='submit'
-                            variant="outline"
-                            sx={{ mt: 1, color: 'white', background: 'green' }}
-                            onClick={handleRegister}>
-                            Edit
-                        </Button>
-                    </Grid>
-                    <Grid item padding='0' sx={{ mt: 5, mb: 0 }}>
-                        <Link href="./dashboard" variant="body2" color="#1fc449">
-                            {"Return to dashboard without editing"}
-                        </Link>
-                    </Grid>
-                </Grid>
+            <TextField 
+            fullWidth
+            label='New Name'
+            variant="standard"
+            defaultValue="Default Value"
+            helperText="Enter new name above and click submit" 
+            right-padding='5px' 
+            margin='normal' 
+            placeholder='Write New Name' 
+            value={name} 
+            onChange={(event) => {handleValueChange(event, setName)}}
+            />
+
+            <Grid item>
+                <label htmlFor="icon-button-file" xs={1}>
+                <Input accept="image/*" id="icon-button-file" type="file" onChange={photoHandler}/>
+                
+                <Tooltip title='Upload your profile picture'>
+                <IconButton component="span">
+                <PhotoCamera />
+                </IconButton>
+                </Tooltip>
+                
+                </label>
             </Grid>
-        </Grid>)
+
+            </Grid>
+            </form>
+            </Grid>
+        <Grid 
+        item
+        xs
+        >
+          <Grid
+          container
+          direction="column"
+          justifyContent="space-evenly"
+          alignItems="center"
+          >
+          <Grid
+          item
+          >
+            <TextField 
+            fullWidth
+            label='New Description'
+            variant="outlined"
+            defaultValue="Default Value"
+            helperText="Enter new Description above and click submit" 
+            right-padding='5px' 
+            margin='normal' 
+            placeholder='Write New Username' 
+            value={description} 
+            onChange={(event) => {handleValueChange(event, setDescription)}}
+            />
+
+            <Box 
+            display='flex'
+            justifyContent='space-between'
+            sx={{pt:2}}
+            >
+                <Tooltip title='Return to Dashboard without saving'>
+              <Button
+                variant='contained'
+                component={Link}
+                to='/dashboard'
+                style={{ margin: 5 }}
+              >
+                Dashboard
+              </Button>
+              </Tooltip>
+
+              <div>
+                <Button 
+                variant='contained'
+                style={{ margin: 5 }}
+                type='submit'
+                onClick={handleClickOpen}>
+                    Save Changes
+                </Button>
+                <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                    {"Click Submit, then Logout to see your changes"}
+                    </DialogTitle>
+
+                    <DialogActions>
+                    <Button onClick={handleSubmit}>Submit</Button>
+                    </DialogActions>
+
+                </Dialog>
+                </div>
+
+              </Box>
+            </Grid>
+
+          </Grid>
+
+        </Grid>
+
+
+      </Grid>
+    
+    </Grid>
+    )
 }
 
 export default EditUserProfile
