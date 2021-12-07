@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useStyles from './styles';
 import CreateEventModal from '../../../components/Modals/createEventModal';
-import AddCourse from '../../../components/Modals/addCourseModal';
+import FriendListModal from '../../../components/Modals/FriendListModal';
 import AddFriend from '../../../components/Modals/addFriendModal';
 import AddTags from '../../../components/Modals/addTagsModal';
 import { Modal } from '@mui/material';
@@ -19,32 +19,41 @@ import {
   Box,
   Button
 } from '@material-ui/core';
-import Avatar from '@mui/material/Avatar';
-import Event from './Event';
-import { events } from '../../../constant/Events';
 
 import FavoriteOutlined from '@material-ui/icons/FavoriteOutlined';
 import PersonIcon from '@material-ui/icons/Person';
 import { Link } from 'react-router-dom';
+import Event from '../../Timeline/Event';
 import { useUser } from '../../../Contexts/UserContext';
 
 const Dashboard = () => {
-  const { currentUser } = useUser()
-
   const [openEvent, setOpenEvent] = React.useState(false);
   const [tags, setTags] = React.useState([]);
   const [categoryList, setCategories] = React.useState([]);
   const [events, setEvents] = useState([]);
+  const { currentUser } = useUser();
+  const [friends, setFriends] = useState([]);
+
+  const [openFriendsList, setOpenFriendsList] = React.useState(false);
+
+  const [openTags, setOpenTags] = React.useState(false);
+
+  const [openFriend, setOpenFriend] = React.useState(false);
+  const handleOpenFriend = () => setOpenFriend(true);
+
+  const handleCloseEvent = () => setOpenEvent(false);
+  const handleCloseFriendsList = () => setOpenFriendsList(false);
+  const handleCloseTags = () => setOpenTags(false);
+  const handleCloseFriend = () => setOpenFriend(false);
 
   useEffect(async () => {
-    setEvents([]);
+    const eventList = []
     const getEvent = (eventId) => {
       axios
         .get(`/api/events/${eventId}`)
         .then((res) => {
           console.log('res.data: ', res.data);
-          events.push(res.data);
-          setEvents(events);
+          eventList.push(res.data);
         })
         .catch((error) => {
           console.log(error);
@@ -53,6 +62,25 @@ const Dashboard = () => {
     currentUser.attendingEvents.map((event) => {
       getEvent(event);
     });
+    setEvents(eventList)
+
+    const friendsList = [];
+    const getFriend = (friendId) => {
+      axios
+        .get(`/api/users/${friendId}`)
+        .then((res) => {
+          console.log('res.data: ', res.data);
+          friendsList.push(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    currentUser.friends.map((friend) => {
+      getFriend(friend);
+    });
+    setFriends(friendsList)
+
   }, []);
 
   const handleOpenEvent = () => {
@@ -92,18 +120,13 @@ const Dashboard = () => {
       });
   };
 
-  const [openCourse, setOpenCourse] = React.useState(false);
-  const handleOpenCourse = () => setOpenCourse(true);
+  const handleOpenFriendsList = () => {
+    setOpenFriendsList(true)
+  };
 
-  const [openTags, setOpenTags] = React.useState(false);
 
-  const [openFriend, setOpenFriend] = React.useState(false);
-  const handleOpenFriend = () => setOpenFriend(true);
 
-  const handleCloseEvent = () => setOpenEvent(false);
-  const handleCloseCourse = () => setOpenCourse(false);
-  const handleCloseTags = () => setOpenTags(false);
-  const handleCloseFriend = () => setOpenFriend(false);
+  
 
   const classes = useStyles();
   return (
@@ -112,38 +135,37 @@ const Dashboard = () => {
         <Grid container justify='space-between' alignItems='stretch' spacing={0}>
           <Grid item xs={12} sm={3}>
             <Card className={classes.card}>
-
-            <Avatar alt='Friend' sx={{ width: 150, height: 150 }}
-            src = {currentUser.profilePhoto}>
-            </Avatar>
-              {/* <CardMedia
+              <CardMedia
                 component='img'
                 height='150'
-                image=
-              /> */}
+                image='https://cdn.allthings.how/wp-content/uploads/2020/10/allthings.how-how-to-change-your-profile-picture-on-google-meet-profile-photo-759x427.png'
+              />
               <CardContent style={{ padding: 0, marginTop: 5 }}>
                 <Typography variant='h5' component='div'>
-                  {currentUser.username}
+                  Mona Lisa
                 </Typography>
                 <Grid className={classes.icons}>
                   <Grid container direction='row' alignItems='center' style={{ marginRight: 10 }}>
-                    <Typography>Friends: </Typography>
+                    <FavoriteOutlined fontSize='large' />
+                    <Typography>10</Typography>
                   </Grid>
                   <Grid container direction='row' alignItems='center'>
                     <Grid item>
                       <PersonIcon fontSize='large' />
                     </Grid>
                     <Grid item>
-                      <Typography>
-                        {currentUser.friends.length}
-                      </Typography>
+                      <Typography>10</Typography>
                     </Grid>
                   </Grid>
                 </Grid>
               </CardContent>
               <CardActions justifyContent='center' className={classes.action}>
-                <Button size='large' variant='contained' style={{ backgroundColor: '#099441', color: 'white' }}
-                href='/EditUserProfile'>
+                <Button
+                  size='large'
+                  variant='contained'
+                  style={{ backgroundColor: '#099441', color: 'white' }}
+                  href='/Profile'
+                >
                   Edit Profile
                 </Button>
               </CardActions>
@@ -226,15 +248,15 @@ const Dashboard = () => {
               </Grid>
               <Grid item xs={12} sm={4}>
                 <Button
-                  onClick={handleOpenCourse}
+                  onClick={handleOpenFriendsList}
                   variant='outlined'
                   className={classes.button}
                   fullWidth
                 >
-                  <Typography>Add a Course</Typography>
+                  <Typography>Friends List</Typography>
                 </Button>
-                <Modal open={openCourse} onClose={handleCloseCourse}>
-                  <AddCourse handleClose={handleCloseCourse} />
+                <Modal open={openFriendsList} onClose={handleCloseFriendsList}>
+                  <FriendListModal handleClose={handleCloseFriendsList} friends={friends} />
                 </Modal>
               </Grid>
               <Grid item xs={12} sm={4}>
