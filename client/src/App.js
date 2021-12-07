@@ -70,6 +70,18 @@ function App() {
     setSelectedTags(obj1)
   }, [])
 
+  useEffect(async () => {
+    const tempTags = await getAllTags()
+    const tempTagsArr = []
+    tempTags.forEach(tag => {
+      tempTagsArr.push(tag.name)
+    })
+    //console.log(tempTagsArr)
+    setTags(tempTagsArr)
+  }, [currentUser])
+
+
+
   return (
     <ThemeProvider theme={theme}>
       <div className='App'>
