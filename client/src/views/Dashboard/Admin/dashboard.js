@@ -77,12 +77,20 @@ const Dashboard = () => {
 
 
   return (
-    <Container maxWidth='md' sx={{ mt: 12 }}>
+    <Container 
+    maxWidth='md' 
+    sx={{
+      mt:'120px', 
+      borderRadius: '16px',
+      minHeight: '50vh',
+      backgroundPosition: 'center',
+      background: 'linear-gradient(180deg, #C9D991 10%, #d0f0c0 51%, #F2F2F2 90%);'
+    }}>
       <Grid container justify='space-between' spacing={3} mt={0}>
         <Grid item container xs={12} sm={7} spacing={3}>
           <Grid item container spacing={3} textAlign='center'>
             <Grid item xs={12} sm={5}>
-              <Paper style={{ padding: '15' }}>
+              {/* <Paper style={{ padding: '15' }}> */}
                 <Avatar alt='Friend' sx={{ width: 190, height: 190 }}
                 src = {currentUser.profilePhoto}>
                 </Avatar>
@@ -97,15 +105,15 @@ const Dashboard = () => {
                   {currentUser.username}
                 </Typography>
 
-                <Button fullWidth variant='contained' style={{ backgroundColor: '#099441' }} size='medium'
+                <Button fullWidth variant='contained' style={{ backgroundColor: '#C9D991' }} size='medium' sx={{mt:'15px'}}
                   href='/editUserProfile'>
                   Edit Profile
                 </Button>
-              </Paper>
+              {/* </Paper> */}
             </Grid>
             <Grid item xs={12} sm={7}>
               <Paper style={{ height: '100%' }}>
-                <Typography variant='h5' pt={2} pb={2} color='#099441'>
+                <Typography variant='h5' pt={2} pb={2} color='#4B592D'>
                   {/* Statistics will be taken from the database and displayed. Currently, these are only placeholders. */}
                   STATS
                 </Typography>
@@ -114,11 +122,13 @@ const Dashboard = () => {
               </Paper>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={12} textAlign='center'>
+          <Grid item xs={20} sm={40} 
+          textAlign='center'
+          >
             {/* <Paper style={{ height: '100%' }}> */}
             <Button fullWidth
               onClick={handleOpen}
-              style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }}
+              style={{ color: '#4B592D', height: '60%', width: '25%', backgroundColor: '#C9D991', margin: '10px' }}
               // sx={{p:'10'}} 
               variant='contained'
             >
@@ -135,7 +145,7 @@ const Dashboard = () => {
 
             <Button fullWidth
               onClick={handleOpenTags}
-              style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }}
+              style={{ color: '#4B592D', height: '60%', width: '30%', backgroundColor: '#C9D991', margin: '10px' }}
               variant='contained'
             >
               Delete Tags
@@ -152,7 +162,7 @@ const Dashboard = () => {
 
             <Button fullWidth
               onClick={handleOpenUser}
-              style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }}
+              style={{ color: '#4B592D', height: '60%', width: '25%', backgroundColor: '#C9D991', margin: '10px' }}
               variant='contained'
             >
               Find User
@@ -171,7 +181,7 @@ const Dashboard = () => {
         </Grid>
         <Grid item xs={12} sm={5} style={{ textAlign: 'center', alignitems: 'center' }}>
           <Paper style={{ height: '400px' }}>
-            <Typography variant='h5' pt={2} color='#099441'>
+            <Typography variant='h5' pt={2} color='#4B592D'>
               REPORT FEED
             </Typography>
             {/* these reports will be taken from the database and displayed. Currently these are hardcoded in */}
