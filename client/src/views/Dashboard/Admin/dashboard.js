@@ -174,8 +174,6 @@ const Dashboard = () => {
               <DeleteUser handleClose={handleCloseUser} users={users}/>
             </Modal>
 
-
-
             {/* </Paper> */}
           </Grid>
         </Grid>
