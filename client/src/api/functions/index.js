@@ -76,6 +76,7 @@ export const checkSession = async (setCurrentUser) => {
   })).data
 
   setCurrentUser(response)
+  return response
 }
 
 export const updateUserTags = async (selectedTags) => {

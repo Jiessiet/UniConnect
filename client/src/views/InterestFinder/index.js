@@ -38,9 +38,9 @@ const InterestFinder = () => {
     allTags.forEach(tag => {obj1[tag.name] = false})
     setSelectedTags(obj1)
 
-    await checkSession(setCurrentUser)
+    const tempUser = await checkSession(setCurrentUser)
     allTags.forEach(tag => {
-      if(currentUser.tags.includes(tag._id)){
+      if(tempUser.tags.includes(tag._id)){
         setSelectedTags(prevState => ({
           ...prevState,
           [tag.name]: true
