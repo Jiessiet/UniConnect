@@ -27,9 +27,10 @@ function Modal({ handleClose, tags}) {
     const [eventName, setEventName] = useState('')
     const [eventDesc, setEventDesc] = useState('')
     const [eventDate, setEventDate] = useState('')
-    const [eventStart, setEventStart] = useState('')
-    const [eventEnd, setEventEnd] = useState('')
-    const [eventTags, setEventTags] = useState()
+    const [eventLocation, setEventLocation] = useState('')
+    // const [eventStart, setEventStart] = useState('')
+    // const [eventEnd, setEventEnd] = useState('')
+    const [eventTags, setEventTags] = useState([])
     const [eventAttendees, setEventAttendees] = useState('')
     const [image, setImage] = useState(null)
     
@@ -68,14 +69,16 @@ function Modal({ handleClose, tags}) {
     }
 
     const handleClick = (event) => {
-        if (eventName !== '' && eventDesc !== '' && eventDate !== '' && eventStart !== '') {
+        if (eventName !== '' && eventDesc !== '' && eventDate !== '') {
             axios({
                 method: 'post',
                 url: '/api/events',
                 data: {
                     name: eventName,
                     description: eventDesc,
-                    attendeeLimit: eventAttendees
+                    attendeeLimit: eventAttendees,
+                    date: eventDate,
+                    location: eventLocation
                 }
                 }).then(response => {
                     console.log(response)
@@ -84,15 +87,18 @@ function Modal({ handleClose, tags}) {
                         uploadPicture(url, image)
                     }
                     console.log(eventTags)
+                    if (eventTags != null) {
                     addTagtoEvent(response.data._id)
+                    }
                         setEventName('')
                         setEventDesc('')
                         setEventDate('')
-                        setEventStart('')
-                        setEventEnd('')
+                        setEventLocation('')
+                        // setEventStart('')
+                        // setEventEnd('')
                         setEventTags([])
                         setEventAttendees('')
-                        setOpen(true);
+                        setOpen(true)
                     
                 }).catch(function (error) {
                     console.log(error)
@@ -190,7 +196,7 @@ function Modal({ handleClose, tags}) {
                         <TextField
                             fullWidth
                             label='Date'
-                            type='date'
+                            type='datetime-local'
                             margin='normal'
                             required='true'
                             InputLabelProps=
@@ -200,7 +206,21 @@ function Modal({ handleClose, tags}) {
                             onChange={(event)=>handleChange(event, setEventDate)}
 
                         />
-                        <Grid container direction='row' alignItems='center'>
+                        <TextField
+                            fullWidth
+                            label='Location'
+                            margin='normal'
+                            InputLabelProps=
+                            {{
+                                maxLength: 70 
+                            }}
+                            placeholder='Where will your event take place'
+                            value={eventLocation}
+                            onChange={(event)=>handleChange(event, setEventLocation)}
+
+                        />
+                        {/* Commented Out time for now */}
+                        {/* <Grid container direction='row' alignItems='center'>
                             <Grid item xs>
                                 <TextField
                                     fullWidth
@@ -229,8 +249,8 @@ function Modal({ handleClose, tags}) {
                                     value={eventEnd}
                                     onChange={(event)=>handleChange(event, setEventEnd)}
                                 />
-                            </Grid>
-                        </Grid>
+                            </Grid> */}
+                        {/* </Grid> */}
                         <Grid container direction='row-reverse' alignItems='center' justifyItems='center'>
                             <Grid item xs={12}>
                                 <Autocomplete
@@ -243,6 +263,7 @@ function Modal({ handleClose, tags}) {
                                             {...params}
                                             label="Tags"
                                             placeholder="Add all related tags"
+                                            margin = 'normal'
                                         />
                                     )}
                                 />
