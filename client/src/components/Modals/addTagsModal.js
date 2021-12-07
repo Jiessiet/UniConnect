@@ -5,30 +5,54 @@ import { green } from '@mui/material/colors';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
-
+import { useUser } from "../../Contexts/UserContext";
+import axios from '../../api';
 
 function Modal({ handleClose }) {
+    const { setCurrentUser } = useUser()
+
+    const [tag, setTag] = useState('')
+
+    const handleTagChange = event => {
+        const value = event.target.value;
+        setTag(value)
+    };
+
     const [open, setOpen] = React.useState(false);
-    const handleClick = () => {
-        if (true) {
-            addTag();
-            setOpen(true);
-            window.setTimeout(function () {
-                window.location.reload()
-            }, 2000)
+    const [openSnackbar, setOpenSnackbar] = React.useState(false);
+
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpen(false);
+        setOpenSnackbar(false)
+      };
+
+    const handleClick = (event) => {
+        event.preventDefault()
+        if(tag != '') {
+            axios({
+                method: 'post',
+                url: '/api/tag',
+                data: {
+                    name: tag                
+                }
+              }).then(response => {
+                console.log(response)
+                setTag('')
+                setOpen(true);
+            }).catch(function (error) {
+              console.log(error);
+            })
         } else {
-            // return a negative snackbar
+            setOpenSnackbar(true)
         }
     };
 
     const Input = styled('input')({
         display: 'none',
     });
-
-    function addTag() {
-        //here we will be adding to the database with the new tag information
-        return null
-    }
 
 
     return (
@@ -87,7 +111,9 @@ function Modal({ handleClose }) {
                     </Grid>
                 </Grid>
                 <Grid item align='center' xs={12}>
-                    <TextField fullWidth margin='normal' label="New Tag Name" placeholder='ex. gaming, movies' type="search" />
+                    <form onSubmit={handleClick}>
+                        <TextField fullWidth margin='normal' label="New Tag Name" placeholder='ex. gaming, movies' type="search" value={tag} onChange={handleTagChange}/>
+                    </form>
                 </Grid>
                 <Grid item padding='0'>
                     <Button
@@ -103,12 +129,21 @@ function Modal({ handleClose }) {
             <div>
                 <Snackbar
                     open={open}
-                    autoHideDuration={1000}
+                    autoHideDuration={2000}
+                    onClose={handleCloseSnackbar}
                 >
                     <Alert severity='success'> Tag Created </Alert>
                 </Snackbar>
             </div>
-            {/* </Grid> */}
+            <div>
+                    <Snackbar
+                        open={openSnackbar}
+                        autoHideDuration={2000}
+                        onClose={handleCloseSnackbar}
+                    >
+                        <Alert severity='error'> Tag Not Created </Alert>
+                    </Snackbar>
+                </div>
         </Grid>)
 }
 export default Modal

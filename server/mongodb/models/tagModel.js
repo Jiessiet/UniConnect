@@ -13,7 +13,7 @@ const TagSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        required: false,
+        required: true,
     }
 })
 
