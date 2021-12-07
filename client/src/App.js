@@ -11,7 +11,7 @@ import Events from './views/Timeline/Events';
 import EventDetails from './views/Event/EventDetails'
 
 import AccountSetup from './views/AccountSetup/AccountSetup';
-import AddFriend from './views/AddFriend/AddFriend';
+import userDetails from './views/AddFriend/AddFriend';
 import AnimatedBg from './views/Home/Components/AnimatedBg';
 import InterestFinder from './views/InterestFinder';
 import { useUser } from "./Contexts/UserContext";
@@ -73,7 +73,7 @@ function App() {
               <Route path="/upcoming-events" exact component={UpcomingEvents} />
               <Route path="/AccountSetup" exact component={AccountSetup} />
               <Route path="/dashboard" exact component={DashboardRouter} />
-              <Route path="/AddFriend" exact component={AddFriend} />
+              <Route path="/userDetails" exact component={userDetails} />
               <Route path="/AnimatedBg" exact component={AnimatedBg} />
               <Route path="/interestFinder" exact component={InterestFinder} />
               <Route path="/ResetPassword" exact component={ResetPassword} />

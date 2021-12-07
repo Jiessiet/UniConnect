@@ -111,8 +111,12 @@ router.get("/api/users/:id", authenticate, (req, res) => {
 })
 
 // get by username
-router.get("/api/users/username/:username", authenticate, (req, res) => {
-    User.findOne({username: req.params.username}).then((user) => {
+router.get("/api/users/find/by/username", authenticate, (req, res) => {
+    const username = req.query.username
+    console.log(req.query)
+    console.log('slpli')
+    console.log(username)
+    User.findOne({username: username}).then((user) => {
         res.send(user)
     }).catch((error) => {
         console.log(error)

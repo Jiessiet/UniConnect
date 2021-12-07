@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { useEffect, useState, React } from 'react';
 import { styled } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -65,15 +65,15 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 const AddFriend = () => {
-  // const location = useLocation();
-  // const friend = location.state.user;
-  const [currentUser, setCurrentUser] = useState({});
-
+  const location = useLocation();
+  const friend = location.state.user.newFriend;
+  // const [currentUser, setCurrentUser] = useState({});
+  // const friendID = friend
   // useEffect(async () => {
   //   axios
   //     .get('/api/users', {
   //       params: {
-  //         id: creatorId
+  //         id: Id
   //       }
   //     })
   //     .then((res) => {

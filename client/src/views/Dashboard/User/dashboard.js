@@ -163,7 +163,7 @@ const Dashboard = () => {
               </Grid>
               <Grid item xs={12} sm={4}>
                 <Button onClick={handleOpenFriend} variant='outlined' className={classes.button} fullWidth>
-                  <Typography>Add Friend</Typography>
+                  <Typography>Find Friend</Typography>
                 </Button>
                 <Modal
                   open={openFriend}
