@@ -88,3 +88,10 @@ export const updateUserTags = async (selectedTags) => {
 
   return response
 }
+
+export const getStats = async () => {
+  return (await axios({
+    method: 'get',
+    url: '/api/admin/stats',
+  })).data
+}

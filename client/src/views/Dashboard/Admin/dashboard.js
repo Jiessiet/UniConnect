@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from '../../../api';
 
 import Grid from '@mui/material/Grid';
@@ -18,20 +18,28 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 import AddTags from '../../../components/Modals/addTagsModal'
 import DeleteTags from '../../../components/Modals/deleteTagModal'
 import DeleteUser from '../../../components/Modals/deleteUserModal'
+import { getStats } from "../../../api/functions"
 
 const Dashboard = () => {
   //   classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [openTags, setOpenTags] = React.useState(false);
-  const [openUser, setOpenUser] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [openTags, setOpenTags] = useState(false);
+  const [openUser, setOpenUser] = useState(false);
   
   const handleClose = () => setOpen(false);
   const handleCloseTags = () => setOpenTags(false);
   const handleCloseUser = () => setOpenUser(false);
 
-  const [tags, setTags] = React.useState([])
-  const [users, setUsers] = React.useState([])
-  const [categoryList, setCategories] = React.useState([])
+  const [tags, setTags] = useState([])
+  const [users, setUsers] = useState([])
+  const [categoryList, setCategories] = useState([])
+
+  const [stats, setStats] = useState({})
+
+  useEffect(async () => {
+    const res = await getStats()
+    setStats(res)
+  }, []);
 
   const handleOpen = () => {
     axios({
@@ -39,7 +47,7 @@ const Dashboard = () => {
       url: '/api/tag',
     }).then(response => {
         setTags(response.data)
-        setOpen(true)
+        setOpenTags(true)
     }).catch(function (error) {
       console.log(error)
     })}
@@ -55,7 +63,7 @@ const Dashboard = () => {
           arr.push(element.name) 
         })
         setCategories(arr)
-        setOpenTags(true)
+        setOpen(true)
     }).catch(function (error) {
       console.log(error)
     })}
@@ -97,15 +105,36 @@ const Dashboard = () => {
                   {/* Statistics will be taken from the database and displayed. Currently, these are only placeholders. */}
                   STATS
                 </Typography>
-                <EqualizerIcon style={{ fontSize: 200 }} />
-                <KeyboardArrowDownOutlinedIcon />
+                <Typography variant='p' pt={2} pb={2} color='#099441'>
+                  {/* Statistics will be taken from the database and displayed. Currently, these are only placeholders. */}
+                  Total user number: {stats.userNumber}
+                </Typography>
+                <br/>
+                <br/>
+                <Typography variant='p' pt={2} pb={2} color='#099441'>
+                  {/* Statistics will be taken from the database and displayed. Currently, these are only placeholders. */}
+                  Total event number: {stats.eventNumber}
+                </Typography>
+                <br/>
+                <br/>
+                <Typography variant='p' pt={2} pb={2} color='#099441'>
+                  {/* Statistics will be taken from the database and displayed. Currently, these are only placeholders. */}
+                  Total tag number: {stats.tagNumber}
+                </Typography>
+                <br/>
+                <br/>
+                <Typography variant='p' pt={2} pb={2} color='#099441'>
+                  {/* Statistics will be taken from the database and displayed. Currently, these are only placeholders. */}
+                  Total report number: 23
+                </Typography>
+                {/* <KeyboardArrowDownOutlinedIcon /> */}
               </Paper>
             </Grid>
           </Grid>
           <Grid item xs={12} sm={12} textAlign='center'>
             {/* <Paper style={{ height: '100%' }}> */}
             <Button fullWidth
-              onClick={handleOpen}
+              onClick={handleOpenTags}
               style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }}
               // sx={{p:'10'}} 
               variant='contained'
@@ -122,7 +151,7 @@ const Dashboard = () => {
 
 
             <Button fullWidth
-              onClick={handleOpenTags}
+              onClick={handleOpen}
               style={{ color: '#099441', height: '100%', backgroundColor: '#eff5eb', marginBottom: '10px' }}
               variant='contained'
             >

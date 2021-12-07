@@ -7,6 +7,7 @@ const cors = require("cors");
 const eventRouter = require("./routes/event-routes");
 const userRouter = require("./routes/user-routes");
 const tagRouter = require("./routes/tag-routes");
+const adminRouter = require("./routes/admin-routes")
 const session = require("express-session");
 const MongoStore = require('connect-mongo') 
 
@@ -40,5 +41,6 @@ app.use(
 app.use("/", userRouter)
 app.use("/", eventRouter)
 app.use("/", tagRouter)
+app.use("/", adminRouter)
 
 module.exports = app;
