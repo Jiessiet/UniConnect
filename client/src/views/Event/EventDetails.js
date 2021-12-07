@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { styled } from '@mui/material/styles';
 import {
   CardMedia,
   CardContent,
@@ -24,14 +23,34 @@ const EventDetails = () => {
   const history = useHistory();
   const location = useLocation();
   const { currentUser } = useUser();
-  const event = location.state.event.event;
+  const [event, setEvent] = useState(location.state.event.event);
   const creatorId = event.creator;
-  const attendees = [];
+  const [attendees, setAttendees] = useState([]);
+  const [tags, setTags] = useState([]);
+  const [attend, setAttend] = useState(false);
+  const [complete, setComplete] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   useEffect(async () => {
+    setTags([]);
+    const getTag = (tagId) => {
+      const getTagUrl = `/api/tag/${tagId}`;
+      return axios
+        .get(getTagUrl)
+        .then((res) => {
+          tags.push({ name: res.data.name });
+          setTags(tags);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    event.tags.map((tag) => {
+      getTag(tag);
+    });
+
     const getCreatorUrl = `/api/users/${creatorId}`;
     const getCreator = () => {
       return axios
@@ -39,44 +58,113 @@ const EventDetails = () => {
         .then((res) => {
           console.log('res.data: ', res.data);
           setCreator(res.data);
-          console.log('creator: ', creator);
         })
         .catch((error) => {
           console.log(error);
         });
     };
+    getCreator();
+  }, []);
+
+  useEffect(async () => {
+    setAttendees([]);
     const getAttendee = (attendeeId) => {
       const getAttendeeUrl = `/api/users/${attendeeId}`;
       return axios
         .get(getAttendeeUrl)
         .then((res) => {
           attendees.push({ name: res.data.name, photo: res.data.photo });
+          setAttendees(attendees);
         })
         .catch((error) => {
           console.log(error);
         });
     };
-    getCreator(getCreatorUrl);
     event.attendees.map((attendee) => {
       getAttendee(attendee);
     });
-  }, []);
+  }, [event]);
+
+  const handleAttend = () => {
+    const attendUrl = `/api/events/attend/${event._id}`;
+    axios({
+      method: 'patch',
+      url: attendUrl
+    })
+      .then((response) => {
+        console.log('add attendees: ', response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    const addEventUrl = `/api/users/addEvent/${event._id}`;
+    axios({
+      method: 'patch',
+      url: addEventUrl
+    })
+      .then((response) => {
+        console.log('add events: ', response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    const getEventUrl = `/api/events/${event._id}`;
+    const getEvent = () => {
+      return axios
+        .get(getEventUrl)
+        .then((res) => {
+          console.log('res.data: ', res.data);
+          setEvent(res.data);
+          console.log(event);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    getEvent();
+    setAttend(true);
+  };
 
   const checkAttending = () => {
-    let result = false;
-
     try {
-      currentUser.attendingEvents.forEach((attendingEvent) => {
-        if (attendingEvent === event._id) {
-          result = true;
-        }
-      });
+      if (currentUser._id === creatorId) {
+        setAttend(true);
+      } else {
+        currentUser.attendingEvents.forEach((attendingEvent) => {
+          if (attendingEvent == event._id) {
+            setAttend(true);
+          }
+        });
+      }
     } catch {
       history.push('/login');
     }
-
-    return result;
   };
+
+  const handleComplete = () => {
+    setComplete(!complete);
+    console.log(complete)
+    const editEventUrl = `/api/events/${event._id}`;
+    axios({
+      method: 'patch',
+      url: editEventUrl,
+      data: {
+        completed: complete
+      }
+    })
+      .then((response) => {
+        console.log('completed: ', response.data.completed);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(async () => {
+    checkAttending();
+  });
 
   return (
     <Grid container alignItems='center' justifyContent='center' spacing={8} pt={15} direction='row'>
@@ -90,6 +178,13 @@ const EventDetails = () => {
             <Typography mt={1} variant='h3'>
               {event.name}
             </Typography>
+            <Grid container mt={1} spacing={1}>
+              {tags.map((tag) => (
+                <Grid item>
+                  <Button variant='outlined'>{tag.name}</Button>
+                </Grid>
+              ))}
+            </Grid>
             <Typography mt={1} variant='h5'>
               {event.location}
             </Typography>
@@ -121,15 +216,16 @@ const EventDetails = () => {
             <Typography variant='h6' mb={1}>
               Attendees
             </Typography>
+            {console.log(attendees)}
             <AvatarGroup total={event.attendees.length} max={5}>
               {event.attendees.length == 0 ? (
                 <Typography>No attendees yet. Be the first one!</Typography>
               ) : (
-                event.attendees.map((attendees) => {
+                event.attendees.map((attendee) => (
                   <Avatar>
                     <PersonIcon />
-                  </Avatar>;
-                })
+                  </Avatar>
+                ))
               )}
             </AvatarGroup>
           </Paper>
@@ -146,84 +242,36 @@ const EventDetails = () => {
               <Typography mb={2} variant='h6' component='h2'>
                 Attendees
               </Typography>
-              <Grid container spacing={3} style={{width:"400px"}}>
-                {event.attendees.map((attendee) => {
-                  <Grid item>
+              <Grid container spacing={3} style={{ width: '400px' }}>
+                {attendees.map((attendee) => (
+                  <Grid item display='flex' flexDirection='column' alignItems='center'>
                     <Avatar {...(attendee.photo && `src=${attendee.photo}`)}>
-                      {attendee.photo === '' && <PersonIcon />}
+                      {!attendee.photo && <PersonIcon />}
                     </Avatar>
-                    <Typography>avatar</Typography>
-                  </Grid>;
-                })}
-                <Grid item alignItems='center'>
-                  <Avatar size='large'>
-                    <PersonIcon />
-                  </Avatar>
-                  <Typography mb={2}>dsadasas dsdsadad</Typography>
-                </Grid>
-                <Grid item>
-                  <Avatar>
-                    <PersonIcon />
-                  </Avatar>
-                </Grid>
-                <Grid item>
-                  <Avatar>
-                    <PersonIcon />
-                  </Avatar>
-                </Grid>
-                <Grid item>
-                  <Avatar>
-                    <PersonIcon />
-                  </Avatar>
-                </Grid>
-                <Grid item>
-                  <Avatar>
-                    <PersonIcon />
-                  </Avatar>
-                </Grid>
-                <Grid item>
-                  <Avatar>
-                    <PersonIcon />
-                  </Avatar>
-                </Grid>
-                <Grid item>
-                  <Avatar>
-                    <PersonIcon />
-                  </Avatar>
-                </Grid>
-                <Grid item>
-                  <Avatar>
-                    <PersonIcon />
-                  </Avatar>
-                </Grid>
-
-                <Grid item>
-                  <Avatar>
-                    <PersonIcon />
-                  </Avatar>
-                </Grid>
-                <Grid item>
-                  <Avatar>
-                    <PersonIcon />
-                  </Avatar>
-                </Grid>
-                <Grid item>
-                  <Avatar>
-                    <PersonIcon />
-                  </Avatar>
-                </Grid>
-
+                    <Typography>{attendee.name}</Typography>
+                  </Grid>
+                ))}
               </Grid>
             </Box>
           </Modal>
         </Grid>
         <Grid item>
-          {checkAttending() ? (
+          {currentUser._id === creatorId || currentUser.userType ? (
+            complete ? (
+              <Button variant='outlined' onClick={handleComplete} fullWidth size='large'>
+                completed
+              </Button>
+            ) : (
+              <Button variant='contained' onClick={handleComplete} fullWidth size='large'>
+                complete
+              </Button>
+            )
+          ) : attend ? (
             <Button variant='contained' fullWidth size='large' disabled='true'>
               Attending
             </Button>
           ) : (
-            <Button variant='contained' fullWidth size='large'>
+            <Button onClick={handleAttend} variant='contained' fullWidth size='large'>
               Attend
             </Button>
           )}
