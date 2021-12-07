@@ -1,5 +1,6 @@
 import React from "react";
 import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
+import { TextField, Autocomplete } from "@mui/material";
 import { Link } from "react-router-dom";
 import useStyles from "./styles";
 import { green } from "@mui/material/colors";
@@ -13,14 +14,36 @@ import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import NavbarMenu from "./NavbarMenu";
 
-const Navbar = () => {
+const Navbar = ({tags, selectedTags, setSelectedTags}) => {
   const [drop, setDrop] = useState(false);
-
 
   const handleDrop = (e) => {
     console.log("hello");
     setDrop(!drop);
   };
+
+  const autocompleteValue = () => {
+    const arr = []
+    for (const property in selectedTags) {
+      if (selectedTags[property]) arr.push(property)
+    }
+    return arr  
+  }
+
+  const handleTagChange = (event, value) => {
+    setSelectedTags(prevState => {
+      const temp = {}
+      for (const property in prevState) {
+        if(value.includes(property)){
+          temp[property] = true
+        }
+        else{
+          temp[property] = false
+        }
+      }
+      return temp
+    });
+  }
 
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -68,10 +91,14 @@ const Navbar = () => {
     },
   }));
 
+  const StyledButton = styled(Button)(({ theme }) => ({
+    maxHeight: "50px"
+  }))
+
   const classes = useStyles();
   return (
     <AppBar elevation={0} className={classes.appbar} position="fixed">
-      <Stack direction="row" spacing={1}>
+      <Stack direction="row" spacing={1} alignItems="center">
         <div>
           <Link to="/">
             <img
@@ -82,27 +109,33 @@ const Navbar = () => {
           </Link>
         </div>
         <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          {/* <DropIconWrapper>
-            <IconButton
-              color="primary"
-              aria-label="upload picture"
-              component="span"
-              onClick={handleDrop}
-            >
-              <ArrowBackIosIcon />
-            </IconButton>
-          </DropIconWrapper> */}
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
+        <Autocomplete
+            multiple
+            fullWidth
+            sx={{ width: "40vw" }}
+            options={tags}
+            getOptionLabel={(option) => option}
+            value={autocompleteValue()}
+            onChange={handleTagChange}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Find Events!"
+                placeholder="Add all related tags"
+              />
+            )}
           />
         </Search>
-        {/* <Typography variant='h5' component={Link} to='/' className={classes.logo}>
-          UniConnect
-        </Typography> */}
+        <Link to={{
+          pathname : "/timeline",
+          state : {
+            fromSearch: true
+          }
+          }} style={{ textDecoration: 'none' }}>
+        <StyledButton variant="contained" startIcon={<SearchIcon />} >
+          Search
+        </StyledButton>
+        </Link>
       </Stack>
       <NavbarMenu />
     </AppBar>

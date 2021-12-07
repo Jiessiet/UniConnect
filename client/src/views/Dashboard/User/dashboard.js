@@ -29,6 +29,8 @@ import { Link } from 'react-router-dom';
 const Dashboard = () => {
   const [openEvent, setOpenEvent] = React.useState(false);
   const [tags, setTags] = React.useState([])
+  const [categoryList, setCategories] = React.useState([])
+
 
   const handleOpenEvent = () => {
     axios({
@@ -46,11 +48,25 @@ const Dashboard = () => {
       console.log(error)
     })}
 
+    const handleOpenTags = () => {
+      axios({
+        method: 'get',
+        url: '/api/categories',
+      }).then(response => {
+          const arr = []
+          response.data.forEach(element => {
+            arr.push(element.name) 
+          })
+          setCategories(arr)
+          setOpenTags(true)
+      }).catch(function (error) {
+        console.log(error)
+      })}
+
   const [openCourse, setOpenCourse] = React.useState(false);
   const handleOpenCourse = () => setOpenCourse(true);
 
   const [openTags, setOpenTags] = React.useState(false);
-  const handleOpenTags = () => setOpenTags(true);
 
   const [openFriend, setOpenFriend] = React.useState(false);
   const handleOpenFriend = () => setOpenFriend(true);
@@ -112,7 +128,7 @@ const Dashboard = () => {
                     open={openTags}
                     onClose={handleCloseTags}
                   >
-                    <AddTags handleClose={handleCloseTags} />
+                    <AddTags handleClose={handleCloseTags} categories={categoryList} />
                   </Modal>
                 </Paper>
               </Grid>
@@ -157,7 +173,7 @@ const Dashboard = () => {
               </Grid>
               <Grid item xs={12} sm={4}>
                 <Button onClick={handleOpenFriend} variant='outlined' className={classes.button} fullWidth>
-                  <Typography>Add Friend</Typography>
+                  <Typography>Find Friend</Typography>
                 </Button>
                 <Modal
                   open={openFriend}
