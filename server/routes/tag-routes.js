@@ -81,6 +81,20 @@ router.delete('/api/tag/:id', authenticate, (req, res) => {
 
 })
 
+router.post('/api/category', authenticate, async (req, res) => {
+	try {
+		const category = new Category({
+			name: req.body.name,
+		})
+
+		const result = await category.save()
+		res.status(200).send(result)
+	} 
+	catch(e){
+		res.status(400).send("Bad Request")
+	}
+})
+
 //get all tags from one category
 router.get('/api/tag/category/:category', authenticate, (req, res) => {
 	
@@ -100,5 +114,7 @@ router.get('/api/categories', authenticate, (req, res) => {
 		res.status(500).send(error)
 	})
 })
+
+
 
 module.exports = router;
