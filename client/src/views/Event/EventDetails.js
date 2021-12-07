@@ -89,7 +89,7 @@ const EventDetails = () => {
 
   const handleAttend = () => {
     if (event.attendeeLimit === event.attendees.length) {
-        return setShowAlert(true)
+      return setShowAlert(true);
     }
     const attendUrl = `/api/events/attend/${event._id}`;
     axios({
@@ -150,7 +150,7 @@ const EventDetails = () => {
 
   const handleComplete = () => {
     setComplete(!complete);
-    console.log(complete)
+    console.log(complete);
     const editEventUrl = `/api/events/${event._id}`;
     axios({
       method: 'patch',
@@ -169,7 +169,7 @@ const EventDetails = () => {
 
   useEffect(async () => {
     checkAttending();
-    console.log(attend)
+    console.log(attend);
   });
 
   return (
@@ -208,7 +208,9 @@ const EventDetails = () => {
         </Grid>
         <Grid item>
           <Paper
-            component={currentUser && (currentUser.userType || currentUser._id) === creatorId && Button}
+            component={
+              currentUser && (currentUser.userType || currentUser._id) === creatorId && Button
+            }
             fullWidth
             textAlign='center'
             style={{
@@ -218,7 +220,9 @@ const EventDetails = () => {
               flexDirection: 'column',
               textTransform: 'none'
             }}
-            onClick={currentUser && (currentUser.userType || currentUser._id) === creatorId && handleOpen}
+            onClick={
+              currentUser && (currentUser.userType || currentUser._id) === creatorId && handleOpen
+            }
           >
             <Typography variant='h6' mb={1}>
               Attendees
@@ -283,7 +287,11 @@ const EventDetails = () => {
           )}
         </Grid>
         <Grid item>
-            {showAlert && (<Alert onClose={() => setShowAlert(false)} severity="error">Sorry, this event is full</Alert>)}
+          {showAlert && (
+            <Alert onClose={() => setShowAlert(false)} severity='error'>
+              Sorry, this event is full
+            </Alert>
+          )}
         </Grid>
       </Grid>
     </Grid>
