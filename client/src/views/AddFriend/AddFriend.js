@@ -62,21 +62,45 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
 }));
 
-
 const AddFriend = () => {
   const location = useLocation();
   const friend = location.state.user.newFriend;
   const { currentUser } = useUser()
-  // const [friends, setFriends] = useState('')
 
-  const handleValueChange = (event, setter) => {
-    const value = event.target.value;
+function setText(friendly) {
 
-    setter(value)
-};
+  if(currentUser != null){
 
-function handleFindFriend(event) {
-  event.preventDefault()
+    if(currentUser.friends.includes(friend._id)){
+      friendly = 'delete friend'
+    }
+    else if (currentUser.type){
+      friendly = 'delete user'
+    }
+    else{
+      friendly = 'add friend'
+    }
+  }
+  return friendly
+
+}
+
+function handleFindFriend() {
+  // event.preventDefault()
+  window.location.reload();
+  if(currentUser.friends.includes(friend._id)){
+    console.log('delete')
+    const friendUrl = '/api/users/friend/'+friend._id
+  axios({
+    method: 'delete',
+    url: friendUrl
+  }).then(response => {
+      console.log(response.data)
+  }).catch(function (error) {
+    console.log(error)
+  });
+  }
+  else{
   const friendUrl = '/api/users/addFriend/'+friend._id
   axios({
     method: 'patch',
@@ -86,6 +110,7 @@ function handleFindFriend(event) {
   }).catch(function (error) {
     console.log(error)
   });
+}
 }
 
   const [tags, setTags] = useState([])  
@@ -107,7 +132,6 @@ function handleFindFriend(event) {
         arr.push(tag.name)
       }
     })
-    console.log(arr+'help')
     return arr;
   }  
 
@@ -185,7 +209,7 @@ function handleFindFriend(event) {
         item
         >
         <Box 
-        sx={{ ...commonStyles, border: 1, borderRadius: '16px', flexGrow: 1}}
+        sx={{ ...commonStyles, border: 0, borderRadius: '16px', flexGrow: 1}}
         >
           <Typography
             paragraph
@@ -212,37 +236,57 @@ function handleFindFriend(event) {
               <Button variant='outlined'>
                 
                 <Typography sx={{ cursor: 'pointer' }}>
-                  {/* {currentUser.tags.name} */}
                   {tag}
-
-                  {tag.name}
                 </Typography>
               </Button>
             </Grid>
             ))}
           </Grid>
 
-          {/* <Grid
+          <Grid
         container
-        direction='row'> */}
+        direction='row'
+        justifyContent="space-evenly"
+        >
 
           <Box 
-          // display='center'
+          display='center'
           alignItems="center"
           justifyContent='space-between'
           sx={{pt:2}}
           >
-            <Button component={Link} to='/Profile' color="secondary"
-              onClick={handleFindFriend}>
+            <Button 
+            color="secondary"
+            id='friendly'
+            onClick={ () => {handleFindFriend();}}
+            >
               <Item>
                 <Typography variant="button" component="div" gutterBottom
-                  sx={{ cursor: 'pointer' }}>
-                  Add as Friend
+                value='help'
+                sx={{ cursor: 'pointer' }}
+                >
+                  {setText()}
+                </Typography>
+              </Item>
+            </Button>
+            
+            <Button 
+            color="secondary"
+            id='friendly'
+            // onClick={ () => {handleFindFriend();}}
+            >
+              <Item>
+                <Typography variant="button" component="div" gutterBottom
+                value='help'
+                sx={{ cursor: 'pointer' }}
+                >
+                  Report
                 </Typography>
               </Item>
             </Button>
 
             </Box>
+            </Grid>
           </Grid>
 
         </Grid>

@@ -113,9 +113,6 @@ router.get("/api/users/:id", authenticate, (req, res) => {
 // get by username
 router.get("/api/users/find/by/username", authenticate, (req, res) => {
     const username = req.query.username
-    console.log(req.query)
-    console.log('slpli')
-    console.log(username)
     User.findOne({username: username}).then((user) => {
         res.send(user)
     }).catch((error) => {
@@ -266,6 +263,32 @@ router.post('/api/user-photo/:userId', authenticate, upload.single('file'), asyn
         fs.unlinkSync(req.file.path)
         res.status(400).send("Bad Input")
     }
+})
+
+
+// delete friend
+router.delete('/api/users/friend/:id', authenticate, (req, res) => {
+    
+    User.findOne({_id: req.params.id}).then((friend) => {
+        if(req.user._id != req.params.id) {
+            const index = req.user.friends.indexOf(friend._id);
+            console.log(index)
+            console.log(friend)
+            if (index > -1) {
+            req.user.friends.splice(index, 1);
+            }
+        req.user.save().then((user) => {
+            res.send(user.friends)
+        }).catch((error) => {
+			res.status(500).send('Save failed')
+		})
+    } else {
+        res.status(404).send('Bad Request: User cannot friend themselves')
+    }
+    }).catch((error) => {
+        res.status(500).send('Cannot find User')
+    })
+   
 })
 
 
