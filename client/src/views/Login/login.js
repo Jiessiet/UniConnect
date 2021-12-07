@@ -8,6 +8,10 @@ import { login } from "../../api/functions"
 import { Snackbar } from "@mui/material";
 import { Alert } from "@mui/material";
 import axios from "../../api";
+import { InputAdornment } from "@mui/material";
+import { IconButton } from "@mui/material";
+import { Visibility } from "@material-ui/icons";
+import { VisibilityOff } from "@material-ui/icons";
 
 const Login = () => {
     const { setCurrentUser } = useUser()
@@ -15,6 +19,9 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const handleClickShowPassword = () => setShowPassword(!showPassword);
+    const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
     const handleCloseSnackbar = (event, reason) => {
         if (reason === 'clickaway') {
@@ -128,12 +135,26 @@ const Login = () => {
                         <TextField
                             fullWidth
                             label='Password'
+                            type={showPassword ? "text" : "password"}
                             marginBottom='normal'
                             placeholder='Enter Password'
                             error={isFormInvalid}
                             helperText={isFormInvalid && 'Incorrect Password or Does Not Match Email'}
                             value={password}
-                            onChange={handlePasswordChange} />
+                            onChange={handlePasswordChange}
+                            InputProps={{ 
+                                endAdornment: (
+                                  <InputAdornment position="end">
+                                    <IconButton
+                                      aria-label="toggle password visibility"
+                                      onClick={handleClickShowPassword}
+                                      onMouseDown={handleMouseDownPassword}
+                                    >
+                                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                  </InputAdornment>
+                                )
+                              }} />
                     </form>
                     <Grid
                         alignItems='center'

@@ -53,10 +53,6 @@ function Signup() {
         validatePassword()
         validateEmail()
         validatePasswordMatch()
-        console.log(passwordMatchValidate + ' not matching')
-        console.log(emailValidate + ' email')
-        console.log(usernameValidate + ' username')
-        console.log(passwordValidate + ' just password')
     };
 
     const validatePasswordMatch = () => {
@@ -68,7 +64,7 @@ function Signup() {
     };
 
     const validateEmail = () => {
-        if (email.length < 5) {
+        if (!email.includes('@') || !email.includes('.')) {
             setEmailValidate(true)
         } else {
             setEmailValidate(false)
@@ -96,7 +92,6 @@ function Signup() {
         event.preventDefault()
         validateForm()
         if (isFormInvalid) {
-            console.log(isFormInvalid + 'before signingup')
             signup(email, password, university, username, setCurrentUser, image, setOpenSnackbar)
         }
         else {
