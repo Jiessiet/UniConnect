@@ -40,8 +40,11 @@ const Dashboard = () => {
         .get(`/api/events/${eventId}`)
         .then((res) => {
           console.log('res.data: ', res.data);
+          console.log(res.data)
+          if(res.data) {
           events.push(res.data);
           setEvents(events);
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -249,9 +252,8 @@ const Dashboard = () => {
             </Grid>
           </Grid>
           <Box mt={3}>
-            <Typography variant='h6'>Upcoming Events...</Typography>
-            {/* These events will be taken from the user's event list from the database. 
-          Currently these are hardcoded in */}
+          {events.length === 0 ? (<Typography variant='h6'>No Upcoming Events</Typography>) : (
+            <Typography variant='h6'>Upcoming Events...</Typography>)}
           </Box>
           <Grid
             justifyContent='center'
@@ -260,15 +262,15 @@ const Dashboard = () => {
             }}
           >
               <Grid container spacing={3} mt={12}>
-                {events.map((event) => {
-                  event.description = ''
-                  if (!event.completed)
-                    return (
-                      <Grid item xs={12} sm={6} style={{marginBottom: 20, marginTop: 10}}>
-                        <Event event={event} />
-                      </Grid>
-                    );
-                })}
+                  {events.length !== 0 && (events.map((event) => {
+                    event.description = ''
+                    if (!event.completed)
+                      return (
+                        <Grid item xs={12} sm={6} style={{marginBottom: 20, marginTop: 10}}>
+                          <Event event={event} />
+                        </Grid>
+                      );
+                }))}
               </Grid>
           </Grid>
         </Grid>
