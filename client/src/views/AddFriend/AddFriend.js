@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -61,6 +61,24 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 const AddFriend = () => {
+  const location = useLocation();
+  const friend = location.state.user.friend;
+  const [currentUser, setCurrentUser] = useState({});
+
+  // useEffect(async () => {
+  //   axios
+  //     .get('/api/users', {
+  //       params: {
+  //         id: creatorId
+  //       }
+  //     })
+  //     .then((res) => {
+  //       setCurrentUser(res.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   const handleFindFriend = event => {
     // finds friend from database and adds it to user's friend list
