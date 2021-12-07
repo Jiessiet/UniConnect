@@ -1,8 +1,8 @@
 import { Card, CardContent, Typography, Container } from "@mui/material";
 import { useState } from "react";
 
-const InterestTagCard = ({ title }) => {
-  const [selected, setSelected] = useState(false);
+const InterestTagCard = ({ title, selected, onClick }) => {
+  //const [selected, setSelected] = useState(false);
   return (
     <Card
       sx={{
@@ -14,10 +14,8 @@ const InterestTagCard = ({ title }) => {
           ? { borderColor: "#74A651" }
           : null),
       }}
-      onClick={() => {
-        console.log("hello")
-        setSelected(!selected);
-      }}
+      onClick={onClick}
+      value={title}
     >
       <CardContent>
         <Typography variant="h5" component="div" align="center">

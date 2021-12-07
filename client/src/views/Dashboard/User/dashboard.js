@@ -5,6 +5,7 @@ import AddCourse from '../../../components/Modals/addCourseModal';
 import AddFriend from '../../../components/Modals/addFriendModal';
 import AddTags from '../../../components/Modals/addTagsModal';
 import { Modal } from '@mui/material'
+import axios from '../../../api';
 import {
   Grow,
   Grid,
@@ -26,14 +27,29 @@ import PersonIcon from '@material-ui/icons/Person';
 import { Link } from 'react-router-dom';
 
 import { useUser } from './../../../Contexts/UserContext'
-import axios from '../../../api';
 import { useState, useEffect } from 'react';
 
 const Dashboard = () => {
   const { currentUser } = useUser()
 
   const [openEvent, setOpenEvent] = React.useState(false);
-  const handleOpenEvent = () => setOpenEvent(true);
+  const [tags, setTags] = React.useState([])
+
+  const handleOpenEvent = () => {
+    axios({
+      method: 'get',
+      url: '/api/tag',
+    }).then(response => {
+      const arr = []
+        response.data.forEach(element => {
+          arr.push(element.name) 
+        })
+        console.log(arr)
+        setTags(response.data)
+        setOpenEvent(true)
+    }).catch(function (error) {
+      console.log(error)
+    })}
 
   const [openCourse, setOpenCourse] = React.useState(false);
   const handleOpenCourse = () => setOpenCourse(true);
@@ -43,6 +59,7 @@ const Dashboard = () => {
 
   const [openFriend, setOpenFriend] = React.useState(false);
   const handleOpenFriend = () => setOpenFriend(true);
+  
 
   const handleCloseEvent = () => setOpenEvent(false);
   const handleCloseCourse = () => setOpenCourse(false);
@@ -114,7 +131,7 @@ const Dashboard = () => {
                     open={openEvent}
                     onClose={handleCloseEvent}
                   >
-                    <CreateEventModal handleClose={handleCloseEvent} />
+                    <CreateEventModal handleClose={handleCloseEvent} tags={tags}/>
                   </Modal>
                 </Paper>
               </Grid>
