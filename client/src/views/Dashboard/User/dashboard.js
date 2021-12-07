@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import useStyles from './styles';
-import CreateEventModal from '../../../components/Modals/createEventModal'
+import CreateEventModal from '../../../components/Modals/createEventModal';
 import AddCourse from '../../../components/Modals/addCourseModal';
 import AddFriend from '../../../components/Modals/addFriendModal';
 import AddTags from '../../../components/Modals/addTagsModal';
-import { Modal } from '@mui/material'
+import { Modal } from '@mui/material';
 import axios from '../../../api';
 import {
   Grow,
@@ -19,49 +19,75 @@ import {
   Box,
   Button
 } from '@material-ui/core';
-import Event from './Event';
-import { events } from '../../../constant/Events';
 
 import FavoriteOutlined from '@material-ui/icons/FavoriteOutlined';
 import PersonIcon from '@material-ui/icons/Person';
 import { Link } from 'react-router-dom';
+import Event from '../../Timeline/Event';
+import { useUser } from '../../../Contexts/UserContext';
 
 const Dashboard = () => {
   const [openEvent, setOpenEvent] = React.useState(false);
-  const [tags, setTags] = React.useState([])
-  const [categoryList, setCategories] = React.useState([])
+  const [tags, setTags] = React.useState([]);
+  const [categoryList, setCategories] = React.useState([]);
+  const [events, setEvents] = useState([]);
+  const { currentUser } = useUser();
 
+  useEffect(async () => {
+    setEvents([]);
+    const getEvent = (eventId) => {
+      axios
+        .get(`/api/events/${eventId}`)
+        .then((res) => {
+          console.log('res.data: ', res.data);
+          events.push(res.data);
+          setEvents(events);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    currentUser.attendingEvents.map((event) => {
+      getEvent(event);
+    });
+  }, []);
 
   const handleOpenEvent = () => {
     axios({
       method: 'get',
-      url: '/api/tag',
-    }).then(response => {
-      const arr = []
-        response.data.forEach(element => {
-          arr.push(element.name) 
-        })
-        console.log(arr)
-        setTags(response.data)
-        setOpenEvent(true)
-    }).catch(function (error) {
-      console.log(error)
-    })}
+      url: '/api/tag'
+    })
+      .then((response) => {
+        const arr = [];
+        response.data.forEach((element) => {
+          arr.push(element.name);
+        });
+        console.log(arr);
+        setTags(response.data);
+        setOpenEvent(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
-    const handleOpenTags = () => {
-      axios({
-        method: 'get',
-        url: '/api/categories',
-      }).then(response => {
-          const arr = []
-          response.data.forEach(element => {
-            arr.push(element.name) 
-          })
-          setCategories(arr)
-          setOpenTags(true)
-      }).catch(function (error) {
-        console.log(error)
-      })}
+  const handleOpenTags = () => {
+    axios({
+      method: 'get',
+      url: '/api/categories'
+    })
+      .then((response) => {
+        const arr = [];
+        response.data.forEach((element) => {
+          arr.push(element.name);
+        });
+        setCategories(arr);
+        setOpenTags(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   const [openCourse, setOpenCourse] = React.useState(false);
   const handleOpenCourse = () => setOpenCourse(true);
@@ -70,7 +96,6 @@ const Dashboard = () => {
 
   const [openFriend, setOpenFriend] = React.useState(false);
   const handleOpenFriend = () => setOpenFriend(true);
-  
 
   const handleCloseEvent = () => setOpenEvent(false);
   const handleCloseCourse = () => setOpenCourse(false);
@@ -82,7 +107,7 @@ const Dashboard = () => {
     <Grow in>
       <Container className={classes.container} maxWidth='md'>
         <Grid container justify='space-between' alignItems='stretch' spacing={0}>
-          <Grid item xs={12} sm={3} >
+          <Grid item xs={12} sm={3}>
             <Card className={classes.card}>
               <CardMedia
                 component='img'
@@ -109,8 +134,12 @@ const Dashboard = () => {
                 </Grid>
               </CardContent>
               <CardActions justifyContent='center' className={classes.action}>
-                <Button size='large' variant='contained' style={{ backgroundColor: '#099441', color: 'white' }}
-                href='/Profile'>
+                <Button
+                  size='large'
+                  variant='contained'
+                  style={{ backgroundColor: '#099441', color: 'white' }}
+                  href='/Profile'
+                >
                   Edit Profile
                 </Button>
               </CardActions>
@@ -121,64 +150,99 @@ const Dashboard = () => {
             <Grid item container className={classes.cards} spacing={3}>
               <Grid item xs={12} sm={4}>
                 <Paper style={{ height: 220 }}>
-                  <Button fullWidth onClick={handleOpenTags} style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
+                  <Button
+                    fullWidth
+                    onClick={handleOpenTags}
+                    style={{
+                      fontSize: 15,
+                      color: '#099441',
+                      height: '100%',
+                      backgroundColor: '#eff5eb'
+                    }}
+                    variant='contained'
+                  >
                     Add tags
                   </Button>
-                  <Modal
-                    open={openTags}
-                    onClose={handleCloseTags}
-                  >
+                  <Modal open={openTags} onClose={handleCloseTags}>
                     <AddTags handleClose={handleCloseTags} categories={categoryList} />
                   </Modal>
                 </Paper>
               </Grid>
               <Grid item xs={12} sm={4}>
                 <Paper style={{ height: '100%' }}>
-                  <Button fullWidth onClick={handleOpenEvent} style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
+                  <Button
+                    fullWidth
+                    onClick={handleOpenEvent}
+                    style={{
+                      fontSize: 15,
+                      color: '#099441',
+                      height: '100%',
+                      backgroundColor: '#eff5eb'
+                    }}
+                    variant='contained'
+                  >
                     Create Events
                   </Button>
-                  <Modal
-                    open={openEvent}
-                    onClose={handleCloseEvent}
-                  >
-                    <CreateEventModal handleClose={handleCloseEvent} tags={tags}/>
+                  <Modal open={openEvent} onClose={handleCloseEvent}>
+                    <CreateEventModal handleClose={handleCloseEvent} tags={tags} />
                   </Modal>
                 </Paper>
               </Grid>
               <Grid item xs={12} sm={4}>
                 <Paper style={{ height: '100%' }}>
-                  <Button component={Link} to="/past-events" fullWidth style={{ fontSize: 15, color: '#099441', height: '100%', backgroundColor: '#eff5eb' }} variant='contained'>
+                  <Button
+                    component={Link}
+                    to='/past-events'
+                    fullWidth
+                    style={{
+                      fontSize: 15,
+                      color: '#099441',
+                      height: '100%',
+                      backgroundColor: '#eff5eb'
+                    }}
+                    variant='contained'
+                  >
                     Past Events
                   </Button>
                 </Paper>
               </Grid>
             </Grid>
 
-            <Grid item container className={classes.buttons} spacing={3} >
+            <Grid item container className={classes.buttons} spacing={3}>
               <Grid item xs={12} sm={4}>
-                <Button variant='outlined' className={classes.button} component={Link} to="/interestFinder" fullWidth>
+                <Button
+                  variant='outlined'
+                  className={classes.button}
+                  component={Link}
+                  to='/interestFinder'
+                  fullWidth
+                >
                   <Typography>Edit Interests</Typography>
                 </Button>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <Button onClick={handleOpenCourse} variant='outlined' className={classes.button} fullWidth>
+                <Button
+                  onClick={handleOpenCourse}
+                  variant='outlined'
+                  className={classes.button}
+                  fullWidth
+                >
                   <Typography>Add a Course</Typography>
                 </Button>
-                <Modal
-                  open={openCourse}
-                  onClose={handleCloseCourse}
-                >
+                <Modal open={openCourse} onClose={handleCloseCourse}>
                   <AddCourse handleClose={handleCloseCourse} />
                 </Modal>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <Button onClick={handleOpenFriend} variant='outlined' className={classes.button} fullWidth>
+                <Button
+                  onClick={handleOpenFriend}
+                  variant='outlined'
+                  className={classes.button}
+                  fullWidth
+                >
                   <Typography>Find Friend</Typography>
                 </Button>
-                <Modal
-                  open={openFriend}
-                  onClose={handleCloseFriend}
-                >
+                <Modal open={openFriend} onClose={handleCloseFriend}>
                   <AddFriend handleClose={handleCloseFriend} />
                 </Modal>
               </Grid>
@@ -189,15 +253,23 @@ const Dashboard = () => {
             {/* These events will be taken from the user's event list from the database. 
           Currently these are hardcoded in */}
           </Box>
-          <Grid item container xs={12} sm={12} className={classes.events}>
-            <Grid item container className={classes.cards} spacing={3}>
-              <Grid item xs={12} sm={6} >
-                <Event key={events[0].id} {...events[0]} />
+          <Grid
+            justifyContent='center'
+            sx={{
+              paddingBottom: 5,
+            }}
+          >
+              <Grid container spacing={3} mt={12}>
+                {events.map((event) => {
+                  event.description = ''
+                  if (!event.completed)
+                    return (
+                      <Grid item xs={12} sm={6} style={{marginBottom: 20, marginTop: 10}}>
+                        <Event event={event} />
+                      </Grid>
+                    );
+                })}
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <Event key={events[1].id} {...events[1]} />
-              </Grid>
-            </Grid>
           </Grid>
         </Grid>
       </Container>
@@ -206,6 +278,5 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
 
 //testing
