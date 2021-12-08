@@ -55,7 +55,6 @@ const Dashboard = () => {
           console.log('res.data: ', res.data);
           if(res.data) {
           eventList.push(res.data);
-          setEvents(events);
           }
         })
         .catch((error) => {
