@@ -213,9 +213,9 @@ const EventDetails = () => {
         </Grid>
         <Grid item>
           <Paper
-            component={
-              currentUser && (currentUser.userType || currentUser._id === creatorId) && Button
-            }
+            // component={
+            //   currentUser && (currentUser.userType || currentUser._id === creatorId) && Button
+            // }
             fullWidth
             textAlign='center'
             style={{
@@ -225,9 +225,9 @@ const EventDetails = () => {
               flexDirection: 'column',
               textTransform: 'none'
             }}
-            onClick={
-              currentUser && (currentUser.userType || currentUser._id === creatorId) && handleOpen
-            }
+            // onClick={
+            //   currentUser && (currentUser.userType || currentUser._id === creatorId) && handleOpen
+            // }
           >
             <Typography variant='h6' mb={1}>
               Attendees
@@ -244,7 +244,7 @@ const EventDetails = () => {
               )}
             </AvatarGroup>
           </Paper>
-          <Modal open={open} onClose={handleClose}>
+          {/* <Modal open={open} onClose={handleClose}>
             <Box
               position='absolute'
               top='50%'
@@ -268,7 +268,7 @@ const EventDetails = () => {
                 ))}
               </Grid>
             </Box>
-          </Modal>
+          </Modal> */}
         </Grid>
         <Grid item>
           {currentUser._id === creatorId || currentUser.userType ? (
