@@ -110,10 +110,11 @@ const Navbar = ({tags, selectedTags, setSelectedTags}) => {
         </div>
         <Search>
         <Autocomplete
-            multiple
+            multiline
             limitTags={3}
             fullWidth
-            sx={{ width: "40vw"}}
+            sx={{ width: "40vw", 
+            }}
             options={tags}
             getOptionLabel={(option) => option}
             value={autocompleteValue()}

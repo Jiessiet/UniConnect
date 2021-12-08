@@ -136,7 +136,8 @@ const Dashboard = () => {
       <Container className={classes.container} maxWidth='md'>
         <Grid container justify='space-between' alignItems='stretch' spacing={0}>
           <Grid item xs={12} sm={3}>
-            <Card className={classes.card}>
+            <Card className={classes.card}
+            sx={{backgroundColor:'#C9D991'}}>
             <Avatar alt='Friend' sx={{ width: 150, height: 150 }}
             src = {currentUser.profilePhoto}>
             </Avatar>
