@@ -9,14 +9,13 @@ const UpcomingEvents = () => {
   const { currentUser } = useUser();
 
   useEffect(async () => {
-    setEvents([])
+    const eventList = []
     const getEvent = (eventId) => {
       axios
         .get(`/api/events/${eventId}`)
         .then((res) => {
           console.log('res.data: ', res.data);
-          events.push(res.data);
-          setEvents(events);
+          eventList.push(res.data);
         })
         .catch((error) => {
           console.log(error);
@@ -25,6 +24,8 @@ const UpcomingEvents = () => {
     currentUser.attendingEvents.map((event) => {
       getEvent(event);
     });
+
+    setEvents(eventList)
   }, []);
   return (
     <Grid

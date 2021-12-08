@@ -18,6 +18,7 @@ import { useHistory } from 'react-router';
 import { Link, useLocation } from 'react-router-dom';
 import { useUser } from '../../Contexts/UserContext';
 import axios from '../../api';
+import { Events } from 'react-scroll';
 
 const EventDetails = () => {
   const [open, setOpen] = useState(false);
@@ -70,8 +71,7 @@ const EventDetails = () => {
     getCreator();
   }, []);
 
-  useEffect(async () => {
-    const attendeeList = [];
+  const handleAttendees = ((attendeeList) => {
     const getAttendee = (attendeeId) => {
       const getAttendeeUrl = `/api/users/${attendeeId}`;
       return axios
@@ -87,7 +87,7 @@ const EventDetails = () => {
       getAttendee(attendee);
     });
     setAttendees(attendeeList);
-  }, [event]);
+  });
 
   const handleAttend = () => {
     if (event.attendeeLimit === event.attendees.length) {
@@ -132,6 +132,7 @@ const EventDetails = () => {
     };
     getEvent();
     setAttend(true);
+    handleAttendees([{name: currentUser.name, photo: currentUser.photo}]);
   };
 
   const checkAttending = () => {
@@ -171,7 +172,7 @@ const EventDetails = () => {
 
   useEffect(async () => {
     checkAttending();
-    console.log(attend);
+    handleAttendees([]);
   });
 
   return (

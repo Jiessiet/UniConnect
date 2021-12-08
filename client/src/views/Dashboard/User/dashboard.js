@@ -288,6 +288,7 @@ const Dashboard = () => {
               <Grid container spacing={3} mt={12}>
                   {events.length !== 0 && (events.map((event) => {
                     event.description = ''
+                    console.log(event)
                     if (!event.completed)
                       return (
                         <Grid item xs={12} sm={6} style={{marginBottom: 20, marginTop: 10}}>

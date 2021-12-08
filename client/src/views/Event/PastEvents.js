@@ -8,15 +8,16 @@ const PastEvents = () => {
   const [events, setEvents] = useState([]);
   const { currentUser } = useUser();
 
-  useEffect(async () => {
-    setEvents([])
+  useEffect(() => {
+    const eventList = [];
     const getEvent = (eventId) => {
       axios
         .get(`/api/events/${eventId}`)
         .then((res) => {
           console.log('res.data: ', res.data);
-          events.push(res.data);
-          setEvents(events);
+          if (res.data.completed) {
+            eventList.push(res.data);
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -25,6 +26,8 @@ const PastEvents = () => {
     currentUser.attendingEvents.map((event) => {
       getEvent(event);
     });
+
+    setEvents(eventList);
   }, []);
   return (
     <Grid
@@ -38,14 +41,11 @@ const PastEvents = () => {
     >
       <Container>
         <Grid container spacing={3} mt={12}>
-          {events.map((event) => {
-            if (event.completed)
-              return (
-                <Grid item xs={12} sm={6}>
-                  <Event event={event} />
-                </Grid>
-              );
-          })}
+          {events.map((event) => (
+            <Grid item xs={12} sm={6}>
+              <Event event={event} />
+            </Grid>
+          ))}
         </Grid>
       </Container>
     </Grid>

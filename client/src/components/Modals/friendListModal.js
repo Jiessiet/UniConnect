@@ -21,15 +21,18 @@ const FriendListModal = ({ handleClose, friends }) => {
           Friends
         </Typography>
         <Grid container spacing={3} style={{ width: '400px' }}>
-            {console.log("print this", friends)}
-          {friends.map((friend) => (
+            {friends.length !== 0 ? friends.map((friend) => (
             <Grid item display='flex' flexDirection='column' alignItems='center'>
               <Avatar {...(friend.photo && `src=${friend.photo}`)}>
                 {!friend.photo && <PersonIcon />}
               </Avatar>
               <Typography>{friend.name}</Typography>
             </Grid>
-          ))}
+          )) : (
+              <Grid item>
+              <Typography>No friends yet</Typography>
+              </Grid>
+          )}
         </Grid>
       </Box>
     </Modal>
