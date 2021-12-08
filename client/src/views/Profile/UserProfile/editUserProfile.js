@@ -126,6 +126,7 @@ function handleSubmit(event) {
         background: 'linear-gradient(180deg, #C9D991 10%, #d0f0c0 51%, #F2F2F2 90%);'
       }}
     >
+        
       <Grid
         container
         direction="row"
@@ -138,12 +139,16 @@ function handleSubmit(event) {
         sx={{p:5}}
         maxWidth='55vw'
       >
+        
         <Grid 
         item
         xs
         >
           <form>
           <Grid container direction='column' alignItems='center' justifyItems='center'>
+          <Typography 
+          variant='h3'
+          >Edit Profile</Typography>
             <TextField 
             fullWidth
             label='New Username'
@@ -202,6 +207,8 @@ function handleSubmit(event) {
           >
             <TextField 
             fullWidth
+            multiline='true'
+            row={4}
             label='New Description'
             variant="outlined"
             defaultValue="Default Value"
