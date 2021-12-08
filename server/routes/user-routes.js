@@ -1,6 +1,7 @@
 const express = require("express");
 const { User } = require("../mongodb/models/userModel");
 const {Event} = require("../mongodb/models/eventModel")
+const { Report } = require("../mongodb/models/reportModel")
 const mongoChecker = require("../middleware/mongoChecker");
 const authenticate = require("../middleware/authmiddleware");
 const { Tag } = require("../mongodb/models/tagModel");
@@ -73,18 +74,17 @@ router.post('/api/users', mongoChecker, async (req, res) => {
     }
 })
 
-router.get("/users/check-session", (req, res) => {
-    // if (process.env.NODE_ENV !== 'production' && USE_TEST_USER) { // test user on development environment.
-    //     req.session.user = TEST_USER_ID;
-    //     req.session.email = TEST_USER_EMAIL;
-    //     res.send({ currentUser: TEST_USER_EMAIL })
-    //     return;
-    // }
-
-    if (req.session.user) {
-        res.send(req.session.user);
-    } else {
-        res.status(401).send();
+router.get("/users/check-session", async (req, res) => {
+    try {
+        if (req.session.user) {
+            req.session.user = (await User.findById(req.session.user))._doc
+            res.send(req.session.user);
+        } else {
+            res.status(401).send();
+        }
+    } catch (e) {
+        console.log(e)
+        res.status(500).send('Internal Error')
     }
 });
 
@@ -112,8 +112,9 @@ router.get("/api/users/:id", authenticate, (req, res) => {
 })
 
 // get by username
-router.get("/api/users/username/:username", authenticate, (req, res) => {
-    User.findOne({username: req.params.username}).then((user) => {
+router.get("/api/users/find/by/username", authenticate, (req, res) => {
+    const username = req.query.username
+    User.findOne({username: username}).then((user) => {
         res.send(user)
     }).catch((error) => {
         console.log(error)
@@ -154,17 +155,33 @@ router.patch("/api/users/addEvent/:id", authenticate, (req, res) => {
     })
 
 
-router.patch("/api/users/addTag/:id", authenticate, (req, res) => {
-    Tag.findOne({_id: req.params.id}).then((event) => {
-        req.user.tags.push(event)
-        req.user.save().then((user) => {
-            res.send(req.user.tags)
-        }).catch((error) => {
-            res.status(500).send('Save failed')
-        })
-    }).catch((error) => {
-        res.status(500).send('Cannot Find Tag')
-    })
+router.patch("/api/users/addTag", authenticate, async (req, res) => {
+    try {
+        req.user.tags.splice(0, req.user.tags.length)
+        await req.user.save()    
+        for (const property in req.body) {
+            if(req.body[property]) {
+                const tag = await Tag.findOne({name: property}).exec()
+                req.user.tags.push(tag)
+            }
+        }
+        await req.user.save()
+        res.send(req.user.tags)
+    } catch (e) {
+        console.log(e)
+        res.status(500).send('Save failed')
+    }
+
+    // Tag.findOne({name: req.body.name}).then((event) => {
+    //     req.user.tags.push(event)
+    //     req.user.save().then((user) => {
+    //         res.send(req.user.tags)
+    //     }).catch((error) => {
+    //         res.status(500).send('Save failed')
+    //     })
+    // }).catch((error) => {
+    //     res.status(500).send('Cannot Find Tag')
+    // })
 })
 
 // get user's friends
@@ -214,7 +231,7 @@ router.delete('/api/users/:id', authenticate, (req, res) => {
    
 })
 
-router.post('/api/user-photo/:userId', authenticate, upload.single('file'), async (req, res) => {
+router.post('/api/user-report/:userId', authenticate, upload.single('file'), async (req, res) => {
     try {
         const user = await User.findById(req.params.userId).exec()
         if(!user) { 
@@ -249,5 +266,51 @@ router.post('/api/user-photo/:userId', authenticate, upload.single('file'), asyn
     }
 })
 
+
+// delete friend
+router.delete('/api/users/friend/:id', authenticate, (req, res) => {
+    
+    User.findOne({_id: req.params.id}).then((friend) => {
+        if(req.user._id != req.params.id) {
+            const index = req.user.friends.indexOf(friend._id);
+            console.log(index)
+            console.log(friend)
+            if (index > -1) {
+            req.user.friends.splice(index, 1);
+            }
+        req.user.save().then((user) => {
+            res.send(user.friends)
+        }).catch((error) => {
+			res.status(500).send('Save failed')
+		})
+    } else {
+        res.status(404).send('Bad Request: User cannot friend themselves')
+    }
+    }).catch((error) => {
+        res.status(500).send('Cannot find User')
+    })
+   
+})
+
+router.post('/api/user-report', authenticate, async (req, res) => {
+    try {
+        const reported = await User.findById(req.body.id)
+        if (!reported) {
+            return res.status(404).send('no such user');
+        }
+        const report = new Report({
+            reporter: req.user,
+            reported: reported,
+            description: req.body.description
+        })
+
+        await report.save()
+        res.status(200).send("report saved")
+    } catch (e) {
+        console.log(e)
+        res.status(500).send('Report failed')
+    }
+
+})
 
 module.exports = router;

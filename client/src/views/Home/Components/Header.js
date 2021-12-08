@@ -1,4 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, IconButton, Toolbar, Collapse } from '@material-ui/core';
 import SortIcon from '@material-ui/icons/Sort';
@@ -28,7 +29,8 @@ import InputBase from '@mui/material/InputBase';
 import { Link } from 'react-router-dom';
 import AnimatedBg from "./AnimatedBg";
 import Tooltip from '@mui/material/Tooltip';
-
+import { useUser } from '../../../Contexts/UserContext'
+import axios from '../../../api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,22 +77,33 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
   const classes = useStyles();
   const [checked, setChecked] = useState(false);
+  const { currentUser, setCurrentUser } = useUser()
   useEffect(() => {
     setChecked(true);
   }, []);
 
   const [userSearch, setUserSearch] = useState('')
+  const history = useHistory();
 
-  const handleSearch = event => {
-    const value = event.target.value;
-
-    setUserSearch(value)
-    checkDatabaseSearch()
+  function handleSearch(event) {
+    // const value = event.target.value;
+    history.push({
+      pathname: '/timeline',
+})
   }
 
-  function checkDatabaseSearch() {
-    //serach database for user's search value
+  function logouthandler() {
+    axios({
+      method: 'get',
+      url: '/api/users/logout'
+    }).then(response => {
+        console.log(response)
+        setCurrentUser(response.data)
+    }).catch(function (error) {
+      console.log(error);
+    }).then(() => {setCurrentUser(null)})
   }
+
   return (
     <Fragment>
       <Grid
@@ -173,6 +186,11 @@ export default function Header() {
                       inputProps={{ 'aria-label': 'search' }}
                       value={userSearch}
                       onChange={handleSearch}
+                      onKeyPress= {(e) => {
+                        if (e.key === 'Enter') {
+                          handleSearch()
+                        }
+                }}
                     />
                     <IconButton type="submit" sx={{ p: '10px', pb: '20px' }} aria-label="search"
                     // onClick={handleSearch}
@@ -192,7 +210,8 @@ export default function Header() {
                   alignItems="center"
                   justifyContent="space-evenly"
                 >
-
+                   {(currentUser === null) && 
+                  <>
                   <Button variant="contained"
                     className={classes.button}
                     href="/login">
@@ -211,6 +230,34 @@ export default function Header() {
                     </Typography>
 
                   </Button>
+                  </>
+                  }
+
+                  {(currentUser !== null) && 
+                  <>
+
+                  <Button variant="contained"
+                    className={classes.button}
+                    onClick={logouthandler}
+                    >
+                    <Typography variant="button" component="div" gutterBottom
+                      sx={{ cursor: 'pointer' }}>
+                      Logout
+                    </Typography>
+                  </Button>
+
+                  <Button variant="contained"
+                    className={classes.button}
+                    href='/dashboard'
+                    >
+                    <Typography variant="button" component="div" gutterBottom
+                      sx={{ cursor: 'pointer' }}>
+                      Dashboard
+                    </Typography>
+                  </Button>
+
+                  </>
+                  }
 
                 </Grid>
                 <Scroll to="description" smooth={true}>

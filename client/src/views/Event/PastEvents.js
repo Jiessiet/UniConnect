@@ -1,44 +1,62 @@
-import React from 'react'
-import TimelineEventCard from '../Timeline/Events'
-import { events } from '../../constant/Events'
-import { Grid, Container, Typography } from '@mui/material'
+import React, { useState, useEffect } from 'react';
+import { Grid, Container } from '@mui/material';
+import Event from '../Timeline/Event';
+import axios from '../../api';
+import { useUser } from '../../Contexts/UserContext';
+
 
 const PastEvents = () => {
+  // window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+// }
+  const [events, setEvents] = useState([]);
+  const { currentUser } = useUser();
 
-    const eventRender = (event) => {
-        return (
-            <Grid item xs={12} sm={6}>
-                <TimelineEventCard key={event.id} {...event} />
-            </Grid>
-        );
-    };
-
-    const eventsRender = (events) => {
-        const eventsArray = [];
-        events.forEach((event) => {
-            if (event.id % 2 == 0) {
-                eventsArray.push(eventRender(event));
-            }
+  useEffect(() => {
+    const eventList = [];
+    const getEvent = (eventId) => {
+      axios
+        .get(`/api/events/${eventId}`)
+        .then((res) => {
+          console.log('res.data: ', res.data);
+          if (res.data.completed) {
+            eventList.push(res.data);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
         });
-        return eventsArray;
     };
+    currentUser.attendingEvents.map((event) => {
+      getEvent(event);
+    });
 
-    return (
-        <Grid
-            justifyContent='center'
-            sx={{
-                background: 'linear-gradient(120deg, #C9D991 0%, #d0f0c0 51%, #F2F2F2 75%);',
-                backgroundSize: 'cover'
-            }}
-        >
-            <Container>
-                <Typography style={{ marginTop: 80, paddingTop: 20 }} variant='h2'>Past Events</Typography>
-                <Grid container spacing={3} mt={12}>
-                    {eventsRender(events)}
-                </Grid>
-            </Container>
+    setEvents(eventList);
+  }, []);
+  return (
+    <Grid
+      justifyContent='center'
+      sx={{
+        background: 'linear-gradient(120deg, #C9D991 0%, #d0f0c0 51%, #F2F2F2 75%);',
+        backgroundSize: 'cover',
+        paddingBottom: 5,
+        height: '100vh'
+      }}
+    >
+      <Container>
+        <Grid container spacing={3} mt={12}>
+          {events.map((event) => (
+            <Grid item xs={12} sm={6}>
+              <Event event={event} />
+            </Grid>
+          ))}
         </Grid>
-    )
-}
+      </Container>
+    </Grid>
+  );
+};
 
-export default PastEvents
+export default PastEvents;

@@ -3,6 +3,7 @@ const { Tag } = require("../mongodb/models/tagModel");
 const { Event } = require("../mongodb/models/eventModel");
 const mongoChecker = require("../middleware/mongoChecker")
 const authenticate = require('../middleware/authmiddleware');
+const { Category } = require("../mongodb/models/categoryModel");
 
 const router = express.Router();
 
@@ -20,18 +21,14 @@ router.post("/api/tag", authenticate, (req, res) => {
 	})
 })
 
-//get all tags - only done by admin
+//get all tags
 router.get('/api/tag', authenticate, (req, res) => {
-	if (req.user.userType){
+
 	Tag.find().then((tag) => {
 		res.send(tag)
 	}).catch((error) => {
 		res.status(500).send(error)
 	})
-}else{
-	res.status(401).send('unauthorized')
-}
-
 })
 
 //get tags by id
@@ -64,23 +61,54 @@ router.put('/api/tag/:id', authenticate, (req, res) => {
 })
 
 // delete tag only done by admins
-router.delete('/api/tag/:id', authenticate, (req, res) => {
+router.delete('/api/tag', authenticate, (req, res) => {
 
 	if (req.user.userType){
-	Tag.findOne({_id:req.params.id}).then((rest) => {
-		
-		res.send(rest)
-		rest.remove(req.params.id)
-		rest.save().then((result) => {
-			res.send({tag: deletedTag})
-		}).catch((error) => {
-			res.status(500).send(error)
-		})
-	}).catch((error) => {
-			res.status(500).send(error)
-	})
+		Tag.findOneAndDelete({name: req.query.name}).then(() => {
+			}).catch((error) => {
+				res.status(500).send(error)
+			})
+
+} else {
+	res.status(401).send('Unautorized')
 }
 
 })
+
+router.post('/api/category', authenticate, async (req, res) => {
+	try {
+		const category = new Category({
+			name: req.body.name,
+		})
+
+		const result = await category.save()
+		res.status(200).send(result)
+	} 
+	catch(e){
+		res.status(400).send("Bad Request")
+	}
+})
+
+//get all tags from one category
+router.get('/api/tag/category/:category', authenticate, (req, res) => {
+	
+	Tag.find({category:req.params.category}).then((tags) => {
+		res.send(tags)
+	}).catch((error) => {
+		res.status(500).send(error)
+	})
+})
+
+// get all categories
+router.get('/api/categories', authenticate, (req, res) => {
+	
+	Category.find().then((cat) => {
+		res.send(cat)
+	}).catch((error) => {
+		res.status(500).send(error)
+	})
+})
+
+
 
 module.exports = router;

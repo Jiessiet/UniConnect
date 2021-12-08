@@ -5,51 +5,89 @@ import uniqid from "uniqid";
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
+import React, { useState, useEffect } from 'react';
+import { getAllCategories, getCategorieTags, getAllTags, checkSession, updateUserTags } from "../../api/functions";
+import { useUser } from '../../Contexts/UserContext'
+import { useHistory } from 'react-router-dom';
 
 const InterestFinder = () => {
-  const tagCategoryArray = [
-    {
-      title: "Gaming",
-      tags: [
-        "Zelda",
-        "Skyrim",
-        "Animal Crossing",
-        "League of Legends",
-        "Dota",
-        "CS Go",
-        "PUBG",
-        "Fortnite",
-        "Minecraft",
-      ],
-    },
-    {
-      title: "Media",
-      tags: ["Anime", "Movies", "Series", "Theater", "Musical", "Concerts"],
-    },
-  ];
+  const [tagCategoryArray, setTagCategoryArray] = useState([])
+  const [tags, setTags] = useState([])
+  const [selectedTags, setSelectedTags] = useState({})
+  const [autoTags, setAutoTags] = useState([])
+  const { currentUser, setCurrentUser } = useUser()
+  const history = useHistory();
+  
+  useEffect(async () => {
+    const categories = await getAllCategories()
+    const temp = []
+    for (const category of categories) {
+      const categoryTags = await getCategorieTags(category.name)
+      const arr = []
+      categoryTags.forEach(tag => arr.push(tag.name))
+      temp.push({title: category.name, tags: arr})
+    }
+    //console.log(temp)
+    setTagCategoryArray(temp)
 
-  const tags = [
-    { tag: 'Gaming' },
-    { tag: 'Movies' },
-    { tag: 'Friends' },
-    { tag: 'Zelda' },
-    { tag: 'Skyrim' },
-    { tag: 'Animal Crossing' },
-    { tag: 'League of Legends' },
-    { tag: 'Music' },
-    { tag: 'Theater' },
-    { tag: 'Series' },
-  ];
+    const allTags = await getAllTags()
+    const arr2 = []
+    allTags.forEach(tag => arr2.push(tag.name))
+    setTags(arr2)
+    const obj1 = {}
+    allTags.forEach(tag => {obj1[tag.name] = false})
+    setSelectedTags(obj1)
+
+    const tempUser = await checkSession(setCurrentUser)
+    allTags.forEach(tag => {
+      if(tempUser.tags.includes(tag._id)){
+        setSelectedTags(prevState => ({
+          ...prevState,
+          [tag.name]: true
+        }));
+      }
+    })
+  }, [])
+
+  const handleSelect = (event) => {
+    setSelectedTags(prevState => ({
+      ...prevState,
+      [event.target.innerText]: !prevState[event.target.innerText]
+    }));
+  };
+
+  const autocompleteValue = () => {
+    const arr = []
+    for (const property in selectedTags) {
+      if (selectedTags[property]) arr.push(property)
+    }
+    return arr  
+  }
+
+  const handleTagChange = (event, value) => {
+    setSelectedTags(prevState => {
+      const temp = {}
+      for (const property in prevState) {
+        if(value.includes(property)){
+          temp[property] = true
+        }
+        else{
+          temp[property] = false
+        }
+      }
+      return temp
+    });
+  }
 
   const tagCardRender = (tag) => {
     return (
       <Grid item justifyContent="flex-start">
-        <InterestTagCard title={tag} key={uniqid()} />
+        <InterestTagCard title={tag} key={uniqid()} selected={selectedTags[tag]} onClick={handleSelect}/>
       </Grid>
     );
   };
 
-  const tagCategoyRender = (tagCategoryArray) => {
+  const tagCategoyRender = () => {
     const result = [];
     tagCategoryArray.forEach((category) => {
       const tags = [];
@@ -117,7 +155,10 @@ const InterestFinder = () => {
     //add tags to an array of tags
   }
 
-  const handleSubmit = event => {
+  const handleSubmit = async (event) => {
+
+    await updateUserTags(selectedTags)
+    history.push("/dashboard")
     //add array of tags to user tags
   }
 
@@ -136,7 +177,9 @@ const InterestFinder = () => {
             multiple
             fullWidth
             options={tags}
-            getOptionLabel={(option) => option.tag}
+            getOptionLabel={(option) => option}
+            value={autocompleteValue()}
+            onChange={handleTagChange}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -153,7 +196,7 @@ const InterestFinder = () => {
           inputProps={{ "aria-label": "search" }}
         /> */}
         </Search>
-        {tagCategoyRender(tagCategoryArray)}
+        {tagCategoyRender()}
         <Button
           variant="contained"
           sx={{
@@ -166,7 +209,7 @@ const InterestFinder = () => {
               color: "#74A651",
             },
           }}
-          href="/login"
+          // href="/login"
           size="large"
           onClick={handleTags}
         >

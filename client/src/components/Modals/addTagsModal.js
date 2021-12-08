@@ -7,9 +7,8 @@ import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import { useUser } from "../../Contexts/UserContext";
 import axios from '../../api';
-import { SettingsApplicationsRounded } from '@material-ui/icons';
 
-function Modal({ handleClose }) {
+function Modal({ handleClose, categories }) {
     const { setCurrentUser } = useUser()
 
     const [tag, setTag] = useState('')
@@ -18,6 +17,11 @@ function Modal({ handleClose }) {
         const value = event.target.value;
         setTag(value)
     };
+    const [category, setCategory] = useState('')
+
+    const categoryChange = (event, value) => {
+        setCategory(value)
+    }
 
     const [open, setOpen] = React.useState(false);
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
@@ -32,16 +36,18 @@ function Modal({ handleClose }) {
 
     const handleClick = (event) => {
         event.preventDefault()
-        if(tag != '') {
+        if(tag != '' && category != '') {
             axios({
                 method: 'post',
                 url: '/api/tag',
                 data: {
-                    name: tag                
+                    name: tag,
+                    category: category               
                 }
               }).then(response => {
                 console.log(response)
                 setTag('')
+                setCategory('')
                 setOpen(true);
             }).catch(function (error) {
               console.log(error);
@@ -114,6 +120,22 @@ function Modal({ handleClose }) {
                 <Grid item align='center' xs={12}>
                     <form onSubmit={handleClick}>
                         <TextField fullWidth margin='normal' label="New Tag Name" placeholder='ex. gaming, movies' type="search" value={tag} onChange={handleTagChange}/>
+                        
+                        <Autocomplete
+                        autoHighlight
+                        options={categories}
+                        getOptionLabel={(option) => option}
+                        value={category}
+                        onChange={categoryChange}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Category"
+                                placeholder="Select which category this tag belongs to"
+                                fullWidth
+                            />
+                        )}
+                    />
                     </form>
                 </Grid>
                 <Grid item padding='0'>

@@ -4,11 +4,7 @@
 const mongoose = require('mongoose')
 
 const EventSchema = new mongoose.Schema({
-    eventId: {
-        type: Number,
-        required: true,
-        unique: true,
-    },
+   
     name: {
         type: String,
         required: true,
@@ -51,6 +47,10 @@ const EventSchema = new mongoose.Schema({
         type: String,
         required: false,
         maxlength: 50,
+    },
+    completed: {
+        type: Boolean,
+        default: false
     }
 })
 
