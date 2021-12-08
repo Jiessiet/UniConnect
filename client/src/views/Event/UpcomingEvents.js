@@ -5,6 +5,10 @@ import axios from '../../api';
 import { useUser } from '../../Contexts/UserContext';
 
 const UpcomingEvents = () => {
+  if(!window.location.hash) {
+    window.location = window.location + '#loaded';
+    window.location.reload();
+}
   const [events, setEvents] = useState([]);
   const { currentUser } = useUser();
 

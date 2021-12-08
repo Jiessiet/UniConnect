@@ -4,16 +4,14 @@ import Event from '../Timeline/Event';
 import axios from '../../api';
 import { useUser } from '../../Contexts/UserContext';
 
-let check = true
-function checkLoaded() {
-  if(document.readyState === "complete" && check){
-    window.location.reload()
-  }
-}
 
 const PastEvents = () => {
-  checkLoaded()
-  check = false
+  // window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+// }
   const [events, setEvents] = useState([]);
   const { currentUser } = useUser();
 
