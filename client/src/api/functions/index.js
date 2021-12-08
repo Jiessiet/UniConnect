@@ -90,3 +90,37 @@ export const updateUserTags = async (selectedTags) => {
 
   return response
 }
+
+export const getStats = async () => {
+  return (await axios({
+    method: 'get',
+    url: '/api/admin/stats',
+  })).data
+}
+
+export const getReports = async () => {
+  return (await axios({
+    method: 'get',
+    url: '/api/admin/reports',
+  })).data
+}
+
+export const getUserById = async (id) => {
+  const url = `/api/users/${id}`
+  return (await axios({
+    method: 'get',
+    url: url,
+  })).data
+}
+
+
+export const resolveReport = async (id) => {
+  const url = `/api/admin/resolve-report`
+  return (await axios({
+    method: 'post',
+    url: url,
+    data: {
+      id: id
+    }
+  }))
+}
