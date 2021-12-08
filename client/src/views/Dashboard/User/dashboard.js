@@ -19,7 +19,7 @@ import {
   Box,
   Button
 } from '@material-ui/core';
-
+import Avatar from '@mui/material/Avatar';
 import FavoriteOutlined from '@material-ui/icons/FavoriteOutlined';
 import PersonIcon from '@material-ui/icons/Person';
 import { Link } from 'react-router-dom';
@@ -53,11 +53,8 @@ const Dashboard = () => {
         .get(`/api/events/${eventId}`)
         .then((res) => {
           console.log('res.data: ', res.data);
-          eventList.push(res.data);
-          console.log(res.data)
           if(res.data) {
-          events.push(res.data);
-          setEvents(events);
+          eventList.push(res.data);
           }
         })
         .catch((error) => {
@@ -140,37 +137,32 @@ const Dashboard = () => {
         <Grid container justify='space-between' alignItems='stretch' spacing={0}>
           <Grid item xs={12} sm={3}>
             <Card className={classes.card}>
-              <CardMedia
-                component='img'
-                height='150'
-                image='https://cdn.allthings.how/wp-content/uploads/2020/10/allthings.how-how-to-change-your-profile-picture-on-google-meet-profile-photo-759x427.png'
-              />
+            <Avatar alt='Friend' sx={{ width: 150, height: 150 }}
+            src = {currentUser.profilePhoto}>
+            </Avatar>
               <CardContent style={{ padding: 0, marginTop: 5 }}>
                 <Typography variant='h5' component='div'>
-                  Mona Lisa
+                  {currentUser.username}
                 </Typography>
                 <Grid className={classes.icons}>
                   <Grid container direction='row' alignItems='center' style={{ marginRight: 10 }}>
-                    <FavoriteOutlined fontSize='large' />
-                    <Typography>10</Typography>
+                    <Typography>Friends: </Typography>
                   </Grid>
                   <Grid container direction='row' alignItems='center'>
                     <Grid item>
                       <PersonIcon fontSize='large' />
                     </Grid>
                     <Grid item>
-                      <Typography>10</Typography>
+                      <Typography>
+                        {currentUser.friends.length}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </Grid>
               </CardContent>
               <CardActions justifyContent='center' className={classes.action}>
-                <Button
-                  size='large'
-                  variant='contained'
-                  style={{ backgroundColor: '#099441', color: 'white' }}
-                  href='/Profile'
-                >
+                <Button size='large' variant='contained' style={{ backgroundColor: '#099441', color: 'white' }}
+                href='/EditUserProfile'>
                   Edit Profile
                 </Button>
               </CardActions>
@@ -282,6 +274,7 @@ const Dashboard = () => {
           <Grid container direction='column'>
           <Grid item>
           <Box mt={3}>
+            {console.log(events)}
           {events.length === 0 ? (<Typography variant='h6'>No Upcoming Events</Typography>) : (
             <Typography variant='h6'>Upcoming Events...</Typography>)}
           </Box>

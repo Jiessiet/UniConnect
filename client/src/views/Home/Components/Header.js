@@ -1,4 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, IconButton, Toolbar, Collapse } from '@material-ui/core';
 import SortIcon from '@material-ui/icons/Sort';
@@ -82,16 +83,13 @@ export default function Header() {
   }, []);
 
   const [userSearch, setUserSearch] = useState('')
+  const history = useHistory();
 
-  const handleSearch = event => {
-    const value = event.target.value;
-
-    setUserSearch(value)
-    checkDatabaseSearch()
-  }
-
-  function checkDatabaseSearch() {
-    //serach database for user's search value
+  function handleSearch(event) {
+    // const value = event.target.value;
+    history.push({
+      pathname: '/timeline',
+})
   }
 
   function logouthandler() {
@@ -188,7 +186,11 @@ export default function Header() {
                       inputProps={{ 'aria-label': 'search' }}
                       value={userSearch}
                       onChange={handleSearch}
-                      onKeyPress={(e) => e.key === 'Enter' && handleSearch}
+                      onKeyPress= {(e) => {
+                        if (e.key === 'Enter') {
+                          handleSearch()
+                        }
+                }}
                     />
                     <IconButton type="submit" sx={{ p: '10px', pb: '20px' }} aria-label="search"
                     // onClick={handleSearch}

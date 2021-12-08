@@ -67,6 +67,33 @@ function Modal({ handleClose, tags}) {
           });
         })
     }
+    const addEventToCreator = (eventId) => {
+        const attendUrl = `/api/events/attend/${eventId}`;
+            axios({
+            method: 'patch',
+            url: attendUrl
+            })
+            .then((response) => {
+                console.log('add attendees: ', response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+    
+    const addCreatorToEvent = (eventId) => {
+    const addEventUrl = `/api/users/addEvent/${eventId}`;
+    axios({
+      method: 'patch',
+      url: addEventUrl
+    })
+      .then((response) => {
+        console.log('add events: ', response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
 
     const handleClick = (event) => {
         if (eventName !== '' && eventDesc !== '' && eventDate !== '') {
@@ -78,7 +105,8 @@ function Modal({ handleClose, tags}) {
                     description: eventDesc,
                     attendeeLimit: eventAttendees,
                     date: eventDate,
-                    location: eventLocation
+                    location: eventLocation,
+                    creator: currentUser._id
                 }
                 }).then(response => {
                     console.log(response)
@@ -89,13 +117,13 @@ function Modal({ handleClose, tags}) {
                     console.log(eventTags)
                     if (eventTags != null) {
                     addTagtoEvent(response.data._id)
+                    addEventToCreator(response.data._id)
+                    addCreatorToEvent(response.data._id)
                     }
                         setEventName('')
                         setEventDesc('')
                         setEventDate('')
                         setEventLocation('')
-                        // setEventStart('')
-                        // setEventEnd('')
                         setEventTags([])
                         setEventAttendees('')
                         setOpen(true)

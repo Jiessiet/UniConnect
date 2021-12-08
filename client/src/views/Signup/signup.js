@@ -15,12 +15,14 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { Save } from "@material-ui/icons";
 
 
+
 function Signup() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordAgain, setPasswordAgain] = useState('')
     const [university, setUniversity] = useState('')
     const [username, setUsername] = useState('')
+    const [name, setName] = useState('')
     const [image, setImage] = useState(null)
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
@@ -92,7 +94,7 @@ function Signup() {
         event.preventDefault()
         validateForm()
         if (isFormInvalid) {
-            signup(email, password, university, username, setCurrentUser, image, setOpenSnackbar)
+            signup(email, password, university, username, name, setCurrentUser, image, setOpenSnackbar)
         }
         else {
             setOpenSnackbar(true)
@@ -191,6 +193,15 @@ function Signup() {
                                 </label>
                                 </Grid>
                             </Grid>
+                            <TextField 
+                                fullWidth 
+                                label='Name' 
+                                right-padding='5px' 
+                                margin='normal' 
+                                required='true' 
+                                placeholder='Type your display name' 
+                                value={name} 
+                                onChange={(event) => {handleValueChange(event, setName, null)}} />
                             <TextField 
                                 fullWidth 
                                 label='Email' 

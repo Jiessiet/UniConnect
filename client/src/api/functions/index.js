@@ -18,7 +18,7 @@ export const login = (email, password, setCurrentUser) => {
       });
 }
 
-export const signup = (email, password, university, username, setCurrentUser, image, setOpenSnackbar) => {
+export const signup = (email, password, university, username, name, setCurrentUser, image, setOpenSnackbar) => {
     return axios({
         method: 'post',
         url: '/api/users',
@@ -26,7 +26,8 @@ export const signup = (email, password, university, username, setCurrentUser, im
             email: email,
             password: password,
             username: username,
-            university: university
+            university: university,
+            name: name
         }
       }).then(response => {
           console.log(response)
