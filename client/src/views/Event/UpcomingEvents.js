@@ -43,7 +43,7 @@ const UpcomingEvents = () => {
     >
       <Container>
         <Grid container spacing={3} mt={12}>
-          {events.map((event) => {
+          {(events.length === 0) && events.map((event) => {
             if (!event.completed)
               return (
                 <Grid item xs={12} sm={6}>
