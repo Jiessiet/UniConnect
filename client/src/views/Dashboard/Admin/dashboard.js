@@ -18,15 +18,67 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 import AddTags from '../../../components/Modals/addTagsModal'
 import DeleteTags from '../../../components/Modals/deleteTagModal'
 import DeleteUser from '../../../components/Modals/deleteUserModal'
-import { getStats } from "../../../api/functions"
+import { getStats, getReports, getUserById, resolveReport } from "../../../api/functions"
+import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
+import MuiAccordion from '@mui/material/Accordion';
+import MuiAccordionSummary from '@mui/material/AccordionSummary';
+import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import { styled } from '@mui/material/styles';
 
 import { useUser } from '../../../Contexts/UserContext';
+
+const Accordion = styled((props) => (
+  <MuiAccordion disableGutters elevation={0} square {...props} />
+))(({ theme }) => ({
+  border: `1px solid ${theme.palette.divider}`,
+  '&:not(:last-child)': {
+    borderBottom: 0,
+  },
+  '&:before': {
+    display: 'none',
+  },
+}));
+
+const AccordionSummary = styled((props) => (
+  <MuiAccordionSummary
+    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
+    {...props}
+  />
+))(({ theme }) => ({
+  backgroundColor:
+    theme.palette.mode === 'dark'
+      ? 'rgba(255, 255, 255, .05)'
+      : 'rgba(0, 0, 0, .03)',
+  flexDirection: 'row-reverse',
+  '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
+    transform: 'rotate(90deg)',
+  },
+  '& .MuiAccordionSummary-content': {
+    marginLeft: theme.spacing(1),
+  },
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  maxHeight: "20px",
+  maxWidth: "30px",
+  fontSize: "10px",
+  backgroundColor: '#cedbb8'
+}))
+
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  padding: theme.spacing(2),
+  borderTop: '1px solid rgba(0, 0, 0, .125)',
+}));
 
 const Dashboard = () => {
   //   classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openTags, setOpenTags] = useState(false);
   const [openUser, setOpenUser] = useState(false);
+  const [reports, setReports] = useState([])
+  const [expanded, setExpanded] = React.useState('panel1');
+  const [resolvePressed, setResolvePressed] = useState(false)
+  const [reportedUsers, setReportedUsers] = useState([])
   const { currentUser } = useUser()
   
   const handleClose = () => setOpen(false);
@@ -42,7 +94,20 @@ const Dashboard = () => {
   useEffect(async () => {
     const res = await getStats()
     setStats(res)
-  }, []);
+    const res2 = await getReports()
+    setReports(res2)
+    console.log(res2)
+
+    const obj1 = {}
+    for (const report of res2) {
+      const reported = await getUserById(report.reported)
+      const reporter = await getUserById(report.reporter)
+
+      obj1[report.reported] = reported
+      obj1[report.reporter] = reporter
+    }
+    setReportedUsers(obj1)
+  }, [resolvePressed]);
 
   const handleOpen = () => {
     axios({
@@ -82,7 +147,43 @@ const Dashboard = () => {
       console.log(error)
     })}
 
+  const handleExpandChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
 
+  };
+
+  const handleResolve = async(event) => {
+    resolveReport(event.target.value)
+    setResolvePressed(prev => !prev)
+  }
+
+  const renderReports = () => {
+    const result = []
+    for (const report of reports) {
+    const reported = reportedUsers[report.reported]
+    const reporter = reportedUsers[report.reporter]
+
+    if (!(reported && reporter)) return result
+
+    result.push(
+      <Accordion expanded={expanded === report._id} onChange={handleExpandChange(report._id)}>
+        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+          <Typography>{`${reported.username} is reported by ${reporter.username}`}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            {report.description}
+          </Typography>
+          <StyledButton variant="contained" onClick={handleResolve} value={report._id}>
+          Resolve
+        </StyledButton>
+        </AccordionDetails>
+      </Accordion>)
+    }
+
+    return result
+  }
+  
   return (
     <Container 
     maxWidth='md' 
@@ -212,26 +313,7 @@ const Dashboard = () => {
             <Typography variant='h5' pt={2} color='#4B592D'>
               REPORT FEED
             </Typography>
-            {/* these reports will be taken from the database and displayed. Currently these are hardcoded in */}
-            <Card style={{ width: '90%', margin: '20px auto', backgroundColor: '#eff5eb' }}>
-              <CardContent style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-                <AccountCircleIcon style={{ marginRight: '1px' }} />
-                <Typography>User 1928 has been reported</Typography>
-              </CardContent>
-            </Card>
-            <Card style={{ width: '90%', margin: '20px auto', backgroundColor: '#eff5eb' }}>
-              <CardContent style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-                <AccountCircleIcon style={{ marginRight: '1px' }} />
-                <Typography>User 1928 has been reported</Typography>
-              </CardContent>
-            </Card>
-            <Card style={{ width: '90%', margin: '20px auto', backgroundColor: '#eff5eb' }}>
-              <CardContent style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-                <AccountCircleIcon style={{ marginRight: '1px' }} />
-                <Typography>User 1928 has been reported</Typography>
-              </CardContent>
-            </Card>
-            <KeyboardArrowDownOutlinedIcon style={{ marginTop: 30 }} />
+                {renderReports()}
           </Paper>
         </Grid>
       </Grid>
@@ -240,3 +322,23 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+{/* <Card style={{ width: '90%', margin: '20px auto', backgroundColor: '#eff5eb' }}>
+<CardContent style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+  <AccountCircleIcon style={{ marginRight: '1px' }} />
+  <Typography>User 1928 has been reported</Typography>
+</CardContent>
+</Card>
+<Card style={{ width: '90%', margin: '20px auto', backgroundColor: '#eff5eb' }}>
+<CardContent style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+  <AccountCircleIcon style={{ marginRight: '1px' }} />
+  <Typography>User 1928 has been reported</Typography>
+</CardContent>
+</Card>
+<Card style={{ width: '90%', margin: '20px auto', backgroundColor: '#eff5eb' }}>
+<CardContent style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+  <AccountCircleIcon style={{ marginRight: '1px' }} />
+  <Typography>User 1928 has been reported</Typography>
+</CardContent>
+</Card>
+<KeyboardArrowDownOutlinedIcon style={{ marginTop: 30 }} /> */}

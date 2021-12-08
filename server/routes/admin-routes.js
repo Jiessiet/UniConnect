@@ -24,7 +24,7 @@ router.get("/api/admin/stats", authenticate, async (req, res) => {
 router.get("/api/admin/reports", authenticate, async (req, res) => {
     try {
         if (req.user.userType) {
-            const reports = await Report.find()
+            const reports = await Report.find({resolved: false})
             res.status(200).send(reports)
         }
         else{
