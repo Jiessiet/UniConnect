@@ -152,7 +152,7 @@ const EventDetails = () => {
   };
 
   const handleComplete = () => {
-    setComplete(!complete);
+    setComplete(true);
     console.log(complete);
     const editEventUrl = `/api/events/${event._id}`;
     axios({
