@@ -25,7 +25,9 @@ const NavbarMenu = () => {
         setCurrentUser(response.data)
     }).catch(function (error) {
       console.log(error);
-    }).then(() => {setCurrentUser(null)})
+    }).then(() => {setCurrentUser(null)
+      window.location.reload();
+    })
   }
 
   function navbarMenuRender(logouthandler) {

@@ -1,6 +1,11 @@
 import { useEffect, useState, React } from 'react';
 import { styled } from '@mui/material/styles';
 import { Link, useLocation, useHistory } from 'react-router-dom';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -85,6 +90,12 @@ function setText(friendly) {
 
 }
 
+const handleValueChange = (event, setter) => {
+  const value = event.target.value;
+
+  setter(value)
+};
+
 function handleFindFriend() {
   // event.preventDefault()
   if(currentUser.friends.includes(friend._id)){
@@ -150,6 +161,35 @@ function handleFindFriend() {
     })
     return arr;
   }  
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const [description, setDescription] = useState('')
+
+  const handleReport = () => {
+    axios({
+      method: 'post',
+      url: "/api/user-report",
+      data: {
+        id: friend._id,
+        description: description
+      }
+    }).then(response => {
+      console.log("resposne data")
+        console.log(response.data)
+        setOpen(false);
+    }).catch(function (error) {
+      console.log(error)
+    });
+  };
 
   return (
     <Grid
@@ -292,19 +332,45 @@ function handleFindFriend() {
             
             {(currentUser !== null) && !(currentUser.userType) && (
               <>
-              <Button 
-            color="secondary"
-            id='friendly'
-            >
-              <Item>
-                <Typography variant="button" component="div" gutterBottom
-                value='help'
-                sx={{ cursor: 'pointer' }}
-                >
-                  Report
-                </Typography>
-              </Item>
-            </Button>
+
+              <div>
+                    <Button 
+                    id='friendly'
+                    onClick={handleClickOpen}>
+                    <Item>
+                    <Typography variant="button" component="div" gutterBottom
+                    value='help'
+                    sx={{ cursor: 'pointer' }}
+                    >
+                      Report
+                    </Typography>
+                    </Item>
+                    </Button>
+              
+                    <Dialog open={open} onClose={handleClose}>
+                      <DialogTitle>Report</DialogTitle>
+                      <DialogContent>
+                        <DialogContentText>
+                          Write below why you would like to report this user:
+                        </DialogContentText>
+                        <TextField
+                          autoFocus
+                          margin="dense"
+                          id="name"
+                          type="text"
+                          label="Report"
+                          fullWidth
+                          variant="standard"
+                          value={description} 
+                          onChange={(event) => {handleValueChange(event, setDescription)}}
+                        />
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleClose}>Cancel</Button>
+                        <Button onClick={handleReport()}>Report</Button>
+                      </DialogActions>
+                    </Dialog>
+                  </div>
             </>
             )}
 
