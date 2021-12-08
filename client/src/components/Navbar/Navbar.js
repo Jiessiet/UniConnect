@@ -133,10 +133,22 @@ const Navbar = ({tags, selectedTags, setSelectedTags}) => {
             fromSearch: true
           }
           }} style={{ textDecoration: 'none' }}>
-        <StyledButton variant="contained" startIcon={<SearchIcon />} >
+        <StyledButton sx={{mt:'15px', minHeight:'50px', 
+        
+         backgroundColor:'#4B592D',
+          color: "#C9D991",
+        "&:hover": {
+          // variant: 'outlined',
+          backgroundColor:'#C9D991',
+         color: "#4B592D",
+            },
+          }} variant="outlined" startIcon={
+        <SearchIcon color='#C9D991'
+        />} >
           Search
         </StyledButton>
         </Link>
+
       </Stack>
       <NavbarMenu />
     </AppBar>
