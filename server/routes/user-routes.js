@@ -231,7 +231,7 @@ router.delete('/api/users/:id', authenticate, (req, res) => {
    
 })
 
-router.post('/api/user-report/:userId', authenticate, upload.single('file'), async (req, res) => {
+router.post('/api/user-photo/:userId', authenticate, upload.single('file'), async (req, res) => {
     try {
         const user = await User.findById(req.params.userId).exec()
         if(!user) { 
