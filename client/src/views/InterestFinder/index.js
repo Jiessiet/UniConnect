@@ -171,7 +171,7 @@ const InterestFinder = () => {
       sx={{
         background: 'linear-gradient(360deg, #C9D991 4%, #F2F2F2 51%, #d0f0c0 80%);',
         backgroundSize: 'cover', paddingTop: '20vh',
-        height: '100vh'
+        height: '100%'
       }}
     >
 

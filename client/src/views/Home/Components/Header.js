@@ -175,10 +175,11 @@ export default function Header() {
                   >
                   <Button variant="contained"
                     className={classes.button}
-                    href="/signup">
+                    href="/signup"
+                    >
                     <Typography variant="button" component="div" gutterBottom
-                      sx={{ cursor: 'pointer' }}>
-                      Get Started!
+                      sx={{cursor: 'pointer'}}>
+                      Sign Up
                     </Typography>
                   </Button>
                   </Grid>
@@ -186,12 +187,12 @@ export default function Header() {
                   <Grid
                   item
                   marginTop="4vh">
-                  <Button href="/timeline" variant="contained"
+                  <Button href="/login" variant="contained"
                     className={classes.button}
                   >
                     <Typography variant="button" component="div" gutterBottom
                       sx={{ cursor: 'pointer' }}>
-                      Preview Events
+                      Log In
                     </Typography>
 
                   </Button>
