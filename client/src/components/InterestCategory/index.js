@@ -1,6 +1,7 @@
-import { Card, CardContent, Typography, Container } from "@mui/material";
+import { Card, CardContent, Typography, Container, Grid } from "@mui/material";
 import { useState } from "react";
 import useStyles from "./styles";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const InterestCategory = ({title, children}) => {
     const [collapse, setCollapse] = useState(false)
@@ -9,10 +10,26 @@ const InterestCategory = ({title, children}) => {
     <Card sx={{ mt: 3, backgroundColor:"#C8D9A3", 
     cursor: "pointer", }} >
         <CardContent>
-          <Typography variant="h4" component="div" onClick={(e) => {setCollapse(!collapse)}}>
-            {title}
-          </Typography>
-          {collapse ? null : children}
+        <Grid
+        container
+        justifyContent='space-between'
+        direction='row'
+        onClick={(e) => {setCollapse(!collapse)}}
+        >
+          <Grid
+          item>
+            <Typography variant="h6" component="div">
+              {title}
+            </Typography>
+          </Grid>
+
+          <Grid
+          item>
+          <ArrowDropDownIcon/>
+          </Grid>
+          
+        </Grid>
+        {collapse ? null : children}
         </CardContent>
     </Card>
   );

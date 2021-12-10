@@ -47,24 +47,16 @@ const Dashboard = () => {
   const handleCloseFriend = () => setOpenFriend(false);
 
   useEffect(async () => {
-    const eventList = []
-    const getEvent = (eventId) => {
-      axios
-        .get(`/api/events/${eventId}`)
-        .then((res) => {
-          console.log('res.data: ', res.data);
-          if(res.data) {
-          eventList.push(res.data);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    currentUser.attendingEvents.map((event) => {
-      getEvent(event);
-    });
-    setEvents(eventList)
+    await axios
+    .get('/api/events')
+    .then((res) => {
+      const eventFilter = res.data.filter(function (event){return !event.completed})
+      console.log('filter: ', eventFilter);
+      setEvents(eventFilter);
+    })
+    .catch((error) => {
+      console.log(error);
+    }, [events]);
 
     const friendsList = [];
     const getFriend = (friendId) => {

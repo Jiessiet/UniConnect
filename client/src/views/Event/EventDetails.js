@@ -172,6 +172,7 @@ const EventDetails = () => {
 
   useEffect(async () => {
     checkAttending();
+    setComplete(event.completed);
     handleAttendees([]);
   });
 

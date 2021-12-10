@@ -96,7 +96,10 @@ const InterestFinder = () => {
       });
       result.push(
         <InterestCategory title={category.title} key={uniqid()}>
-          <Grid container spacing={3} mt={4} alignItems="center"
+          <Grid container 
+          spacing={1} 
+          mt={1} 
+          alignItems="center"
             sx={{ cursor: "pointer" }}>
             {tags}
           </Grid>
@@ -166,8 +169,9 @@ const InterestFinder = () => {
     <Grid
       justifyContent='center'
       sx={{
-        background: 'linear-gradient(180deg, #C9D991 0%, #d0f0c0 51%, #F2F2F2 75%);',
-        backgroundSize: 'cover', paddingTop: '20vh'
+        background: 'linear-gradient(360deg, #C9D991 4%, #F2F2F2 51%, #d0f0c0 80%);',
+        backgroundSize: 'cover', paddingTop: '20vh',
+        height: '100vh'
       }}
     >
 
@@ -197,20 +201,23 @@ const InterestFinder = () => {
         /> */}
         </Search>
         {tagCategoyRender()}
+        <Grid
+        container
+        justifyContent="flex-end"
+        >
         <Button
           variant="contained"
-          sx={{
-            margin: 2,
-            color: "#74A651",
-            backgroundColor: "#C8D9A3",
-            marginLeft: "80vw",
-            "&:hover": {
-              backgroundColor: "#C6F2C4",
-              color: "#74A651",
+          sx={{mt:'15px', 
+        
+         backgroundColor:'#4B592D',
+          color: "#C9D991",
+        "&:hover": {
+          backgroundColor:'#C9D991',
+         color: "#4B592D",
             },
           }}
           // href="/login"
-          size="large"
+          size="medium"
           onClick={handleTags}
         >
           <Typography variant="button" component="div" sx={{ cursor: "pointer" }}
@@ -218,6 +225,7 @@ const InterestFinder = () => {
             Submit
           </Typography>
         </Button>
+        </Grid>
       </Container>
     </Grid>
   );
