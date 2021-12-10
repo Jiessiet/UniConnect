@@ -159,7 +159,7 @@ const EventDetails = () => {
       method: 'patch',
       url: editEventUrl,
       data: {
-        completed: complete
+        completed: true
       }
     })
       .then((response) => {
@@ -274,7 +274,7 @@ const EventDetails = () => {
         <Grid item>
           {currentUser._id === creatorId || currentUser.userType ? (
             complete ? (
-              <Button variant='outlined' onClick={handleComplete} fullWidth size='large'>
+              <Button variant='outlined' disabled onClick={handleComplete} fullWidth size='large'>
                 completed
               </Button>
             ) : (
