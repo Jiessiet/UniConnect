@@ -50,7 +50,7 @@ app.get("*", (req, res) => {
     // check for page routes that we expect in the frontend to provide correct status code.
     const goodPageRoutes = ["/", "/login", "/dashboard", "/timeline", "/EventDetails",
     "/signup", "/past-events", "/upcoming-events", "/AccountSetup", "/dashboard", "/AddFriend",
-    "/AnimatedBg", "/interestFinder", "/ResetPassword", "/Profile", "/UserProfile"];
+    "/AnimatedBg", "/interestFinder", "/ResetPassword", "/Profile", "/UserProfile", "/userDetails", "/EditUserProfile"];
     if (!goodPageRoutes.includes(req.url)) {
         // if url not in expected page routes, set status to 404.
         res.status(404);
