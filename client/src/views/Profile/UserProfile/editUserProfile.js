@@ -86,12 +86,16 @@ function handleSubmit(event) {
     const passData = {};
 
     if(name !== ''){
-        passData[name] = name
+        passData['name'] = name
     }
     if(username !== ''){
         passData['username'] = username
         console.log(passData)
     }
+    if(description !== ''){
+      passData['description'] = description
+      console.log(passData)
+  }
     axios({
       method: 'patch',
       url: userUrl,
@@ -102,6 +106,7 @@ function handleSubmit(event) {
             uploadPicture(url, image)
         }   
         console.log(response.data)
+        handleClose()
     }).catch(function (error) {
       console.log(error)
     });
@@ -208,14 +213,14 @@ function handleSubmit(event) {
             <TextField 
             fullWidth
             multiline='true'
-            row={4}
+            rows={4}
             label='New Description'
             variant="outlined"
             defaultValue="Default Value"
             helperText="Enter new Description above and click submit" 
             right-padding='5px' 
             margin='normal' 
-            placeholder='Write New Username' 
+            placeholder='Write New Description' 
             value={description} 
             onChange={(event) => {handleValueChange(event, setDescription)}}
             />

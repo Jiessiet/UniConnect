@@ -5,31 +5,19 @@ import axios from '../../api';
 import { useUser } from '../../Contexts/UserContext';
 
 const UpcomingEvents = () => {
-  if(!window.location.hash) {
-    window.location = window.location + '#loaded';
-    window.location.reload();
-}
   const [events, setEvents] = useState([]);
   const { currentUser } = useUser();
 
   useEffect(async () => {
-    const eventList = []
-    const getEvent = (eventId) => {
-      axios
-        .get(`/api/events/${eventId}`)
-        .then((res) => {
-          console.log('res.data: ', res.data);
-          eventList.push(res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    currentUser.attendingEvents.map((event) => {
-      getEvent(event);
-    });
-
-    setEvents(eventList)
+      await axios
+      .get('/api/events')
+      .then((res) => {
+        console.log('res.data: ', res.data);
+        setEvents(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+    }, [events]);
   }, []);
   return (
     <Grid
@@ -43,7 +31,7 @@ const UpcomingEvents = () => {
     >
       <Container>
         <Grid container spacing={3} mt={12}>
-          {(events.length === 0) && events.map((event) => {
+          {(events.length !== 0) && events.map((event) => {
             if (!event.completed)
               return (
                 <Grid item xs={12} sm={6}>

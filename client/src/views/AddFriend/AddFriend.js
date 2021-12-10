@@ -264,15 +264,15 @@ function handleFindFriend() {
         <Grid
         item
         >
-          
           {(setText() != 'add friend') &&
           <>
           <Box 
-          sx={{ ...commonStyles, border: 0, borderRadius: '16px', flexGrow: 1}}
+          sx={{ ...commonStyles, border: 0, overflow:"auto", 
+          flexgrow: 1, flexDirection:"column"}}
           >
             <Typography
               paragraph
-              variant='body2'
+              variant='h5'
               color='text.secondary'
               sx={{ p: 2, marginleft: '1', flexGrow: 1 }}
             >
@@ -280,7 +280,7 @@ function handleFindFriend() {
             </Typography>
           </Box>
           </>}
-
+          
         <Grid
         container
         direction='row'
@@ -367,7 +367,7 @@ function handleFindFriend() {
                       </DialogContent>
                       <DialogActions>
                         <Button onClick={handleClose}>Cancel</Button>
-                        <Button onClick={handleReport()}>Report</Button>
+                        <Button onClick={handleReport}>Report</Button>
                       </DialogActions>
                     </Dialog>
                   </div>

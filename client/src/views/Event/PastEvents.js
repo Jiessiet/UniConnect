@@ -6,36 +6,22 @@ import { useUser } from '../../Contexts/UserContext';
 
 
 const PastEvents = () => {
-  // window.onload = function() {
-    if(!window.location.hash) {
-        window.location = window.location + '#loaded';
-        window.location.reload();
-    }
-// }
   const [events, setEvents] = useState([]);
   const { currentUser } = useUser();
 
-  useEffect(() => {
-    const eventList = [];
-    const getEvent = (eventId) => {
-      axios
-        .get(`/api/events/${eventId}`)
-        .then((res) => {
-          console.log('res.data: ', res.data);
-          if (res.data.completed) {
-            eventList.push(res.data);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    currentUser.attendingEvents.map((event) => {
-      getEvent(event);
-    });
-
-    setEvents(eventList);
+  useEffect(async () => {
+    await axios
+    .get('/api/events')
+    .then((res) => {
+      const eventFilter = res.data.filter(function (event){return event.completed})
+      console.log('filter: ', eventFilter);
+      setEvents(eventFilter);
+    })
+    .catch((error) => {
+      console.log(error);
+    }, [events]);
   }, []);
+  
   return (
     <Grid
       justifyContent='center'

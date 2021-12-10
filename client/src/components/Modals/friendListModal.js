@@ -26,7 +26,7 @@ const FriendListModal = ({ handleClose, friends }) => {
               <Avatar {...(friend.photo && `src=${friend.photo}`)}>
                 {!friend.photo && <PersonIcon />}
               </Avatar>
-              <Typography>{friend.name}</Typography>
+              <Typography>{friend.username}</Typography>
             </Grid>
           )) : (
               <Grid item>

@@ -86,7 +86,6 @@ export default function Header() {
   const history = useHistory();
 
   function handleSearch(event) {
-    // const value = event.target.value;
     history.push({
       pathname: '/timeline',
 })
@@ -161,81 +160,49 @@ export default function Header() {
                   />
                   
                 </Stack>
-                <Stack
-                  direction="column"
-                  justifyContent="center"
-                  alignItems="center"
-                  spacing={20}
-
-                >
-                  <Paper
-                    component="form"
-                    sx={{
-                      p: '2px 3px',
-                      display: 'flex',
-                      justifyContent: "center",
-                      alignItems: 'center',
-                      margin: 2,
-                      width: 1 / 3
-                    }}
-                  >
-                    <InputBase
-                      sx={{ ml: 1, flex: 1 }}
-                      placeholder="Search for Events :)"
-                      margin='none'
-                      inputProps={{ 'aria-label': 'search' }}
-                      value={userSearch}
-                      onChange={handleSearch}
-                      onKeyPress= {(e) => {
-                        if (e.key === 'Enter') {
-                          handleSearch()
-                        }
-                }}
-                    />
-                    <IconButton type="submit" sx={{ p: '10px', pb: '20px' }} aria-label="search"
-                    // onClick={handleSearch}
-                    >
-                      <Link to="/Timeline">
-                        <SearchIcon />
-                      </Link>
-                    </IconButton>
-                  </Paper>
-                </Stack>
 
                 <Grid
                   container
                   direction="row"
-                  maxWidth="20vw"
-                  marginLeft="40vw"
-                  alignItems="center"
-                  justifyContent="space-evenly"
+                  justifyContent="center"
+                  spacing={10}
                 >
-                   {(currentUser === null) && 
+                   {(currentUser === null)?( 
                   <>
+                  <Grid
+                  item
+                  marginTop="4vh"
+                  >
                   <Button variant="contained"
                     className={classes.button}
-                    href="/login">
+                    href="/signup">
                     <Typography variant="button" component="div" gutterBottom
                       sx={{ cursor: 'pointer' }}>
-                      Login
+                      Get Started!
                     </Typography>
                   </Button>
+                  </Grid>
 
-                  <Button href="/signup" variant="contained"
+                  <Grid
+                  item
+                  marginTop="4vh">
+                  <Button href="/timeline" variant="contained"
                     className={classes.button}
                   >
                     <Typography variant="button" component="div" gutterBottom
                       sx={{ cursor: 'pointer' }}>
-                      Signup
+                      Preview Events
                     </Typography>
 
                   </Button>
-                  </>
-                  }
+                  </Grid>
+                  </>):(
+                    <>
 
-                  {(currentUser !== null) && 
-                  <>
-
+                  <Grid
+                  item
+                  marginTop="4vh"
+                  >
                   <Button variant="contained"
                     className={classes.button}
                     onClick={logouthandler}
@@ -245,7 +212,11 @@ export default function Header() {
                       Logout
                     </Typography>
                   </Button>
+                  </Grid>
 
+                  <Grid
+                  item
+                  marginTop="4vh">
                   <Button variant="contained"
                     className={classes.button}
                     href='/dashboard'
@@ -255,8 +226,9 @@ export default function Header() {
                       Dashboard
                     </Typography>
                   </Button>
-
-                  </>
+                  </Grid>
+                    </>
+                  )
                   }
 
                 </Grid>
