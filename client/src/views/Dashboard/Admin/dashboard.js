@@ -225,28 +225,24 @@ const Dashboard = () => {
                   {/* Statistics will be taken from the database and displayed. Currently, these are only placeholders. */}
                   STATS
                 </Typography>
-                <Typography variant='p' pt={2} pb={2} color='#099441'>
+                <Typography variant='subtitle1' color='#099441'>
                   {/* Statistics will be taken from the database and displayed. Currently, these are only placeholders. */}
                   Total user number: {stats.userNumber}
                 </Typography>
                 <br/>
                 <br/>
-                <Typography variant='p' pt={2} pb={2} color='#099441'>
+                <Typography variant='subtitle1' color='#099441'>
                   {/* Statistics will be taken from the database and displayed. Currently, these are only placeholders. */}
                   Total event number: {stats.eventNumber}
                 </Typography>
                 <br/>
                 <br/>
-                <Typography variant='p' pt={2} pb={2} color='#099441'>
+                <Typography variant='subtitle1' color='#099441'>
                   {/* Statistics will be taken from the database and displayed. Currently, these are only placeholders. */}
                   Total tag number: {stats.tagNumber}
                 </Typography>
                 <br/>
                 <br/>
-                <Typography variant='p' pt={2} pb={2} color='#099441'>
-                  {/* Statistics will be taken from the database and displayed. Currently, these are only placeholders. */}
-                  Total report number: 23
-                </Typography>
                 {/* <KeyboardArrowDownOutlinedIcon /> */}
               </Paper>
             </Grid>
@@ -306,8 +302,8 @@ const Dashboard = () => {
             {/* </Paper> */}
           </Grid>
         </Grid>
-        <Grid item xs={12} sm={5} style={{ textAlign: 'center', alignitems: 'center' }}>
-          <Paper style={{ height: '400px' }}>
+        <Grid item xs={12} sm={5} style={{ textAlign: 'center', alignitems: 'center', }}>
+          <Paper style={{ height: '400px', maxHeight: 400, overflow: 'auto', }}>
             <Typography variant='h5' pt={2} color='#4B592D'>
               REPORT FEED
             </Typography>

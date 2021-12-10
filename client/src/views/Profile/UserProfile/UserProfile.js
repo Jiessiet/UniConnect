@@ -178,11 +178,12 @@ const UserProfile = () => {
             </Grid>
 
           <Box 
-          sx={{ ...commonStyles, border: 0, flexGrow: 1}}
+          sx={{ ...commonStyles, border: 0, overflow:"auto", 
+          flexgrow: 1, flexDirection:"column"}}
           >
             <Typography
               paragraph
-              variant='body2'
+              variant='h5'
               color='text.secondary'
               sx={{ p: 2, marginleft: '1', flexGrow: 1 }}
             >
