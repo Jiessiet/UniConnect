@@ -143,7 +143,7 @@ const AdminProfile = () => {
           >
             <Typography
               paragraph
-              variant='body2'
+              variant='h5'
               color='text.secondary'
               sx={{ p: 2, marginleft: '1', flexGrow: 1 }}
             >
